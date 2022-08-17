@@ -5,7 +5,27 @@
       "ProjectGuid": "4e236397-e718-4bce-ab32-15de09abd1b2",
       "DisplayName": "ConsoleApp1",
       "ColorIndex": 0
+    },
+    "5f86bb29-2d9e-41b5-a9d6-113e1ff13fc3": {
+      "ProjectGuid": "5f86bb29-2d9e-41b5-a9d6-113e1ff13fc3",
+      "DisplayName": "API",
+      "ColorIndex": 1
+    },
+    "84aa10da-9a32-47d3-9c47-33c8f6e2a9d5": {
+      "ProjectGuid": "84aa10da-9a32-47d3-9c47-33c8f6e2a9d5",
+      "DisplayName": "Domain",
+      "ColorIndex": 2
+    },
+    "a48eafb3-878a-4dc4-beac-be156b68df19": {
+      "ProjectGuid": "a48eafb3-878a-4dc4-beac-be156b68df19",
+      "DisplayName": "Infrastructure",
+      "ColorIndex": 3
+    },
+    "0361a194-f683-4d62-bd90-5f3c66753ec1": {
+      "ProjectGuid": "0361a194-f683-4d62-bd90-5f3c66753ec1",
+      "DisplayName": "Application",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 5
 }

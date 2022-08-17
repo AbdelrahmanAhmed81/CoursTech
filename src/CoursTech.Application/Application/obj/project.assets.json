@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj",
+      "projectUniqueName": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj",
+      "projectPath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\abdel\\.nuget\\packages\\",
-      "outputPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\obj\\",
+      "outputPath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

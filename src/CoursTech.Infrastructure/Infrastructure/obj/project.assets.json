@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\abdel\\.nuget\\packages\\",
-      "outputPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\obj\\",
+      "outputPath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

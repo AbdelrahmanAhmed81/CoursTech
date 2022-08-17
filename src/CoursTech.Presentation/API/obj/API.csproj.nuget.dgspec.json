@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj": {}
+    "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj": {}
   },
   "projects": {
-    "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj": {
+    "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
+        "projectUniqueName": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
+        "projectPath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
         "packagesPath": "C:\\Users\\abdel\\.nuget\\packages\\",
-        "outputPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\obj\\",
+        "outputPath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

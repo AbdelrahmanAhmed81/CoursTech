@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "U0D5PbjmepDxt9djY0bGTKsAsT7DU6GNJzQA6aqrScw7OacJwz7wKAAVOcp1OtGjYBtXXZs5gx/2AFnxRGtSCA==",
+  "dgSpecHash": "2GyR2rPqZzaR2HAAzYYdz15gJQW3O0mCo3Wcz7S4luZRx1Uk8QQ+9/rgo8VNOy04n/IIs/Ilksj/1YsCVP6hbA==",
   "success": true,
-  "projectFilePath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
+  "projectFilePath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\abdel\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\abdel\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

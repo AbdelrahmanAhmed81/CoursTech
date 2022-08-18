@@ -8,7 +8,7 @@ namespace Infrastructure.Contexts
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -20,9 +20,14 @@ namespace Infrastructure.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new EnrollmentConfiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new CourseConfiguration());
+            modelBuilder.ApplyConfiguration(new EnrollmentConfiguration());
+            modelBuilder.ApplyConfiguration(new InstructorConfiguration());
+            modelBuilder.ApplyConfiguration(new IndustryConfiguration());
+            modelBuilder.ApplyConfiguration(new ExperienceLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new EmploymentStatusConfiguration());
+
         }
     }
 }

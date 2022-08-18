@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    internal class Course
+    public class Course
     {
         public Guid CourseId { get; set; }
         public string Title { get; set; }

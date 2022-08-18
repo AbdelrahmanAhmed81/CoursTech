@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    internal class Instructor
+    public class Instructor
     {
         public Guid InstructorId { get; set; }
         public string FirstName { get; set; }

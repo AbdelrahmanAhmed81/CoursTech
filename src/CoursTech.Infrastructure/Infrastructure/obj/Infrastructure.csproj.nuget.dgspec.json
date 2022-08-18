@@ -31,7 +31,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Domain\\Domain\\Domain.csproj": {
+                "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Domain\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

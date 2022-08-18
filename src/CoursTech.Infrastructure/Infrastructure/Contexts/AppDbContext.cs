@@ -8,7 +8,6 @@ namespace Infrastructure.Contexts
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -27,7 +26,6 @@ namespace Infrastructure.Contexts
             modelBuilder.ApplyConfiguration(new IndustryConfiguration());
             modelBuilder.ApplyConfiguration(new ExperienceLevelConfiguration());
             modelBuilder.ApplyConfiguration(new EmploymentStatusConfiguration());
-
         }
     }
 }

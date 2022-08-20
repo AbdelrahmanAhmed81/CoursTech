@@ -4,6 +4,7 @@ using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220819012257_addCourseImageName")]
+    partial class addCourseImageName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CourseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -64,7 +63,6 @@ namespace Infrastructure.Migrations
                         new
                         {
                             CourseId = new Guid("0000000a-0009-0008-0706-050403020100"),
-                            Date = new DateTime(2018, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Learn C# Programming (in ten easy steps) [Version 2] is suitable for beginner programmers or anyone with experience in another programming language who needs to learn C# from the ground up. Step-by-step it explains how to write C# code to develop Windows applications using either the free Visual Studio Community Edition or a commercial edition of Microsoft Visual Studio (it even explains how to write C# programs using free tools for OS X). This is the completely revised and updated second version of this course.",
                             Duration = new TimeSpan(0, 10, 40, 0, 0),
                             ImageName = "csharp11.png",
@@ -75,7 +73,6 @@ namespace Infrastructure.Migrations
                         new
                         {
                             CourseId = new Guid("00000009-0008-0007-0605-04030201000a"),
-                            Date = new DateTime(2016, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Join the most comprehensive & bestselling Flutter course and learn how to build amazing iOS and Android apps! You don't need to learn Android/ Java and iOS/ Swift to build real native mobile apps!Flutter - a framework developed by Google - allows you to learn one language(Dart) and build beautiful native mobile apps in no time.Flutter is a SDK providing the tooling to compile Dart code into native code and it also gives you a rich set of pre - built and pre - styled UI elements(so called widgets) which you can use to compose your user interfaces.",
                             Duration = new TimeSpan(0, 15, 35, 0, 0),
                             ImageName = "flutter.png",

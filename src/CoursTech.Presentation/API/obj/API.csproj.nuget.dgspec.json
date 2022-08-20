@@ -243,6 +243,12 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj": {
+                "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj"
+              },
+              "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Domain\\Domain\\Domain.csproj": {
+                "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Domain\\Domain\\Domain.csproj"
+              },
               "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj": {
                 "projectPath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj"
               }

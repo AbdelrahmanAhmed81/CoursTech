@@ -1,4 +1,6 @@
+using Application.RepositoryInterfaces;
 using Infrastructure.Contexts;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -15,7 +17,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnectionString"));
 });
-
+builder.Services.AddScoped<ICourseRepository , CourseRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

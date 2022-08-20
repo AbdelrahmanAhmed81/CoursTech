@@ -19,10 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\CoursTech.Application\Application\Application.csproj" />
+    <ProjectReference Include="..\..\CoursTech.Domain\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\CoursTech.Infrastructure\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,10 +1,13 @@
-﻿using Application.RepositoryInterfaces;
+﻿using Application.Parameters;
+using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
+using Infrastructure.EntitiesQueryParameters;
+using Infrastructure.Helpers;
 
 namespace Infrastructure.Repositories
 {
-    internal class CourseRepository : ICourseRepository
+    public class CourseRepository : ICourseRepository
     {
         private readonly AppDbContext context;
 
@@ -19,7 +22,7 @@ namespace Infrastructure.Repositories
             return course;
         }
 
-        public async Task Delete(object Id)
+        public async Task Delete(string Id)
         {
             var course = await context.Courses.FindAsync(Id);
             if (course != null)
@@ -31,12 +34,13 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing course with id = {Id}");
         }
 
-        public List<Course> GetAll()
+        public List<Course> GetAll<CourseQueryParameters>(CourseQueryParameters parameters)
+            where CourseQueryParameters : QueryParameters
         {
             return context.Courses.ToList();
         }
 
-        public async Task<Course> GetById(object Id)
+        public async Task<Course> GetById(string Id)
         {
             var course = await context.Courses.FindAsync(Id);
             if (course != null)

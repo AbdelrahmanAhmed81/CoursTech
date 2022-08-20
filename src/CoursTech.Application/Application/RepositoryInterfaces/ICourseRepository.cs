@@ -1,13 +1,9 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.RepositoryInterfaces
 {
-    public interface ICourseRepository : IEntityRepository<Course>
+    public interface ICourseRepository : IEntityRepository<Course,string>
     {
+
     }
 }

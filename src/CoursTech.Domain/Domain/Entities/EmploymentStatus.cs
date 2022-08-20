@@ -1,8 +1,8 @@
 ﻿namespace Domain.Entities
 {
-    internal class EmploymentStatus
+    public class EmploymentStatus
     {
-        public int StatusId { get; set; }
+        public int EmploymentStatusId { get; set; }
         public string Name { get; set; }
         public ICollection<Student> Students { get; set; }
 

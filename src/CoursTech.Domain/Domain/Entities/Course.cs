@@ -1,12 +1,13 @@
 ﻿namespace Domain.Entities
 {
-    internal class Course
+    public class Course
     {
         public Guid CourseId { get; set; }
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
+        public DateTime Date { get; set; }
         public string Description { get; set; }
-        
+        public string ImageName { get; set; }
         public Guid InstructorId { get; set; }
         public Instructor Instructor { get; set; }
 

@@ -1,0 +1,12 @@
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\Domain.deps.json
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\Domain.dll
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\ref\Domain.dll
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\Domain.pdb
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.dll
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\ref\Domain.dll
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.pdb
+F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qgTWuA0bc1odfGIQcCPStDZivu/0KZmUsGR+vRX9DbDMrBV4Focxftc42oJoQW8q9moLNN1odKykjvnbvYse+g==",
+  "dgSpecHash": "6YEgu9yxkMIBdk456lS58H7kyP5Rz4LDs6lVbpTqWAVxIsO5MawNXs8GdQjuYqK27zQS716VICZ0/Z2wMxrCqg==",
   "success": true,
-  "projectFilePath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj",
+  "projectFilePath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Application\\Application\\Application.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

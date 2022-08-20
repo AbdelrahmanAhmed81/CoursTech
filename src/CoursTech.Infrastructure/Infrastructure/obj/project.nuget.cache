@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i/zPK7qdiklJ+fk5eBk7QhylFr6r2uNBHphcjv/WVbdB0iqY3A0bkNBCNCbMYEqaaU7BAyvXGoapaY4JXgP7LQ==",
+  "dgSpecHash": "DO2haUDgdVDj4pzeBCFvMR7OSXnbtmxyRKdqNoTTsHbMIwT54br+TKxHHsnRiaLNwwQzdkOHOblQgX1NXAZn1g==",
   "success": true,
-  "projectFilePath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Infrastructure\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\abdel\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\abdel\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

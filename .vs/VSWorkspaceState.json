@@ -1,16 +1,7 @@
 {
   "ExpandedNodes": [
-<<<<<<< HEAD
     ""
   ],
   "SelectedNode": "\\CoursTech.sln",
-=======
-    "",
-    "\\src",
-    "\\src\\CoursTech.Presentation",
-    "\\src\\CoursTech.Presentation\\API"
-  ],
-  "SelectedNode": "\\src\\CoursTech.Presentation\\API\\Program.cs",
->>>>>>> 55b8c3ebfab31ce09699e54d36be8242c754aa1c
   "PreviewInSolutionExplorer": false
 }

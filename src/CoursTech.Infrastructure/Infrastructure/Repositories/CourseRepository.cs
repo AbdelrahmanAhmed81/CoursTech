@@ -2,8 +2,8 @@
 using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
-using Infrastructure.EntitiesQueryParameters;
 using Infrastructure.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -34,10 +34,49 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing course with id = {Id}");
         }
 
-        public List<Course> GetAll<CourseQueryParameters>(CourseQueryParameters parameters)
-            where CourseQueryParameters : QueryParameters
+        public async Task<List<Course>> GetAll(CourseQueryParameters parameters)
         {
-            return context.Courses.ToList();
+            IQueryable<Course> result = context.Courses.AsNoTracking();
+            //search
+            if (!string.IsNullOrWhiteSpace(parameters.searchText))
+            {
+                result = result.Where(c => c.Title.Contains(parameters.searchText));
+            }
+            //filteration
+            if (parameters.year != null)
+            {
+                result = result.Where(c => c.Date.Year == parameters.year);
+            }
+            if (parameters.industry != null)
+            {
+                result = result.Where(c => c.IndustryId == parameters.industry);
+            }
+            //sorting
+            result = result.Sort(parameters.orderBy ?? "date" , parameters.asc);
+
+            //pagination
+
+            if (parameters.pageNumber == -1 || parameters.pageCapacity == -1)
+            {
+                throw new InvalidOperationException("page number and/or page capacity are invalid");
+            }
+
+            result = result
+                .Skip((parameters.pageNumber - 1) * parameters.pageCapacity)
+                .Take(parameters.pageCapacity);
+
+            if (result.Count() == 0)
+            {
+                throw new InvalidOperationException("this combination of page number and page capacity fetches no data");
+            }
+
+            //expanding
+            if (parameters.expand != null && parameters.expand.Length != 0)
+            {
+                result = result.Expand(parameters.expand);
+            }
+
+            return await result.ToListAsync();
         }
 
         public async Task<Course> GetById(string Id)

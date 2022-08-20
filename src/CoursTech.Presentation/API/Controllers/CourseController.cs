@@ -1,6 +1,5 @@
-﻿using Application.RepositoryInterfaces;
-using Infrastructure.EntitiesQueryParameters;
-using Microsoft.AspNetCore.Http;
+﻿using Application.Parameters;
+using Application.RepositoryInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -17,10 +16,17 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(CourseQueryParameters parameters)
+        public async Task<IActionResult> GetAll([FromQuery]CourseQueryParameters parameters)
         {
-            var courses = courseRepository.GetAll(parameters);
-            return Ok(courses);
+            try
+            {
+                var courses = await courseRepository.GetAll(parameters);
+                return Ok(courses);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

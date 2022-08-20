@@ -16,6 +16,7 @@ namespace Infrastructure.Helpers
             return (asc)
                 ? source.OrderBy(exp)
                 : source.OrderByDescending(exp);
+
         }
         public static IQueryable<T> Expand<T>(this IQueryable<T> source , string[] properties) where T : class
         {
@@ -23,12 +24,9 @@ namespace Infrastructure.Helpers
             var result = source;
             foreach (string propertyName in properties)
             {
-                if (typeof(T).GetProperty(propertyName) != null)
-                {
-                    var property = Expression.Property(parameter , propertyName);
-                    var exp = Expression.Lambda<Func<T , object>>(property , parameter);
-                    result = result.Include(exp);
-                }
+                var property = Expression.Property(parameter , propertyName);
+                var exp = Expression.Lambda<Func<T , object>>(property , parameter);
+                result = result.Include(exp);
             }
             return result.AsSplitQuery();
         }

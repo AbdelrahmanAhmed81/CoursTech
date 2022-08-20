@@ -7,28 +7,30 @@
 
         //sorting
         public string? orderBy { get; set; }
-        public bool? asc { get; set; }
+        public bool asc { get; set; }
 
         //paginagtion
-        readonly int[] Capacities = new[] { 1 , 2 , 5 , 10 , 25 };
+        const int maxCapacity = 25;
 
-        int? _pageNumber;
-        public int? pageNumber
+        int _pageNumber = 1;
+        public int pageNumber
         {
             get { return _pageNumber; }
-            set { _pageNumber = (value != null && value.Value > 0) ? value : null; }
+            set
+            {
+                if (value > 0)_pageNumber = value;
+                else _pageCapacity = -1;
+            }
         }
 
-        int? _pageCapacity;
-        public int? pageCapacity
+        int _pageCapacity = 1;
+        public int pageCapacity
         {
             get { return _pageCapacity; }
             set
             {
-                if (value != null && Capacities.Contains(value.Value))
-                    _pageCapacity = value;
-                else
-                    _pageCapacity = null;
+                if (value > 0 && value <= maxCapacity) _pageCapacity = value;
+                else _pageCapacity = -1;
             }
         }
 

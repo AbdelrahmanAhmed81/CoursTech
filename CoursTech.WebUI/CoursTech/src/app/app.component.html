@@ -1,5 +1,10 @@
-<app-navbar></app-navbar>
-<div class="container">
+<div class="position-fixed top-0 w-100">
+  <app-navbar
+    [isDark]="isDark"
+    (changeMode)="onChangeMode($event)"
+  ></app-navbar>
+</div>
+<div style="margin-top: 100px" class="container">
   <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

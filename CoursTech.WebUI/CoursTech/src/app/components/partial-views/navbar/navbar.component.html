@@ -1,1 +1,40 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-md" style="background-color: whitesmoke">
+  <div class="container-fluid">
+    <a routerLink="/">
+      <img
+        src="../../../../assets/images/logo/logo.svg"
+        alt="CourseTech Logo"
+        width="180"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="#">Courses</a>
+        <a class="nav-link" href="#">Instructors</a>
+        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" href="#">Register</a>
+        <a
+          title="light/dark mode"
+          style="cursor: pointer"
+          class="p-2"
+          (click)="onChangeMode()"
+        >
+          <i *ngIf="isDark" class="fa-solid fa-sun" style="color: yellow"></i>
+          <i *ngIf="!isDark" class="fa-solid fa-moon" style="color: black"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Course } from '../models/Course';
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,9 @@ export class CourseService {
   getAll(params: HttpParams): Observable<Course[]> {
     return this.http.get<Course[]>(this.url, {
       params: params
-    })
+    }).pipe(map(courses => courses.map((value) => {
+      value.date = new Date(value.date).toDateString();
+      return value;
+    })));
   }
 }

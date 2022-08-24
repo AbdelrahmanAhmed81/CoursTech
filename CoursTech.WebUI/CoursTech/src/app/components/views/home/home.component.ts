@@ -8,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  queryParams: HttpParams = new HttpParams().append('pageNumber', 1).append('pageCapacity', 2);
+  queryParams: HttpParams = new HttpParams()
+    .append('pageNumber', 1)
+    .append('pageCapacity', 2)
+    .append('expand', 'industry');
   constructor() { }
 
   ngOnInit(): void {
-    // this.queryParams.append('pageNumber', 1);
-    // this.queryParams.append('pageCapacity', 2);
+
   }
 }

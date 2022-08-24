@@ -1,5 +1,58 @@
-<div class="loadingio-spinner-rolling-7o0btgck97g">
+<div
+  *ngIf="isLoading; else DataLoaded"
+  class="loadingio-spinner-rolling-7o0btgck97g"
+>
   <div class="ldio-x25i5wvdi4">
     <div></div>
   </div>
 </div>
+<ng-template #DataLoaded>
+  <div *ngIf="courses.length === 0; else Courses">
+    <h1 class="fw-bold text-danger text-center">No Available Data</h1>
+  </div>
+  <ng-template #Courses>
+    <h1 class="fw-bold">Latest Courses</h1>
+    <div>
+      <div class="my-2" *ngFor="let course of courses">
+        <div
+          class="card"
+          style="
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+          "
+        >
+          <div class="row m-0">
+            <div
+              class="col-3"
+              style="
+                box-shadow: inset 0 0 5px grey;
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+                background: center / cover no-repeat
+                  url(../../../../assets/images/others/no-image.jpg);
+              "
+            ></div>
+            <div class="card-body col-9">
+              <b class="card-text" style="color: var(--maincolor)">{{
+                course.industry.name
+              }}</b>
+              <h2 class="m-0 card-title">{{ course.title }}</h2>
+              <p
+                class="fw-bold m-0"
+                style="font-size: smaller; color: var(--secondcolor)"
+              >
+                {{ course.date }}
+              </p>
+              <p class="m-0" style="color: var(--secondcolor)">
+                {{ course.description.substring(0, 150) + "..." }}
+                <a style="font-size: smaller" class="fw-bold" href=""
+                  >read more</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-template>

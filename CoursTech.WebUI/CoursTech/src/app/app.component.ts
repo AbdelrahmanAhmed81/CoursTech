@@ -10,6 +10,7 @@ export class AppComponent {
   isDark: boolean = false;
   onChangeMode(data: boolean) {
     this.isDark = data;
+    document.body.classList.toggle('darkmode');
   }
 
 }

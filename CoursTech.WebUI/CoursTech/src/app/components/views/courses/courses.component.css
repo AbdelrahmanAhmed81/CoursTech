@@ -1,0 +1,6 @@
+.description {
+  position: relative;
+}
+.description .read-more {
+  position: absolute;
+}

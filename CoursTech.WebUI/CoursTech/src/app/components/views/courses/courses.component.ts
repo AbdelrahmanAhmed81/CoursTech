@@ -1,5 +1,6 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { catchError, Observable, ObservableInput } from 'rxjs';
 import { Course } from 'src/app/models/Course';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -10,14 +11,17 @@ import { CourseService } from 'src/app/services/course.service';
 })
 export class CoursesComponent implements OnInit {
   @Input() queryParams: HttpParams = new HttpParams();
+  isLoading: boolean = false;
   courses: Course[] = [];
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.courseService.getAll(this.queryParams).subscribe(data => {
       this.courses = data;
       console.log(this.courses)
+      this.isLoading = false;
     })
   }
 

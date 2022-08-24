@@ -3,7 +3,11 @@
   <div class="container-fluid">
     <a routerLink="/Home">
       <img
-        src="../../../../assets/images/logo/logo.svg"
+        src="{{
+          isDark
+            ? '../../../../assets/images/logo/logo white black.svg'
+            : '../../../../assets/images/logo/logo.svg'
+        }}"
         alt="CourseTech Logo"
         width="180"
       />
@@ -26,7 +30,7 @@
         <a class="nav-link" href="#">Profile</a>
         <a class="nav-link" href="#">Register</a>
         <a
-          title="light/dark mode"
+          title="{{ isDark ? 'switch to light mode' : 'switch to dark mode' }}"
           style="cursor: pointer"
           class="p-2"
           (click)="onChangeMode()"

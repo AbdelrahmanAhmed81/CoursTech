@@ -10,11 +10,19 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   queryParams: HttpParams = new HttpParams()
     .append('pageNumber', 1)
-    .append('pageCapacity', 2)
+    .append('pageCapacity', 1)
     .append('expand', 'industry');
+  totalCourses: number = 0;
   constructor() { }
 
   ngOnInit(): void {
 
+  }
+  onChangePagination(data: { pageNumber: number, itemsPerPage: number }) {
+    this.queryParams = this.queryParams.set('pageNumber', data.pageNumber);
+    this.queryParams = this.queryParams.set('pageCapacity', data.itemsPerPage);
+  }
+  onLoadCourses(totalCount: number) {
+    this.totalCourses = totalCount
   }
 }

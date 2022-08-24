@@ -1,0 +1,40 @@
+<div class="d-flex flex-wrap justify-content-between px-1 py-2">
+  <nav aria-label="Page navigation">
+    <ul class="pagination m-0">
+      <li class="page-item">
+        <a
+          class="btn btn-primary"
+          [class]="isPreviousEnable ? '' : 'disabled'"
+          style="cursor: pointer"
+          (click)="goBack()"
+          >Previous</a
+        >
+      </li>
+      <li class="page-item p-2">
+        {{ pageNumber }}
+      </li>
+      <li class="page-item">
+        <a
+          class="btn btn-primary"
+          [class]="isNextEnable ? '' : 'disabled'"
+          style="cursor: pointer"
+          (click)="goForword()"
+          >Next</a
+        >
+      </li>
+    </ul>
+  </nav>
+  <div class="py-2">
+    <span class="mx-1">items per page</span>
+    <select
+      aria-label="Default select"
+      [(ngModel)]="itemsPerPage"
+      (change)="onSelectItemsPerPage()"
+    >
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="10">10</option>
+      <option value="25">25</option>
+    </select>
+  </div>
+</div>

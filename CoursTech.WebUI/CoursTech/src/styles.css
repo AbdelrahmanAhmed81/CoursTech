@@ -22,8 +22,8 @@ body.darkmode {
 }
 
 .backdrop {
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(13px);
+  backdrop-filter: blur(13px);
   background-color: --backdrop-bg-color;
 }
 

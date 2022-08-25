@@ -29,7 +29,6 @@ export class CoursesComponent implements OnInit, OnChanges {
     this.courseService.getAll(this.queryParams).subscribe(data => {
       this.courses = data.courses;
       this.onLoadCourses.emit(data.coursesCount);
-      console.log('loading courses')
       this.isLoading = false;
     })
   }

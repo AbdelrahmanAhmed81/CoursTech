@@ -8,7 +8,7 @@ body {
   --maincolor: rgb(51, 51, 204);
   --secondcolor: rgb(31, 31, 104);
   --bg-color: white;
-  --backdrop-bg-color: rgba(255, 255, 255, 0.6);
+  --backdrop-bg-color: rgba(255, 255, 255, 0.1);
   --border-color: darkgrey;
 }
 body.darkmode {
@@ -17,7 +17,7 @@ body.darkmode {
   --maincolor: rgb(180, 180, 180);
   --secondcolor: rgb(130, 130, 130);
   --bg-color: rgb(33, 37, 41);
-  --backdrop-bg-color: rgba(100, 100, 100, 0.6);
+  --backdrop-bg-color: rgba(100, 100, 100, 0.1);
   --border-color: darkgrey;
 }
 

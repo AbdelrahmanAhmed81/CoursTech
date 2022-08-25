@@ -11,7 +11,7 @@ export class PagesNavigatorComponent implements OnInit {
     = new EventEmitter<{ pageNumber: number, itemsPerPage: number }>();
   @Input() itemsTotalCount: number = 0;
 
-  itemsPerPage: number = 1;
+  itemsPerPage: number = 5;
   pageNumber: number = 1;
   totalPages: number = 1;
 

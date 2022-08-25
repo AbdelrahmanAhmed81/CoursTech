@@ -28,10 +28,15 @@
                 box-shadow: inset 0 0 5px grey;
                 border-top-left-radius: 3px;
                 border-bottom-left-radius: 3px;
-                background: center / cover no-repeat
-                  url(../../../../assets/images/others/no-image.jpg);
+                background: center / cover no-repeat white;
+              "
+              [style.background-image]="
+                course.imageName
+                  ? 'url(' + course.imageName + ')'
+                  : 'url(../../../../assets/images/others/no-image.jpg)'
               "
             ></div>
+            <!-- ../../../../assets/images/others/no-image.jpg -->
             <div class="card-body col-9">
               <b class="card-text" style="color: var(--maincolor)">{{
                 course.industry.name

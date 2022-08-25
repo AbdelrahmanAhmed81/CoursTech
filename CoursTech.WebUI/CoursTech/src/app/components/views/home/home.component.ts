@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   queryParams: HttpParams = new HttpParams()
     .append('pageNumber', 1)
-    .append('pageCapacity', 1)
+    .append('pageCapacity', 5)
     .append('expand', 'industry');
   totalCourses: number = 0;
   constructor() { }

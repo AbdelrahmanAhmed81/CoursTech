@@ -140,3 +140,4 @@ F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\D
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\ref\API.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.pdb
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.genruntimeconfig.cache
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.staticwebassets.runtime.json

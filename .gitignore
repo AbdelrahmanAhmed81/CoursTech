@@ -1,0 +1,7 @@
+#Visual Studio
+.vs/*
+!.vs/ProjectSettings.json
+!.vs/VSWorkspaceState.json
+
+#Caches
+*.cache

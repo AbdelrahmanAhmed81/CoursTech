@@ -1,0 +1,19 @@
+a {
+  width: fit-content;
+}
+.footer-links a {
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+}
+.footer-links a:hover {
+  text-decoration: underline;
+}
+hr {
+  color: white;
+  width: 50%;
+}
+i {
+  color: white;
+  font-size: 20px;
+}

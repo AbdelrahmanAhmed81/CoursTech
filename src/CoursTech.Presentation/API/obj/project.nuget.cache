@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9OdRzj9NfR+lEdz/VAAhjEwnvTec8M1fAQvKEbK6ewkH/KSfW+lBNyTvve8ZuBullvuD56e0rd2LKmOUpYrbqA==",
+  "dgSpecHash": "8gC02Vj7hZ9q7hQPfL1gTJq4vbsV7wny9Q4D7e7K9WYLYtZEJXDNMMy9gy+kVqUgVbeUwA5wCy1f2AIJEw0QnQ==",
   "success": true,
-  "projectFilePath": "F:\\Asp.net Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
+  "projectFilePath": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\abdel\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\abdel\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.8\\microsoft.aspnetcore.jsonpatch.6.0.8.nupkg.sha512",

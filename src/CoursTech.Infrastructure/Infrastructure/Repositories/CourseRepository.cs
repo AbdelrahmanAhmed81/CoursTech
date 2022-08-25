@@ -1,4 +1,5 @@
-﻿using Application.Parameters;
+﻿using Application.DataModels;
+using Application.Parameters;
 using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
@@ -34,9 +35,10 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing course with id = {Id}");
         }
 
-        public async Task<List<Course>> GetAll(CourseQueryParameters parameters)
+        public async Task<CoursesDataModel> GetAll(CourseQueryParameters parameters)
         {
             IQueryable<Course> result = context.Courses.AsNoTracking();
+            int coursesCount = 0;
             //search
             if (!string.IsNullOrWhiteSpace(parameters.searchText))
             {
@@ -51,6 +53,8 @@ namespace Infrastructure.Repositories
             {
                 result = result.Where(c => c.IndustryId == parameters.industry);
             }
+            coursesCount = result.Count();
+
             //sorting
             result = result.Sort(parameters.orderBy ?? "date" , parameters.asc);
 
@@ -65,7 +69,7 @@ namespace Infrastructure.Repositories
                 .Skip((parameters.pageNumber - 1) * parameters.pageCapacity)
                 .Take(parameters.pageCapacity);
 
-            if (result.Count() == 0)
+            if (coursesCount == 0)
             {
                 throw new InvalidOperationException("this combination of page number and page capacity fetches no data");
             }
@@ -76,7 +80,7 @@ namespace Infrastructure.Repositories
                 result = result.Expand(parameters.expand);
             }
 
-            return await result.ToListAsync();
+            return new CoursesDataModel() { Courses = await result.ToListAsync() , CoursesCount = coursesCount };
         }
 
         public async Task<Course> GetById(string Id)

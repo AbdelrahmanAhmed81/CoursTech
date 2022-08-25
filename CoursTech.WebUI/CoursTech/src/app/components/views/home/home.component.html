@@ -1,0 +1,8 @@
+<app-courses
+  [queryParams]="queryParams"
+  (onLoadCourses)="onLoadCourses($event)"
+></app-courses>
+<app-pages-navigator
+  [itemsTotalCount]="totalCourses"
+  (changePaginagtionEvent)="onChangePagination($event)"
+></app-pages-navigator>

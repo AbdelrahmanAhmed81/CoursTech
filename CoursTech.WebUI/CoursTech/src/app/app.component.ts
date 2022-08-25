@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'CourseTech';
+  isDark: boolean = false;
+  onChangeMode(data: boolean) {
+    this.isDark = data;
+    document.body.classList.toggle('darkmode');
+  }
+
 }

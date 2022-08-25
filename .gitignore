@@ -1,0 +1,9 @@
+#visual studio
+.vs/*
+src/.vs/*
+
+#cache
+*.cache
+
+#logs
+*.suo

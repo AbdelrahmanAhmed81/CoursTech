@@ -2,6 +2,10 @@
 .vs/*
 !.vs/ProjectSettings.json
 !.vs/VSWorkspaceState.json
+*.suo
 
 #Caches
 *.cache
+
+#Logs
+*.sqlite

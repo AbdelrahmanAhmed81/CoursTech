@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   queryParams: HttpParams = new HttpParams()
     .append('pageNumber', 1)
     .append('pageCapacity', 5)
-    .append('expand', 'industry');
+    .append('expand', 'Industry');
   totalCourses: number = 0;
   constructor() { }
 

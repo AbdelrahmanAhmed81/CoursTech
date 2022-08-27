@@ -83,9 +83,14 @@ namespace Infrastructure.Repositories
             return new CoursesDataModel() { Courses = await result.ToListAsync() , CoursesCount = coursesCount };
         }
 
-        public async Task<Course> GetById(string Id)
+        public async Task<Course> GetById(string Id , string[] expand)
         {
-            var course = await context.Courses.FindAsync(Id);
+            IQueryable<Course> courses = context.Courses;
+            if (expand != null && expand.Length != 0)
+            {
+                courses = courses.Expand(expand);
+            }
+            var course = await courses.FirstOrDefaultAsync(c => c.CourseId.ToString() == Id);
             if (course != null)
                 return course;
             else

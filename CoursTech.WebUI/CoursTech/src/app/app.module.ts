@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +10,7 @@ import { NavbarComponent } from './components/partial-views/navbar/navbar.compon
 import { FooterComponent } from './components/partial-views/footer/footer.component';
 import { CoursesComponent } from './components/views/courses/courses.component';
 import { PagesNavigatorComponent } from './components/partial-views/pages-navigator/pages-navigator.component';
-import { FormsModule } from '@angular/forms';
+import { CourseDetailsComponent } from './components/views/course-details/course-details.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     CoursesComponent,
     PagesNavigatorComponent,
+    CourseDetailsComponent,
   ],
   imports: [
     BrowserModule,

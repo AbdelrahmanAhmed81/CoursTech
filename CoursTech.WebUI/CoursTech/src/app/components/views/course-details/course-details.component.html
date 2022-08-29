@@ -1,1 +1,67 @@
-<p>course-details works!</p>
+<div class="wrapper">
+  <div
+    *ngIf="isLoading; else data"
+    class="loadingio-spinner-rolling-7o0btgck97g"
+  >
+    <div class="ldio-x25i5wvdi4">
+      <div></div>
+    </div>
+  </div>
+  <ng-template #data>
+    <div
+      class="background"
+      [style.background-image]="
+        course?.imageName
+          ? 'url(' + course?.imageName + ')'
+          : 'url(../../../../assets/images/others/no-image.jpg)'
+      "
+    ></div>
+    <div class="content p-3">
+      <p class="fw-bold m-0">
+        <a routerLink="">{{ course?.industry?.name }} </a>
+        <i class="fa fa-angle-right"></i>
+        {{ course?.title }}
+      </p>
+      <!-- #region course data-->
+      <h1 class="fw-bold">{{ course?.title }}</h1>
+      <p>{{ course?.description }}</p>
+
+      <div>
+        <p>
+          <i class="fa-regular fa-calendar"></i>
+          <span class="mx-2" style="color: var(--maincolor)">
+            Published at {{ course?.date }}</span
+          >
+        </p>
+        <p>
+          <i class="fa-regular fa-clock"></i>
+          <span class="mx-2" style="color: var(--maincolor)">
+            Course Length {{ course?.duration }}</span
+          >
+        </p>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region instructor-->
+      <div class="d-flex">
+        <div
+          title="course instructor"
+          class="instructor-image"
+          [style.background-image]="
+            course?.instructor?.photoName
+              ? 'url(' + course?.instructor?.photoName + ')'
+              : 'url(../../../../assets/images/others/no-image.jpg)'
+          "
+        ></div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+          <h5 class="fw-bold m-0">
+            {{ course?.instructor?.firstName }}
+            {{ course?.instructor?.lastName }}
+          </h5>
+          <p class="m-0">{{ course?.instructor?.bio }}</p>
+        </div>
+      </div>
+      <!-- #endregion -->
+    </div>
+  </ng-template>
+</div>

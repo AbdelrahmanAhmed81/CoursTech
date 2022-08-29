@@ -12,13 +12,16 @@ import { CourseService } from 'src/app/services/course.service';
 export class CourseDetailsComponent implements OnInit {
   params: HttpParams = new HttpParams().append('expand', 'Industry.Courses').append('expand', 'Instructor.Courses');
   course: Course | undefined;
+  isLoading: boolean = false;
   constructor(private courseService: CourseService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.route.params.subscribe(data => {
       this.courseService.getById(data['id'], this.params).subscribe(data => {
         this.course = data;
-        console.log(data)
+        console.log(this.course)
+        this.isLoading = false;
       })
     })
   }

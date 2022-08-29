@@ -10,6 +10,7 @@ export class CourseService {
   private url: string = 'https://localhost:7017/';
   private get_path: string = this.url + 'api/Course'
   private images_path: string = this.url + 'images/courses/';
+  private instructor_photos_path: string = this.url + 'images/instructors/';
 
   constructor(private http: HttpClient) { }
 
@@ -33,9 +34,13 @@ export class CourseService {
       params: params
     })
       .pipe(map(data => {
-        data.date = new Date(data.date).toDateString();
+        let dateTime = new Date('1 ' + data.duration);
+        data.duration = `${dateTime.getHours()}h ${dateTime.getMinutes()}m`
+        data.date = new Date(data.date).toLocaleDateString();
         if (data.imageName)
           data.imageName = this.images_path + data.imageName;
+        if (data.instructor.photoName)
+          data.instructor.photoName = this.instructor_photos_path + data.instructor.photoName;
         return data;
       }));
   }

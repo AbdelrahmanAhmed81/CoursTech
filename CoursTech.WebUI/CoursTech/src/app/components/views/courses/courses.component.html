@@ -29,7 +29,7 @@
                 box-shadow: inset 0 0 5px grey;
                 border-top-left-radius: 3px;
                 border-bottom-left-radius: 3px;
-                background: center / contain no-repeat white;
+                background: center / cover no-repeat white;
               "
               [style.background-image]="
                 course.imageName
@@ -57,13 +57,16 @@
                 {{ course.date }}
               </p>
               <p class="m-0" style="color: var(--secondcolor)">
-                {{ course.description.substring(0, 150) + "..." }}
-                <a
-                  style="font-size: smaller"
-                  class="fw-bold"
-                  [routerLink]="'/Course/' + course.courseId"
-                  >read more</a
-                >
+                {{ course.description.substring(0, 160) }}
+                <ng-template [ngIf]="course.description.length > 160" #readmore>
+                  ...
+                  <a
+                    style="font-size: smaller"
+                    class="fw-bold"
+                    [routerLink]="'/Course/' + course.courseId"
+                    >read more</a
+                  >
+                </ng-template>
               </p>
             </div>
           </div>

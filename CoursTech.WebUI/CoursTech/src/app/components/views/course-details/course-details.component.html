@@ -24,7 +24,11 @@
       </p>
       <!-- #region course data-->
       <h1 class="fw-bold">{{ course?.title }}</h1>
-      <p>{{ course?.description }}</p>
+      <div class="pb-2">
+        <div *ngFor="let point of course?.description?.split('.')">
+          <p class="my-1" *ngIf="point != ''">{{ point }}.</p>
+        </div>
+      </div>
 
       <div>
         <p>
@@ -60,6 +64,13 @@
           </h5>
           <p class="m-0">{{ course?.instructor?.bio }}</p>
         </div>
+      </div>
+      <!-- #endregion -->
+      <hr />
+      <!-- #region related courses -->
+      <div>
+        <h2>Related Courses</h2>
+        <div class="row"></div>
       </div>
       <!-- #endregion -->
     </div>

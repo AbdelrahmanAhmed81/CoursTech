@@ -41,6 +41,17 @@ export class CourseService {
           data.imageName = this.images_path + data.imageName;
         if (data.instructor.photoName)
           data.instructor.photoName = this.instructor_photos_path + data.instructor.photoName;
+        if (data.industry.courses) {
+          data.industry.courses.map(c => {
+            c.imageName = this.images_path + c.imageName;
+          })
+        }
+        if (data.instructor.courses) {
+          data.instructor.courses.map(c => {
+            c.imageName = this.images_path + c.imageName;
+          })
+        }
+
         return data;
       }));
   }

@@ -9,7 +9,7 @@
   </div>
   <ng-template #data>
     <div
-      class="background"
+      class="image background"
       [style.background-image]="
         course?.imageName
           ? 'url(' + course?.imageName + ')'
@@ -50,7 +50,7 @@
       <div class="d-flex">
         <div
           title="course instructor"
-          class="instructor-image"
+          class="image instructor-image"
           [style.background-image]="
             course?.instructor?.photoName
               ? 'url(' + course?.instructor?.photoName + ')'
@@ -62,7 +62,12 @@
             {{ course?.instructor?.firstName }}
             {{ course?.instructor?.lastName }}
           </h5>
-          <p class="m-0">{{ course?.instructor?.bio }}</p>
+          <p style="font-size: smaller" class="m-0">
+            {{ course?.instructor?.email }}
+          </p>
+          <p style="font-style: italic; font-size: smaller" class="m-0 fw-bold">
+            {{ course?.instructor?.bio }}
+          </p>
         </div>
       </div>
       <!-- #endregion -->
@@ -70,7 +75,80 @@
       <!-- #region related courses -->
       <div>
         <h2>Related Courses</h2>
-        <div class="row"></div>
+        <div class="row">
+          <div
+            class="col-6 col-md-4 col-lg-3"
+            *ngFor="let course of course?.industry?.courses"
+          >
+            <div class="card" style="border: 1px solid var(--border-color)">
+              <div
+                class="image related-course"
+                [routerLink]="'/Course/' + course.courseId"
+                [style.background-image]="
+                  course?.imageName
+                    ? 'url(' + course?.imageName + ')'
+                    : 'url(../../../../assets/images/others/no-image.jpg)'
+                "
+              ></div>
+              <div
+                class="card-body p-2"
+                style="
+                  border-bottom-left-radius: 5px;
+                  border-bottom-right-radius: 5px;
+                  background-color: var(--bg-color);
+                "
+              >
+                <h5 class="fw-bold">
+                  <a
+                    style="color: var(--maincolor)"
+                    [routerLink]="'/Course/' + course.courseId"
+                    >{{ course.title }}</a
+                  >
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- #endregion -->
+      <hr />
+      <!-- #region instructor courses -->
+      <div>
+        <h2>Instructor Courses</h2>
+        <div class="row">
+          <div
+            class="col-6 col-md-4 col-lg-3"
+            *ngFor="let course of course?.instructor?.courses"
+          >
+            <div class="card" style="border: 1px solid var(--border-color)">
+              <div
+                class="image related-course"
+                [routerLink]="'/Course/' + course.courseId"
+                [style.background-image]="
+                  course?.imageName
+                    ? 'url(' + course?.imageName + ')'
+                    : 'url(../../../../assets/images/others/no-image.jpg)'
+                "
+              ></div>
+              <div
+                class="card-body p-2"
+                style="
+                  border-bottom-left-radius: 5px;
+                  border-bottom-right-radius: 5px;
+                  background-color: var(--bg-color);
+                "
+              >
+                <h5 class="fw-bold">
+                  <a
+                    style="color: var(--maincolor)"
+                    [routerLink]="'/Course/' + course.courseId"
+                    >{{ course.title }}</a
+                  >
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- #endregion -->
     </div>

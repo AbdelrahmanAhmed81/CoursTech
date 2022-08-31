@@ -16,7 +16,7 @@ export class CoursesComponent implements OnInit, OnChanges {
   courses: Course[] = [];
 
   constructor(private courseService: CourseService) { }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.courses.length != 0)
       this.loadCourses();
   }

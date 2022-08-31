@@ -7,12 +7,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PagesNavigatorComponent implements OnInit {
 
-  @Output() changePaginagtionEvent: EventEmitter<{ pageNumber: number, itemsPerPage: number }>
-    = new EventEmitter<{ pageNumber: number, itemsPerPage: number }>();
+  @Output() changePaginagtionEvent: EventEmitter<{ pageNumber: number, pageCapacity: number }>
+    = new EventEmitter<{ pageNumber: number, pageCapacity: number }>();
   @Input() itemsTotalCount: number = 0;
+  @Input() pageNumber: number = 1;
+  @Input() pageCapacity: number = 5;
 
-  itemsPerPage: number = 5;
-  pageNumber: number = 1;
   totalPages: number = 1;
 
   isNextEnable: boolean = true;
@@ -22,6 +22,7 @@ export class PagesNavigatorComponent implements OnInit {
   }
 
   ngOnChanges() {
+    debugger
     if (this.itemsTotalCount != 0) {
       this.updateNav();
     }
@@ -50,8 +51,8 @@ export class PagesNavigatorComponent implements OnInit {
   }
 
   updateNav() {
-    if (this.itemsTotalCount >= this.itemsPerPage)
-      this.totalPages = this.itemsTotalCount / this.itemsPerPage;
+    if (this.itemsTotalCount >= this.pageCapacity)
+      this.totalPages = + Number((this.itemsTotalCount / this.pageCapacity) + 1).toFixed();
     else
       this.totalPages = 1;
 
@@ -63,10 +64,10 @@ export class PagesNavigatorComponent implements OnInit {
   }
 
   emitChanges() {
-    this.changePaginagtionEvent.emit({ pageNumber: this.pageNumber, itemsPerPage: this.itemsPerPage });
+    this.changePaginagtionEvent.emit({ pageNumber: this.pageNumber, pageCapacity: this.pageCapacity });
   }
 
-  onSelectItemsPerPage() {
+  onSelectPageCapacity() {
     this.updateNav();
     //Bug: emit changes will fire ngOnChanges which will execute updateNav again
     //this bug will be visible in filteration and search because the itemsTotalCount will be changed

@@ -4,5 +4,7 @@
 ></app-courses>
 <app-pages-navigator
   [itemsTotalCount]="totalCourses"
+  [pageCapacity]="pageCapacity"
+  [pageNumber]="pageNumber"
   (changePaginagtionEvent)="onChangePagination($event)"
 ></app-pages-navigator>

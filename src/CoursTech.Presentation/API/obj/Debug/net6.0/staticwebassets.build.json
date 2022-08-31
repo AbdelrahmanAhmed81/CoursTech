@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TV5GUb9umw9qy7KGCtA7zDmZH5BaNPZkx1uffPT0ohg=",
+  "Hash": "lSq1WMh8tMPXoiKGmdBuQSDmy/vduSzjbS1DfuOsmt8=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\instructors\\mohammed.png"
+    },
+    {
+      "Identity": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\images\\instructors\\mona.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/instructors/mona.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\instructors\\mona.png"
     }
   ]
 }

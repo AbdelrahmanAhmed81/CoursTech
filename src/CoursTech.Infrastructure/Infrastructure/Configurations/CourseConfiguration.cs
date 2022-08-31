@@ -18,7 +18,7 @@ namespace Infrastructure.Configurations
                     Duration = new TimeSpan(10 , 40 , 0) ,
                     ImageName = "csharp11.png" ,
                     Date = new DateTime(2018 , 7 , 15) ,
-                    IndustryId = 1 ,
+                    IndustryId = 3 ,
                     InstructorId = new Guid(10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20)
                 } ,
                 new Course()
@@ -40,8 +40,8 @@ namespace Infrastructure.Configurations
                     Duration = new TimeSpan(7 , 15 , 0) ,
                     ImageName = "efcore.png" ,
                     Date = new DateTime(2019 , 11 , 25) ,
-                    IndustryId = 1 ,
-                    InstructorId = new Guid(10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20)
+                    IndustryId = 3 ,
+                    InstructorId = new Guid(12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10 , 11)
                 } ,
                 new Course()
                 {
@@ -51,7 +51,7 @@ namespace Infrastructure.Configurations
                     Duration = new TimeSpan(6 , 45 , 0) ,
                     ImageName = "linq.png" ,
                     Date = new DateTime(2020 , 3 , 3) ,
-                    IndustryId = 1 ,
+                    IndustryId = 3 ,
                     InstructorId = new Guid(10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20)
                 } ,
                 new Course()
@@ -64,6 +64,17 @@ namespace Infrastructure.Configurations
                     Date = new DateTime(2019 , 6 , 20) ,
                     IndustryId = 2 ,
                     InstructorId = new Guid(11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10)
+                } ,
+                new Course()
+                {
+                    CourseId = new Guid(5 , 4 , 3 , 2 , 1 , 0 , 10 , 9 , 8 , 7 , 6) ,
+                    Title = "ASP.NET Core 3" ,
+                    Description = "ASP.NET Core 3, together with Microsoft Visual Studio 2019, includes several features to make your life as a web developer easier and more productive.For example ,Visual Studio offers project templates that you can use to develop your web applications.Visual Studio also supports several development modes ,including using Microsoft Internet Information Services(IIS) directly to test your web applications during development time and using a built -in web server to develop your web applications over FTP." ,
+                    Duration = new TimeSpan(11 , 50 , 0) ,
+                    ImageName = "aspcore.png" ,
+                    Date = new DateTime(2021 , 9 , 15) ,
+                    IndustryId = 1 ,
+                    InstructorId = new Guid(12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10 , 11)
                 }
                 );
         }

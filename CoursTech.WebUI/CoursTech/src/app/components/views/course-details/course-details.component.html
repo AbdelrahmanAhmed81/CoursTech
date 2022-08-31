@@ -71,9 +71,9 @@
         </div>
       </div>
       <!-- #endregion -->
-      <hr />
       <!-- #region related courses -->
-      <div>
+      <div *ngIf="course?.industry?.courses?.length">
+        <hr />
         <h2>Related Courses</h2>
         <div class="row">
           <div
@@ -111,9 +111,9 @@
         </div>
       </div>
       <!-- #endregion -->
-      <hr />
       <!-- #region instructor courses -->
-      <div>
+      <div *ngIf="course?.instructor?.courses?.length">
+        <hr />
         <h2>Instructor Courses</h2>
         <div class="row">
           <div

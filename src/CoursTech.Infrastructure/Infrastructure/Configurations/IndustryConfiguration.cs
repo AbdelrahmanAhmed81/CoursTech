@@ -22,12 +22,7 @@ namespace Infrastructure
                 new Industry()
                 {
                     IndustryId = 3 ,
-                    Name = "Networks" ,
-                },
-                new Industry()
-                {
-                    IndustryId = 4 ,
-                    Name = "DevOps" ,
+                    Name = "Software Development" ,
                 }
                 );
         }

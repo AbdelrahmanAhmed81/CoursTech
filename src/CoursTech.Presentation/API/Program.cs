@@ -18,6 +18,8 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnectionString"));
 });
 builder.Services.AddScoped<ICourseRepository , CourseRepository>();
+builder.Services.AddScoped<IIndustryRepository , IndustryRepository>();
+
 builder.Services.AddCors((options) =>
 {
     options.AddDefaultPolicy(options =>

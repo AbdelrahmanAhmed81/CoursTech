@@ -20,13 +20,14 @@ namespace Infrastructure.Helpers
         }
         public static IQueryable<T> Expand<T>(this IQueryable<T> source , string[] properties) where T : class
         {
-            var parameter = Expression.Parameter(typeof(T));
+            //var parameter = Expression.Parameter(typeof(T));
             var result = source;
             foreach (string propertyName in properties)
             {
-                var property = Expression.Property(parameter , propertyName);
-                var exp = Expression.Lambda<Func<T , object>>(property , parameter);
-                result = result.Include(exp);
+                //if()
+                //var property = Expression.Property(parameter , propertyName);
+                //var exp = Expression.Lambda<Func<T , object>>(property , parameter);
+                result = result.Include(propertyName);
             }
             return result.AsSplitQuery();
         }

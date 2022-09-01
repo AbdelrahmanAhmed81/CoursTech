@@ -35,6 +35,19 @@ namespace Infrastructure.Configurations
                     EmploymentStatusId = 2 ,
                     ExperienceLevelId = 2 ,
                     IndustryId = 2
+                } ,
+                new Student()
+                {
+                    StudentId = new Guid(2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 0 , 1) ,
+                    FirstName = "Saeed" ,
+                    LastName = "Abdallah" ,
+                    Email = "SaeedAbdallah@gmail.com" ,
+                    Bio = "Software Developer" ,
+                    BirthDate = new DateTime(1996 , 10 , 2) ,
+                    PhotoName = "saeed.png" ,
+                    EmploymentStatusId = 2 ,
+                    ExperienceLevelId = 3 ,
+                    IndustryId = 1
                 }
                 );
         }

@@ -4,6 +4,7 @@ using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220829181330_add-more-seed-data")]
+    partial class addmoreseeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace Infrastructure.Migrations
                             Description = "Learn C# Programming (in ten easy steps) [Version 2] is suitable for beginner programmers or anyone with experience in another programming language who needs to learn C# from the ground up. Step-by-step it explains how to write C# code to develop Windows applications using either the free Visual Studio Community Edition or a commercial edition of Microsoft Visual Studio (it even explains how to write C# programs using free tools for OS X). This is the completely revised and updated second version of this course.",
                             Duration = new TimeSpan(0, 10, 40, 0, 0),
                             ImageName = "csharp11.png",
-                            IndustryId = 3,
+                            IndustryId = 1,
                             InstructorId = new Guid("0000000a-000b-000c-0d0e-0f1011121314"),
                             Title = "C# 11"
                         },
@@ -90,8 +92,8 @@ namespace Infrastructure.Migrations
                             Description = "Entity Framework (EF) Core is a lightweight, extensible, open source and cross-platform version of the popular Entity Framework data access technology.",
                             Duration = new TimeSpan(0, 7, 15, 0, 0),
                             ImageName = "efcore.png",
-                            IndustryId = 3,
-                            InstructorId = new Guid("0000000c-000d-000e-0f10-111213140a0b"),
+                            IndustryId = 1,
+                            InstructorId = new Guid("0000000a-000b-000c-0d0e-0f1011121314"),
                             Title = "Entity Framework Core (EF Core)"
                         },
                         new
@@ -101,7 +103,7 @@ namespace Infrastructure.Migrations
                             Description = "Language-Integrated Query (LINQ) is the name for a set of technologies based on the integration of query capabilities directly into the C# language. Traditionally, queries against data are expressed as simple strings without type checking at compile time or IntelliSense support. Furthermore, you have to learn a different query language for each type of data source: SQL databases, XML documents, various Web services, and so on. With LINQ, a query is a first-class language construct, just like classes, methods, events. You write queries against strongly typed collections of objects by using language keywords and familiar operators.",
                             Duration = new TimeSpan(0, 6, 45, 0, 0),
                             ImageName = "linq.png",
-                            IndustryId = 3,
+                            IndustryId = 1,
                             InstructorId = new Guid("0000000a-000b-000c-0d0e-0f1011121314"),
                             Title = "LINQ"
                         },
@@ -115,17 +117,6 @@ namespace Infrastructure.Migrations
                             IndustryId = 2,
                             InstructorId = new Guid("0000000b-000c-000d-0e0f-10111213140a"),
                             Title = "Dart for Beginners"
-                        },
-                        new
-                        {
-                            CourseId = new Guid("00000005-0004-0003-0201-000a09080706"),
-                            Date = new DateTime(2021, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "ASP.NET Core 3, together with Microsoft Visual Studio 2019, includes several features to make your life as a web developer easier and more productive.For example ,Visual Studio offers project templates that you can use to develop your web applications.Visual Studio also supports several development modes ,including using Microsoft Internet Information Services(IIS) directly to test your web applications during development time and using a built -in web server to develop your web applications over FTP.",
-                            Duration = new TimeSpan(0, 11, 50, 0, 0),
-                            ImageName = "aspcore.png",
-                            IndustryId = 1,
-                            InstructorId = new Guid("0000000c-000d-000e-0f10-111213140a0b"),
-                            Title = "ASP.NET Core 3"
                         });
                 });
 
@@ -300,7 +291,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             IndustryId = 3,
-                            Name = "Software Development"
+                            Name = "Networks"
+                        },
+                        new
+                        {
+                            IndustryId = 4,
+                            Name = "DevOps"
                         });
                 });
 
@@ -358,16 +354,6 @@ namespace Infrastructure.Migrations
                             LastName = "Hesham",
                             PhoneNumber = "01022114897",
                             PhotoName = "ahmed.jpg"
-                        },
-                        new
-                        {
-                            InstructorId = new Guid("0000000c-000d-000e-0f10-111213140a0b"),
-                            Bio = "Software Developer at Microsoft",
-                            Email = "SaraMichael@gmail.com",
-                            FirstName = "Sara",
-                            LastName = "Michael",
-                            PhoneNumber = "01211554789",
-                            PhotoName = "mona.png"
                         });
                 });
 

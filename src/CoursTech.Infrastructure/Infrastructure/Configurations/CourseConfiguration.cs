@@ -18,7 +18,7 @@ namespace Infrastructure.Configurations
                     Duration = new TimeSpan(10 , 40 , 0) ,
                     ImageName = "csharp11.png" ,
                     Date = new DateTime(2018 , 7 , 15) ,
-                    IndustryId = 1 ,
+                    IndustryId = 3 ,
                     InstructorId = new Guid(10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20)
                 } ,
                 new Course()
@@ -31,6 +31,50 @@ namespace Infrastructure.Configurations
                     Date = new DateTime(2016 , 2 , 27) ,
                     IndustryId = 2 ,
                     InstructorId = new Guid(11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10)
+                } ,
+                new Course()
+                {
+                    CourseId = new Guid(8 , 7 , 6 , 5 , 4 , 3 , 2 , 1 , 0 , 10 , 9) ,
+                    Title = "Entity Framework Core (EF Core)" ,
+                    Description = "Entity Framework (EF) Core is a lightweight, extensible, open source and cross-platform version of the popular Entity Framework data access technology." ,
+                    Duration = new TimeSpan(7 , 15 , 0) ,
+                    ImageName = "efcore.png" ,
+                    Date = new DateTime(2019 , 11 , 25) ,
+                    IndustryId = 3 ,
+                    InstructorId = new Guid(12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10 , 11)
+                } ,
+                new Course()
+                {
+                    CourseId = new Guid(7 , 6 , 5 , 4 , 3 , 2 , 1 , 0 , 10 , 9 , 8) ,
+                    Title = "LINQ" ,
+                    Description = "Language-Integrated Query (LINQ) is the name for a set of technologies based on the integration of query capabilities directly into the C# language. Traditionally, queries against data are expressed as simple strings without type checking at compile time or IntelliSense support. Furthermore, you have to learn a different query language for each type of data source: SQL databases, XML documents, various Web services, and so on. With LINQ, a query is a first-class language construct, just like classes, methods, events. You write queries against strongly typed collections of objects by using language keywords and familiar operators." ,
+                    Duration = new TimeSpan(6 , 45 , 0) ,
+                    ImageName = "linq.png" ,
+                    Date = new DateTime(2020 , 3 , 3) ,
+                    IndustryId = 3 ,
+                    InstructorId = new Guid(10 , 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20)
+                } ,
+                new Course()
+                {
+                    CourseId = new Guid(6 , 5 , 4 , 3 , 2 , 1 , 0 , 10 , 9 , 8 , 7) ,
+                    Title = "Dart for Beginners" ,
+                    Description = "This course will walk you through the general syntax of Dart and has a ton of hands-on coding exercises to drill down the foundations.We will start by helping you set up your dart environment ,followed by setting up Intellij(The IDE that we will use to develop Dart programs).Following that we will go over a simple 'hello world' to verify if your dart installation is a success. Next, I will walk you through fundamental dart concepts such as assignments, variables, keywords, arithmetic operators, user inputs, decision making and loops." ,
+                    Duration = new TimeSpan(12 , 30 , 0) ,
+                    ImageName = "dart.png" ,
+                    Date = new DateTime(2019 , 6 , 20) ,
+                    IndustryId = 2 ,
+                    InstructorId = new Guid(11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10)
+                } ,
+                new Course()
+                {
+                    CourseId = new Guid(5 , 4 , 3 , 2 , 1 , 0 , 10 , 9 , 8 , 7 , 6) ,
+                    Title = "ASP.NET Core 3" ,
+                    Description = "ASP.NET Core 3, together with Microsoft Visual Studio 2019, includes several features to make your life as a web developer easier and more productive.For example ,Visual Studio offers project templates that you can use to develop your web applications.Visual Studio also supports several development modes ,including using Microsoft Internet Information Services(IIS) directly to test your web applications during development time and using a built -in web server to develop your web applications over FTP." ,
+                    Duration = new TimeSpan(11 , 50 , 0) ,
+                    ImageName = "aspcore.png" ,
+                    Date = new DateTime(2021 , 9 , 15) ,
+                    IndustryId = 1 ,
+                    InstructorId = new Guid(12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 10 , 11)
                 }
                 );
         }

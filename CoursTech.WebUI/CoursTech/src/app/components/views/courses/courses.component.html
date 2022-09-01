@@ -25,9 +25,10 @@
             <div
               class="col-3"
               style="
+                cursor: pointer;
                 box-shadow: inset 0 0 5px grey;
-                border-top-left-radius: 3px;
-                border-bottom-left-radius: 3px;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
                 background: center / cover no-repeat white;
               "
               [style.background-image]="
@@ -35,13 +36,20 @@
                   ? 'url(' + course.imageName + ')'
                   : 'url(../../../../assets/images/others/no-image.jpg)'
               "
+              [routerLink]="['/Course', course.courseId]"
             ></div>
             <!-- ../../../../assets/images/others/no-image.jpg -->
             <div class="card-body col-9">
               <b class="card-text" style="color: var(--maincolor)">{{
                 course.industry.name
               }}</b>
-              <h2 class="m-0 card-title">{{ course.title }}</h2>
+              <h2
+                style="cursor: pointer"
+                class="m-0 card-title"
+                [routerLink]="['/Course', course.courseId]"
+              >
+                {{ course.title }}
+              </h2>
               <p
                 class="fw-bold m-0"
                 style="font-size: smaller; color: var(--secondcolor)"
@@ -49,10 +57,16 @@
                 {{ course.date }}
               </p>
               <p class="m-0" style="color: var(--secondcolor)">
-                {{ course.description.substring(0, 150) + "..." }}
-                <a style="font-size: smaller" class="fw-bold" href=""
-                  >read more</a
-                >
+                {{ course.description.substring(0, 160) }}
+                <ng-template [ngIf]="course.description.length > 160" #readmore>
+                  ...
+                  <a
+                    style="font-size: smaller"
+                    class="fw-bold"
+                    [routerLink]="['/Course', course.courseId]"
+                    >read more</a
+                  >
+                </ng-template>
               </p>
             </div>
           </div>

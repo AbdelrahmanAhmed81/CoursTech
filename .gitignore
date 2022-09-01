@@ -7,3 +7,7 @@ src/.vs/*
 
 #logs
 *.suo
+
+#bin
+src/bin/*
+src/obj/*

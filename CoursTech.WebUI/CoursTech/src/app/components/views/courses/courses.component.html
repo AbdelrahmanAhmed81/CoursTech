@@ -43,12 +43,12 @@
               <b class="card-text" style="color: var(--maincolor)">{{
                 course.industry.name
               }}</b>
-              <h2
-                style="cursor: pointer"
-                class="m-0 card-title"
-                [routerLink]="['/Course', course.courseId]"
-              >
-                {{ course.title }}
+              <h2 class="m-0 card-title">
+                <a
+                  style="text-decoration: none; color: inherit"
+                  [routerLink]="['/Course', course.courseId]"
+                  >{{ course.title }}</a
+                >
               </h2>
               <p
                 class="fw-bold m-0"

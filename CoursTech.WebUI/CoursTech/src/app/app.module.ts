@@ -11,6 +11,7 @@ import { FooterComponent } from './components/partial-views/footer/footer.compon
 import { CoursesComponent } from './components/views/courses/courses.component';
 import { PagesNavigatorComponent } from './components/partial-views/pages-navigator/pages-navigator.component';
 import { CourseDetailsComponent } from './components/views/course-details/course-details.component';
+import { AdminstrationComponent } from './components/views/adminstration/adminstration.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CourseDetailsComponent } from './components/views/course-details/course
     CoursesComponent,
     PagesNavigatorComponent,
     CourseDetailsComponent,
+    AdminstrationComponent,
   ],
   imports: [
     BrowserModule,

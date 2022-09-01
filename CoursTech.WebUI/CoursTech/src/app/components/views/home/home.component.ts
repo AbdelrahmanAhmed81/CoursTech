@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      debugger;
       this.queryParams = this.queryParams.set('pageNumber', params['pnum'] ?? 1);
       this.queryParams = this.queryParams.set('pageCapacity', params['pcap'] ?? 5);
     })
@@ -36,7 +35,6 @@ export class HomeComponent implements OnInit {
   // }
 
   onLoadCourses(totalCount: number) {
-    debugger;
     this.totalCourses = totalCount;
     this.pageNumber = this.activatedRoute.snapshot.queryParams['pnum'] ?? 1;
     this.pageCapacity = this.activatedRoute.snapshot.queryParams['pcap'] ?? 5;

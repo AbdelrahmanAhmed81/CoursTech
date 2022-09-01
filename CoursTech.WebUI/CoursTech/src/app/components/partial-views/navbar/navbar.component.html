@@ -12,6 +12,17 @@
         width="180"
       />
     </a>
+    <!-- #region dark mode button -->
+    <a
+      title="{{ isDark ? 'switch to light mode' : 'switch to dark mode' }}"
+      style="cursor: pointer"
+      class="p-2 ms-auto"
+      (click)="onChangeMode()"
+    >
+      <i *ngIf="isDark" class="fa-solid fa-sun" style="color: yellow"></i>
+      <i *ngIf="!isDark" class="fa-solid fa-moon" style="color: black"></i>
+    </a>
+    <!-- #endregion -->
     <button
       class="navbar-toggler"
       type="button"
@@ -23,21 +34,15 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
+    <div
+      class="collapse navbar-collapse justify-content-end flex-grow-0"
+      id="navbarNavAltMarkup"
+    >
+      <div class="navbar-nav">
         <a class="nav-link" routerLink="/Home">Home</a>
         <a class="nav-link" routerLink="/Courses">Courses</a>
         <a class="nav-link" href="#">Profile</a>
         <a class="nav-link" href="#">Register</a>
-        <a
-          title="{{ isDark ? 'switch to light mode' : 'switch to dark mode' }}"
-          style="cursor: pointer"
-          class="p-2"
-          (click)="onChangeMode()"
-        >
-          <i *ngIf="isDark" class="fa-solid fa-sun" style="color: yellow"></i>
-          <i *ngIf="!isDark" class="fa-solid fa-moon" style="color: black"></i>
-        </a>
       </div>
     </div>
   </div>

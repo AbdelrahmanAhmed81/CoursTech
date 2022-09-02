@@ -69,10 +69,10 @@ namespace Infrastructure.Repositories
                 .Skip((parameters.pageNumber - 1) * parameters.pageCapacity)
                 .Take(parameters.pageCapacity);
 
-            if (coursesCount == 0)
-            {
-                throw new InvalidOperationException("this combination of page number and page capacity fetches no data");
-            }
+            //if (coursesCount == 0)
+            //{
+            //    throw new InvalidOperationException("this combination of page number and page capacity fetches no data");
+            //}
 
             //expanding
             if (parameters.expand != null && parameters.expand.Length != 0)

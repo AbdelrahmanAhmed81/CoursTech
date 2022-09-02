@@ -1,0 +1,25 @@
+.adm-link {
+  border-radius: 5px;
+  border: 1px solid transparent;
+  border-bottom-color: var(--maincolor);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.25s ease-in-out;
+}
+.adm-link:hover {
+  border-color: var(--maincolor);
+}
+.adm-link a {
+  padding: 5px 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--maincolor);
+}
+.active {
+  border-color: var(--maincolor);
+  background-color: var(--secondcolor);
+}
+.active a {
+  color: white;
+}

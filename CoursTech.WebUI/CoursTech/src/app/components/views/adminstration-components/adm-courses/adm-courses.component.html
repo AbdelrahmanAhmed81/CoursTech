@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-6" style="border-right: 1px solid var(--border-color)">
+    <input
+      class="w-100 p-2 mb-2"
+      style="
+        border: 2px solid var(--border-color);
+        background-color: var(--bgcolor);
+        color: inherit;
+        border-radius: 5px;
+      "
+      type="text"
+      [value]="searchText"
+      (input)="searchTextInput($event)"
+      placeholder="enter course title"
+    />
+    <div
+      *ngIf="isLoading; else DataLoaded"
+      class="loadingio-spinner-rolling-7o0btgck97g"
+    >
+      <div class="ldio-x25i5wvdi4">
+        <div></div>
+      </div>
+    </div>
+    <ng-template #DataLoaded>
+      <div *ngIf="courses.length === 0; else Courses">
+        <h1 class="fw-bold text-danger text-center">No Available Data</h1>
+      </div>
+      <ng-template #Courses>
+        <!-- data table -->
+        <table class="table" style="color: inherit">
+          <thead>
+            <tr>
+              <th>Course Title</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courses">
+              <td>{{ course.title }}</td>
+              <td>
+                <div class="d-flex">
+                  <a
+                    class="mx-2"
+                    style="color: lightseagreen; cursor: pointer"
+                    (click)="onClickEdit(course)"
+                    ><i class="fa-solid fa-gear"></i
+                  ></a>
+                  <a class="mx-2" style="color: crimson" href=""
+                    ><i class="fa-solid fa-trash"></i
+                  ></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </ng-template>
+    <app-pages-navigator
+      [itemsTotalCount]="totalCourses"
+      [pageCapacity]="pageCapacity"
+      [pageNumber]="pageNumber"
+      (changePaginagtionEvent)="onChangePagination($event)"
+    ></app-pages-navigator>
+  </div>
+  <section class="col-6">
+    <div
+      class="d-flex align-items-center justify-content-center"
+      style="height: 100%"
+      *ngIf="!selectedCourse && courses.length > 0; else Course"
+    >
+      <h2>
+        Click
+        <i style="color: lightseagreen" class="fa-solid fa-gear"></i> Button to
+        Start Editing
+      </h2>
+    </div>
+    <ng-template #Course>
+      <div class="w-100">
+        <h3 class="fw-bold">
+          <i class="fa-solid fa-gear" style="color: lightseagreen"></i>
+          {{ selectedCourse?.title }}
+        </h3>
+        <form [formGroup]="courseEditFormGroup">
+          <div class="row">
+            <label class="col-2" for="title">Title</label>
+            <input
+              class="col-10"
+              type="text"
+              id="title"
+              formControlName="title"
+            />
+          </div>
+          <div class="row">
+            <label class="col-2" for="description">Description</label>
+            <textarea
+              rows="5"
+              class="col-10"
+              type="text"
+              id="description"
+              formControlName="description"
+            ></textarea>
+          </div>
+          <div class="row">
+            <label class="col-2" for="date">Date</label>
+            <input
+              class="col-10"
+              type="date"
+              id="date"
+              formControlName="date"
+            />
+          </div>
+          <div class="row" formGroupName="duration">
+            <Label>Duration</Label>
+            <div class="col-4 p-0 row justify-content-end">
+              <label class="col-4" for="hours">Hours</label>
+              <input
+                class="col-6"
+                type="number"
+                id="hours"
+                formControlName="hours"
+              />
+            </div>
+            <div class="col-4 p-0 row justify-content-end">
+              <label class="col-4" for="minutes">Minutes</label>
+              <input
+                class="col-6"
+                type="number"
+                id="minutes"
+                formControlName="minutes"
+              />
+            </div>
+            <div class="col-4 p-0 row justify-content-end">
+              <label class="col-4" for="seconds">Seconds</label>
+              <input
+                class="col-6"
+                type="number"
+                id="seconds"
+                formControlName="seconds"
+              />
+            </div>
+          </div>
+          <div class="row justify-content-end my-4">
+            <input type="submit" class="col-12 btn btn-warning" value="Save" />
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </section>
+</div>

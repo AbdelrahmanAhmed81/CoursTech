@@ -1,0 +1,16 @@
+label {
+  padding: 0;
+}
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+  background-color: transparent;
+  color: inherit;
+  border: 1px solid var(--border-color);
+  padding-left: 5px;
+}
+.row {
+  margin: 0;
+  margin-top: 10px;
+}

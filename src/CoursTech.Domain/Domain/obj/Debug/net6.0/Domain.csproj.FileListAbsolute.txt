@@ -10,3 +10,15 @@ F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net
 F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\ref\Domain.dll
 F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.pdb
 F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\Domain.deps.json
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\Domain.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\ref\Domain.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\bin\Debug\net6.0\Domain.pdb
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\ref\Domain.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.pdb

@@ -16,11 +16,10 @@ namespace Infrastructure.Repositories
         {
             this.context = context;
         }
-        public async Task<Course> Add(Course course)
+        public async Task Add(Course course)
         {
             await context.Courses.AddAsync(course);
             await context.SaveChangesAsync();
-            return course;
         }
 
         public async Task Delete(string Id)
@@ -97,11 +96,22 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing course with id = {Id}");
         }
 
-        public async Task<Course> Update(Course course)
+        public async Task Update(Course course)
         {
-            context.Courses.Update(course);
-            await context.SaveChangesAsync();
-            return course;
+            var oldCourse = context.Courses.Find(course.CourseId);
+            if (oldCourse != null)
+            {
+                context.Courses.Attach(oldCourse);
+                oldCourse.Title = course.Title;
+                oldCourse.Description = course.Description;
+                oldCourse.Duration = course.Duration;
+                oldCourse.Date = course.Date;
+
+                await context.SaveChangesAsync();
+            }
+            else
+                throw new InvalidOperationException($"no existing course with id = {course.CourseId}");
+
         }
     }
 }

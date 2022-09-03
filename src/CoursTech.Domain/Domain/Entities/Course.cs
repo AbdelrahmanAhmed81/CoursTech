@@ -9,11 +9,11 @@
         public string Description { get; set; }
         public string ImageName { get; set; }
         public Guid InstructorId { get; set; }
-        public Instructor Instructor { get; set; }
+        public Instructor? Instructor { get; set; }
 
         public int IndustryId { get; set; }
-        public Industry Industry { get; set; }
+        public Industry? Industry { get; set; }
 
-        public ICollection<Enrollment> Enrollments { get; set; }
+        public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

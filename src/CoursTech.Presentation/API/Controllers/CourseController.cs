@@ -1,5 +1,6 @@
 ﻿using Application.Parameters;
 using Application.RepositoryInterfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -35,6 +36,19 @@ namespace API.Controllers
             {
                 var course = await courseRepository.GetById(id , expand);
                 return Ok(course);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(Course course)
+        {
+            try
+            {
+                await courseRepository.Update(course);
+                return Ok();
             }
             catch (Exception ex)
             {

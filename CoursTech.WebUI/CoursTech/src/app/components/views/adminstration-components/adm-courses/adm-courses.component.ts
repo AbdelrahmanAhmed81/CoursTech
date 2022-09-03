@@ -79,4 +79,13 @@ export class AdmCoursesComponent implements OnInit {
       }
     })
   }
+
+  onCancel() {
+    this.courseEditFormGroup.reset();
+    this.selectedCourse = undefined;
+  }
+
+  onSubmit() {
+    console.log(this.courseEditFormGroup.value)
+  }
 }

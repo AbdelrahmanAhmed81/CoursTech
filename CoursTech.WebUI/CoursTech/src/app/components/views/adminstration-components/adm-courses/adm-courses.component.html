@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-6" style="border-right: 1px solid var(--border-color)">
+<div class="row flex-md-row flex-column-reverse">
+  <div class="col-md-6 col-12">
     <input
       class="w-100 p-2 mb-2"
       style="
@@ -8,7 +8,7 @@
         color: inherit;
         border-radius: 5px;
       "
-      type="text"
+      type="search"
       [value]="searchText"
       (input)="searchTextInput($event)"
       placeholder="enter course title"
@@ -62,7 +62,13 @@
       (changePaginagtionEvent)="onChangePagination($event)"
     ></app-pages-navigator>
   </div>
-  <section class="col-6">
+  <section
+    class="col-md-6 col-12"
+    style="
+      border-right: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
+    "
+  >
     <div
       class="d-flex align-items-center justify-content-center"
       style="height: 100%"
@@ -75,72 +81,64 @@
       </h2>
     </div>
     <ng-template #Course>
-      <div class="w-100">
+      <div class="w-100 pb-5 pb-md-0">
         <h3 class="fw-bold">
           <i class="fa-solid fa-gear" style="color: lightseagreen"></i>
           {{ selectedCourse?.title }}
         </h3>
-        <form [formGroup]="courseEditFormGroup">
+        <hr />
+        <form [formGroup]="courseEditFormGroup" (ngSubmit)="onSubmit()">
           <div class="row">
-            <label class="col-2" for="title">Title</label>
+            <label class="col-3" for="title">Title</label>
             <input
-              class="col-10"
+              class="col-9"
               type="text"
               id="title"
               formControlName="title"
             />
           </div>
           <div class="row">
-            <label class="col-2" for="description">Description</label>
+            <label class="col-3" for="description">Description</label>
             <textarea
               rows="5"
-              class="col-10"
+              class="col-9"
               type="text"
               id="description"
               formControlName="description"
             ></textarea>
           </div>
           <div class="row">
-            <label class="col-2" for="date">Date</label>
-            <input
-              class="col-10"
-              type="date"
-              id="date"
-              formControlName="date"
-            />
+            <label class="col-3" for="date">Date</label>
+            <input class="col-9" type="date" id="date" formControlName="date" />
           </div>
           <div class="row" formGroupName="duration">
             <Label>Duration</Label>
-            <div class="col-4 p-0 row justify-content-end">
-              <label class="col-4" for="hours">Hours</label>
-              <input
-                class="col-6"
-                type="number"
-                id="hours"
-                formControlName="hours"
-              />
+            <div class="col-3 p-0"></div>
+            <div class="col-3 p-0 d-flex flex-column">
+              <label for="hours">Hours</label>
+              <input type="number" id="hours" formControlName="hours" />
             </div>
-            <div class="col-4 p-0 row justify-content-end">
-              <label class="col-4" for="minutes">Minutes</label>
-              <input
-                class="col-6"
-                type="number"
-                id="minutes"
-                formControlName="minutes"
-              />
+            <div class="col-3 p-0 d-flex flex-column">
+              <label for="minutes">Minutes</label>
+              <input type="number" id="minutes" formControlName="minutes" />
             </div>
-            <div class="col-4 p-0 row justify-content-end">
-              <label class="col-4" for="seconds">Seconds</label>
-              <input
-                class="col-6"
-                type="number"
-                id="seconds"
-                formControlName="seconds"
-              />
+            <div class="col-3 p-0 d-flex flex-column">
+              <label for="seconds">Seconds</label>
+              <input type="number" id="seconds" formControlName="seconds" />
             </div>
           </div>
           <div class="row justify-content-end my-4">
-            <input type="submit" class="col-12 btn btn-warning" value="Save" />
+            <input
+              type="submit"
+              class="mx-2 col-3 btn btn-warning"
+              value="Save"
+            />
+            <input
+              type="button"
+              class="col-3 btn btn-secondary"
+              value="Cancel"
+              (click)="onCancel()"
+            />
           </div>
         </form>
       </div>

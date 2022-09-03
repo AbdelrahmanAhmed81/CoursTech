@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lSq1WMh8tMPXoiKGmdBuQSDmy/vduSzjbS1DfuOsmt8=",
+  "Hash": "stDSO5aEj6BKqxBMThOiP0C4wltdZkmaqbCDss5vIRU=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\images\\courses\\aspcore.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/courses/aspcore.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\aspcore.png"
+    },
     {
       "Identity": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\images\\courses\\csharp11.png",
       "SourceId": "API",

@@ -97,7 +97,7 @@ namespace Infrastructure.Repositories
         }
 
         public async Task Update(Course course)
-        {
+         {
             var oldCourse = context.Courses.Find(course.CourseId);
             if (oldCourse != null)
             {
@@ -106,6 +106,7 @@ namespace Infrastructure.Repositories
                 oldCourse.Description = course.Description;
                 oldCourse.Duration = course.Duration;
                 oldCourse.Date = course.Date;
+                oldCourse.ImageName = course.ImageName;
 
                 await context.SaveChangesAsync();
             }

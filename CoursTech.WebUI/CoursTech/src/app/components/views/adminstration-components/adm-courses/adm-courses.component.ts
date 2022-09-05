@@ -1,8 +1,9 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { Course } from 'src/app/models/Course';
+import { AlertLevel, AlertService } from 'src/app/services/alert.service';
 import { CourseService } from 'src/app/services/course.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { CourseService } from 'src/app/services/course.service';
   styleUrls: ['./adm-courses.component.css']
 })
 export class AdmCoursesComponent implements OnInit {
+  // @ViewChild('alert') alert: ElementRef | undefined;
   pageNumber: number = 1;
   pageCapacity: number = 10;
   queryParams: HttpParams = new HttpParams()
@@ -26,7 +28,8 @@ export class AdmCoursesComponent implements OnInit {
   courseEditFormGroup: FormGroup;
   selectedCourse: Course | undefined;
 
-  constructor(private courseService: CourseService) {
+  constructor(private courseService: CourseService,
+    private alertService: AlertService) {
     this.courseEditFormGroup = new FormGroup({
       'title': new FormControl(null),
       'description': new FormControl(null),
@@ -47,7 +50,6 @@ export class AdmCoursesComponent implements OnInit {
     this.isLoading = true;
     this.courseService.getAll(this.queryParams).subscribe(data => {
       this.courses = data.courses;
-      console.log(this.courses)
       this.totalCourses = data.coursesCount
       this.isLoading = false;
     })
@@ -71,7 +73,8 @@ export class AdmCoursesComponent implements OnInit {
     this.courseEditFormGroup.setValue({
       'title': this.selectedCourse.title,
       'description': this.selectedCourse.description,
-      'date': new Date(this.selectedCourse.date).toISOString().split('T')[0],
+      // 'date': new Date(this.selectedCourse.date).toISOString().split('T')[0],
+      'date': this.selectedCourse.date,
       'duration': {
         'hours': duration[0],
         'minutes': duration[1],
@@ -83,9 +86,46 @@ export class AdmCoursesComponent implements OnInit {
   onCancel() {
     this.courseEditFormGroup.reset();
     this.selectedCourse = undefined;
+    this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+
   }
 
+  // showAlert(message: string) {
+  //   let element = (<HTMLElement>this.alert?.nativeElement);
+  //   (<HTMLParagraphElement>element.children.namedItem('message')).innerText = message;
+  //   element.classList.replace('alert-hidden', 'alert-visible');
+
+  //   setTimeout(() => {
+  //     this.closeAlert()
+  //   }, 3000)
+  // }
+
+  // closeAlert() {
+  //   (<HTMLElement>this.alert?.nativeElement).classList.replace('alert-visible', 'alert-hidden');
+  // }
+
   onSubmit() {
-    console.log(this.courseEditFormGroup.value)
+    // console.log(this.courseEditFormGroup)
+    if (!this.courseEditFormGroup.dirty || !this.courseEditFormGroup.valid) return;
+
+    let formValue = this.courseEditFormGroup.value;
+    if (this.selectedCourse) {
+      let course: Course = {
+        courseId: this.selectedCourse.courseId,
+        title: formValue.title,
+        date: formValue.date,
+        description: formValue.description,
+        duration: `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`,
+        imageName: this.selectedCourse.imageName,
+        industryId: this.selectedCourse.industryId,
+        instructorId: this.selectedCourse.instructorId
+      }
+      this.courseService.update(course).subscribe(data => {
+        // this.showAlert('Changes Saved Succesfully');
+        // this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+        this.loadCourses();
+        this.onCancel();
+      })
+    }
   }
 }

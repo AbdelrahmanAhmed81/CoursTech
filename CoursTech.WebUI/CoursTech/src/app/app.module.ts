@@ -15,6 +15,7 @@ import { AdminstrationComponent } from './components/views/adminstration/adminst
 import { AdmCoursesComponent } from './components/views/adminstration-components/adm-courses/adm-courses.component';
 import { AdmIndustriesComponent } from './components/views/adminstration-components/adm-industries/adm-industries.component';
 import { AdmInstructorsComponent } from './components/views/adminstration-components/adm-instructors/adm-instructors.component';
+import { AlertComponent } from './components/partial-views/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AdmInstructorsComponent } from './components/views/adminstration-compon
     AdmCoursesComponent,
     AdmIndustriesComponent,
     AdmInstructorsComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,7 @@ namespace Infrastructure.Repositories
         {
             this.context = context;
         }
-        public Task<Industry> Add(Industry entity)
+        public Task Add(Industry entity)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +38,7 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing industry with id = {Id}");
         }
 
-        public Task<Industry> Update(Industry entity)
+        public Task Update(Industry entity)
         {
             throw new NotImplementedException();
         }

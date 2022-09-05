@@ -10,8 +10,8 @@ export interface Course {
     description: string;
     imageName: string;
     instructorId: string;
-    instructor: Instructor;
+    instructor?: Instructor;
     industryId: number;
-    industry: Industry;
-    enrollments: Enrollment[];
+    industry?: Industry;
+    enrollments?: Enrollment[];
 }

@@ -86,26 +86,9 @@ export class AdmCoursesComponent implements OnInit {
   onCancel() {
     this.courseEditFormGroup.reset();
     this.selectedCourse = undefined;
-    this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
-
   }
 
-  // showAlert(message: string) {
-  //   let element = (<HTMLElement>this.alert?.nativeElement);
-  //   (<HTMLParagraphElement>element.children.namedItem('message')).innerText = message;
-  //   element.classList.replace('alert-hidden', 'alert-visible');
-
-  //   setTimeout(() => {
-  //     this.closeAlert()
-  //   }, 3000)
-  // }
-
-  // closeAlert() {
-  //   (<HTMLElement>this.alert?.nativeElement).classList.replace('alert-visible', 'alert-hidden');
-  // }
-
   onSubmit() {
-    // console.log(this.courseEditFormGroup)
     if (!this.courseEditFormGroup.dirty || !this.courseEditFormGroup.valid) return;
 
     let formValue = this.courseEditFormGroup.value;
@@ -121,8 +104,7 @@ export class AdmCoursesComponent implements OnInit {
         instructorId: this.selectedCourse.instructorId
       }
       this.courseService.update(course).subscribe(data => {
-        // this.showAlert('Changes Saved Succesfully');
-        // this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+        this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
         this.loadCourses();
         this.onCancel();
       })

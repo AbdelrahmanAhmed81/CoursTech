@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AlertLevel, AlertService } from 'src/app/services/alert.service';
 
 @Component({
@@ -6,16 +7,21 @@ import { AlertLevel, AlertService } from 'src/app/services/alert.service';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, OnDestroy {
 
   @ViewChild('alert') alert: ElementRef | undefined;
   alertBgStyle: string = '';
   alertIcon: string = '';
+  showAlertSubscription: Subscription | undefined;
 
   constructor(private alertService: AlertService) { }
 
+  ngOnDestroy(): void {
+    this.showAlertSubscription?.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.alertService.showAlert.subscribe(({ message, level }) => {
+    this.showAlertSubscription = this.alertService.showAlert.subscribe(({ message, level }) => {
       this.showAlert(message, this.setAlertStyle(level));
     })
   }

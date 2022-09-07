@@ -1,0 +1,101 @@
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <label class="col-3" for="title">Title</label>
+    <input class="col-9" type="text" id="title" formControlName="title" />
+    <div class="col-3"></div>
+    <span class="col-9" *ngIf="courseForm.get('title')?.invalid">
+      <span *ngFor="let error of courseForm.get('title')?.errors | keyvalue">{{
+        titleErrors[error.key]
+      }}</span>
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-3" for="description">Description</label>
+    <textarea
+      rows="5"
+      class="col-9"
+      type="text"
+      id="description"
+      formControlName="description"
+    ></textarea>
+    <div class="col-3"></div>
+    <span class="col-9" *ngIf="courseForm.get('description')?.invalid">
+      <span
+        *ngFor="let error of courseForm.get('description')?.errors | keyvalue"
+        >{{ descriptionErrors[error.key] }}</span
+      >
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-3" for="date">Date</label>
+    <input class="col-9" type="date" id="date" formControlName="date" />
+    <div class="col-3"></div>
+    <span class="col-9" *ngIf="courseForm.get('date')?.invalid"
+      ><span *ngFor="let error of courseForm.get('date')?.errors | keyvalue">{{
+        dateErrors[error.key]
+      }}</span></span
+    >
+  </div>
+  <div class="row" formGroupName="duration">
+    <Label>Duration</Label>
+    <div class="col-3 p-0"></div>
+    <div class="col-3 p-0 d-flex flex-column">
+      <label for="hours">Hours</label>
+      <input type="number" id="hours" formControlName="hours" />
+    </div>
+    <div class="col-3 p-0 d-flex flex-column">
+      <label for="minutes">Minutes</label>
+      <input type="number" id="minutes" formControlName="minutes" />
+    </div>
+    <div class="col-3 p-0 d-flex flex-column">
+      <label for="seconds">Seconds</label>
+      <input type="number" id="seconds" formControlName="seconds" />
+    </div>
+    <div class="col-3"></div>
+    <span class="col-9" *ngIf="courseForm.get('duration')?.invalid">
+      <span
+        *ngFor="
+          let error of courseForm.get('duration.hours')?.errors | keyvalue
+        "
+        >{{ hoursErrors[error.key] }}</span
+      >
+      <span
+        *ngFor="
+          let error of courseForm.get('duration.minutes')?.errors | keyvalue
+        "
+        >{{ minutesErrors[error.key] }}</span
+      >
+      <span
+        *ngFor="
+          let error of courseForm.get('duration.seconds')?.errors | keyvalue
+        "
+        >{{ secondsErrors[error.key] }}</span
+      >
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-3" for="image">Image</label>
+    <div class="col-9 p-0">
+      <input
+        class="form-control"
+        type="file"
+        id="imgae"
+        formControlName="image"
+      />
+    </div>
+  </div>
+  <div class="row justify-content-end my-4">
+    <input
+      [disabled]="!courseForm.dirty || !courseForm.valid"
+      type="submit"
+      class="mx-2 col-3 btn btn-warning"
+      value="Save"
+    />
+    <input
+      type="button"
+      class="col-3 btn btn-secondary"
+      value="Cancel"
+      (click)="onCancel()"
+    />
+  </div>
+</form>

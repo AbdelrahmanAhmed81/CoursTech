@@ -6,6 +6,14 @@
 .image {
   background: center / cover no-repeat white;
 }
+
+.instructor-image {
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+}
+
 .background {
   height: var(--bg-height);
   width: 100%;
@@ -26,13 +34,6 @@
 }
 a {
   text-decoration: none;
-}
-
-.instructor-image {
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
 }
 
 .related-course {

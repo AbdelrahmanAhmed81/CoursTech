@@ -1,4 +1,4 @@
-/* label {
+label {
   padding: 0;
 }
 input[type="text"],
@@ -30,12 +30,4 @@ span {
   color: red;
   padding: 0;
   display: block;
-} */
-
-.course-image {
-  background: center / contain no-repeat white;
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
 }

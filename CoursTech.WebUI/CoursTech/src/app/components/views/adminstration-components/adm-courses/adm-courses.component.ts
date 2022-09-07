@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Course } from 'src/app/models/Course';
 import { AlertLevel, AlertService } from 'src/app/services/alert.service';
@@ -25,20 +25,47 @@ export class AdmCoursesComponent implements OnInit {
 
   searchText: string = '';
 
-  courseEditFormGroup: FormGroup;
+  courseForm: FormGroup;
   selectedCourse: Course | undefined;
+  titleErrors: errors = {
+    required: 'title field is required',
+    minlength: 'title length should be more than 2 characters',
+    maxlength: 'title length should be less than 50 characters'
+  }
+  descriptionErrors: errors = {
+    required: 'description field is required',
+    minlength: 'description length should be more than 20 characters',
+    maxlength: 'description length should be less than 800 characters'
+  }
+  dateErrors: errors = {
+    required: 'date field is required'
+  }
+  hoursErrors: errors = {
+    required: 'hours field is required',
+    min: 'minimum hours is 0',
+  }
+  minutesErrors: errors = {
+    required: 'minutes field is required',
+    min: 'minimum minutes is 0',
+    max: 'maximum minutes is 59'
+  }
+  secondsErrors: errors = {
+    required: 'seconds field is required',
+    min: 'minimum seconds is 0',
+    max: 'maximum seconds is 59'
+  }
 
   constructor(private courseService: CourseService,
     private alertService: AlertService) {
-    this.courseEditFormGroup = new FormGroup({
-      'title': new FormControl(null),
-      'description': new FormControl(null),
-      'date': new FormControl(null),
+    this.courseForm = new FormGroup({
+      'title': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
+      'description': new FormControl(null, [Validators.required, Validators.minLength(20), Validators.maxLength(800)]),
+      'date': new FormControl(null, [Validators.required]),
       'duration': new FormGroup({
-        'hours': new FormControl(null),
-        'minutes': new FormControl(null),
-        'seconds': new FormControl(null),
-      }),
+        'hours': new FormControl(null, [Validators.required, Validators.min(0)]),
+        'minutes': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
+        'seconds': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
+      })
     });
   }
 
@@ -68,12 +95,12 @@ export class AdmCoursesComponent implements OnInit {
   }
 
   onClickEdit(course: Course) {
+    this.courseForm.reset();
     this.selectedCourse = course;
     let duration: number[] = this.selectedCourse.duration.split(':').map(v => { return +v });
-    this.courseEditFormGroup.setValue({
+    this.courseForm.setValue({
       'title': this.selectedCourse.title,
       'description': this.selectedCourse.description,
-      // 'date': new Date(this.selectedCourse.date).toISOString().split('T')[0],
       'date': this.selectedCourse.date,
       'duration': {
         'hours': duration[0],
@@ -84,14 +111,14 @@ export class AdmCoursesComponent implements OnInit {
   }
 
   onCancel() {
-    this.courseEditFormGroup.reset();
+    this.courseForm.reset();
     this.selectedCourse = undefined;
   }
 
   onSubmit() {
-    if (!this.courseEditFormGroup.dirty || !this.courseEditFormGroup.valid) return;
+    if (!this.courseForm.dirty || !this.courseForm.valid) return;
 
-    let formValue = this.courseEditFormGroup.value;
+    let formValue = this.courseForm.value;
     if (this.selectedCourse) {
       let course: Course = {
         courseId: this.selectedCourse.courseId,
@@ -111,3 +138,4 @@ export class AdmCoursesComponent implements OnInit {
     }
   }
 }
+type errors = { [code: string]: string }

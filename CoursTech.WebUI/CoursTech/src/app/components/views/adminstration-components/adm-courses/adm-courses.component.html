@@ -99,8 +99,10 @@
         <hr />
         <app-course-form
           [selectedCourse]="selectedCourse"
-          (onSubmitForm)="onSubmit($event)"
-          (onCancelForm)="onCancel()"
+          [industries]="industries"
+          [instructors]="instructors"
+          (onSubmitForm)="Submit($event)"
+          (onCancelForm)="Cancel()"
         ></app-course-form>
       </div>
     </ng-template>

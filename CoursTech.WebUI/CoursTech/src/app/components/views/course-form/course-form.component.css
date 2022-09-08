@@ -5,12 +5,19 @@ input[type="text"],
 input[type="file"],
 input[type="date"],
 input[type="number"],
-textarea {
+textarea,
+select {
   background-color: transparent;
   color: inherit;
   border: 1px solid var(--border-color);
   padding-left: 5px;
 }
+
+option {
+  background-color: var(--bg-color);
+  color: inherit;
+}
+
 input[type="file"] {
   border-radius: 0;
 }
@@ -19,12 +26,14 @@ input[type="file"] {
   margin-top: 10px;
 }
 input.ng-invalid.ng-dirty,
-textarea.ng-invalid.ng-dirty {
+textarea.ng-invalid.ng-dirty,
+select.ng-invalid.ng-dirty {
   border: 1px solid red;
 }
 input.ng-valid.ng-dirty,
-textarea.ng-valid.ng-dirty {
-  border: 1px solid rgb(35, 192, 35);
+textarea.ng-valid.ng-dirty,
+select.ng-valid.ng-dirty {
+  border: 1px solid rgb(0, 135, 0);
 }
 span {
   color: red;

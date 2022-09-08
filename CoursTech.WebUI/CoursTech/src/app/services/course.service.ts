@@ -1,14 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { CourseDataModel } from '../data-models/CourseDataModel';
+
 import { Course } from '../models/Course';
+import { CourseDataModel } from '../data-models/CourseDataModel';
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
   private static readonly url: string = 'https://localhost:7017/';
-  static readonly path: string = CourseService.url + 'api/Course'
+  static readonly path: string = CourseService.url + 'api/Course';
   static readonly images_path: string = CourseService.url + 'images/courses/';
   static readonly instructor_photos_path: string = CourseService.url + 'images/instructors/';
 

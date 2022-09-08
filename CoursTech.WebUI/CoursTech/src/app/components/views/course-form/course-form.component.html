@@ -84,6 +84,42 @@
       />
     </div>
   </div>
+  <div class="row">
+    <label class="col-3" for="industry">Industry</label>
+    <select class="col-9" id="industry" formControlName="industry">
+      <option value="">Select Industry</option>
+      <option *ngFor="let industry of industries" [value]="industry.industryId">
+        {{ industry.name }}
+      </option>
+    </select>
+    <div class="col-3"></div>
+    <span class="col-9" *ngIf="courseForm.get('industry')?.invalid">
+      <span
+        *ngFor="let error of courseForm.get('industry')?.errors | keyvalue"
+        >{{ industryErrors[error.key] }}</span
+      >
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-3" for="instructor">Instructor</label>
+    <select class="col-9" id="instructor" formControlName="instructor">
+      <option value="">Select Instructor</option>
+      <option
+        *ngFor="let instructor of instructors"
+        [value]="instructor.instructorId"
+      >
+        {{ instructor.firstName + " " + instructor.lastName }}
+      </option>
+    </select>
+    <div class="col-3"></div>
+    <span class="col-9" *ngIf="courseForm.get('instructor')?.invalid">
+      <span
+        *ngFor="let error of courseForm.get('instructor')?.errors | keyvalue"
+        >{{ instructorErrors[error.key] }}</span
+      >
+    </span>
+  </div>
+
   <div class="row justify-content-end my-4">
     <input
       [disabled]="!courseForm.dirty || !courseForm.valid"

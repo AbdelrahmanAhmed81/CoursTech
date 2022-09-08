@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/Course';
+import { Industry } from 'src/app/models/Industry';
+import { Instructor } from 'src/app/models/Instructor';
 
 @Component({
   selector: 'app-course-form',
@@ -9,6 +11,9 @@ import { Course } from 'src/app/models/Course';
 })
 export class CourseFormComponent implements OnInit, OnChanges {
   @Input() selectedCourse?: Course;
+  @Input() industries: Industry[] = [];
+  @Input() instructors: Instructor[] = [];
+
   @Output() onSubmitForm: EventEmitter<Course> = new EventEmitter<Course>();
   @Output() onCancelForm: EventEmitter<void> = new EventEmitter<void>();
 
@@ -40,6 +45,12 @@ export class CourseFormComponent implements OnInit, OnChanges {
     min: 'minimum seconds is 0',
     max: 'maximum seconds is 59'
   }
+  industryErrors: errors = {
+    required: 'industry field is required'
+  }
+  instructorErrors: errors = {
+    required: 'instructor field is required'
+  }
 
   constructor() {
     this.courseForm = new FormGroup({
@@ -51,7 +62,9 @@ export class CourseFormComponent implements OnInit, OnChanges {
         'minutes': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
         'seconds': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
       }),
-      'image': new FormControl(null)
+      'image': new FormControl(null),
+      'industry': new FormControl(null, [Validators.required]),
+      'instructor': new FormControl(null, [Validators.required])
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -67,7 +80,9 @@ export class CourseFormComponent implements OnInit, OnChanges {
           'minutes': duration[1],
           'seconds': duration[2],
         },
-        'image': ''
+        'image': '',
+        'industry': this.selectedCourse.industryId,
+        'instructor': this.selectedCourse.instructorId,
       })
     }
   }
@@ -88,8 +103,8 @@ export class CourseFormComponent implements OnInit, OnChanges {
       description: formValue.description,
       duration: `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`,
       imageName: this.selectedCourse ? this.selectedCourse.imageName : '',
-      industryId: this.selectedCourse ? this.selectedCourse.industryId : 0,
-      instructorId: this.selectedCourse ? this.selectedCourse.instructorId : ' '
+      industryId: this.selectedCourse ? formValue.industry : 0,
+      instructorId: this.selectedCourse ? formValue.instructor : ' ',
     }
     this.onSubmitForm.emit(course);
   }

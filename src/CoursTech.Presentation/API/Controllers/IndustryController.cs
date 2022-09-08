@@ -14,6 +14,18 @@ namespace API.Controllers
         {
             this.industryRepository = industryRepository;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                return Ok(await industryRepository.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id , [FromQuery] string[] expand)
         {

@@ -1,4 +1,5 @@
-﻿using Application.RepositoryInterfaces;
+﻿using Application.Parameters;
+using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Helpers;
@@ -22,6 +23,12 @@ namespace Infrastructure.Repositories
         public Task Delete(int Id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<Industry>> GetAll()
+        {
+            List<Industry> result = await context.Industries.AsNoTracking().ToListAsync();
+            return result;
         }
 
         public async Task<Industry> GetById(int Id , string[] expand)

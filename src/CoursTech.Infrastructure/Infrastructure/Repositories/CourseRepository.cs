@@ -107,6 +107,8 @@ namespace Infrastructure.Repositories
                 oldCourse.Duration = course.Duration;
                 oldCourse.Date = course.Date;
                 oldCourse.ImageName = course.ImageName;
+                oldCourse.InstructorId = course.InstructorId;
+                oldCourse.IndustryId = course.IndustryId;
 
                 await context.SaveChangesAsync();
             }

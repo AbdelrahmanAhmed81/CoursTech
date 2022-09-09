@@ -1,18 +1,29 @@
 <div class="row flex-md-row flex-column-reverse">
+  <!-- #region DataSide -->
   <div class="col-md-6 col-12">
-    <input
-      class="w-100 p-2 mb-2"
-      style="
-        border: 2px solid var(--border-color);
-        background-color: var(--bgcolor);
-        color: inherit;
-        border-radius: 5px;
-      "
-      type="search"
-      [value]="searchText"
-      (input)="searchTextInput($event)"
-      placeholder="enter course title"
-    />
+    <div class="row justify-content-between mb-2">
+      <input
+        class="col-10 p-2"
+        style="
+          border: 2px solid var(--border-color);
+          background-color: var(--bgcolor);
+          color: inherit;
+          border-radius: 5px;
+        "
+        type="search"
+        [value]="searchText"
+        (input)="searchTextInput($event)"
+        placeholder="enter course title"
+      />
+      <div class="col-1 mx-2 p-0">
+        <a style="cursor: pointer" (click)="onClickAdd()">
+          <i
+            style="color: green; font-size: 47px"
+            class="fa-solid fa-square-plus"
+          ></i>
+        </a>
+      </div>
+    </div>
     <div
       *ngIf="isLoading; else DataLoaded"
       class="loadingio-spinner-rolling-7o0btgck97g"
@@ -62,6 +73,8 @@
       (changePaginagtionEvent)="onChangePagination($event)"
     ></app-pages-navigator>
   </div>
+  <!-- #endregion -->
+  <!-- #region FormSide -->
   <section
     class="col-md-6 col-12"
     style="
@@ -70,41 +83,65 @@
     "
   >
     <div
-      class="d-flex align-items-center justify-content-center"
+      class="d-flex flex-column align-items-center justify-content-center"
       style="height: 100%"
-      *ngIf="!selectedCourse; else Course"
+      *ngIf="
+        (!selectedCourse && !adding) || (selectedCourse && adding);
+        else Content
+      "
     >
       <h2>
         Click
         <i style="color: lightseagreen" class="fa-solid fa-gear"></i> Button to
         Start Editing
       </h2>
+      <h2 class="fw-bold">Or</h2>
+      <h2>
+        Click
+        <i style="color: green" class="fa-solid fa-square-plus"></i>
+        Button to Create New Course
+      </h2>
     </div>
-    <ng-template #Course>
+    <ng-template #Content>
       <div class="w-100 pb-5 pb-md-0">
-        <div class="d-flex align-items-center">
-          <div
-            title="course image"
-            class="course-image p-0"
-            [style.background-image]="
-              selectedCourse?.imageName
-                ? 'url(' + selectedCourse?.imageName + ')'
-                : 'url(../../../../assets/images/others/no-image.jpg)'
-            "
-          ></div>
-          <h3 class="fw-bold mx-3 my-0">
-            {{ selectedCourse?.title }}
-          </h3>
+        <div *ngIf="selectedCourse && !adding">
+          <div class="d-flex align-items-center">
+            <div
+              title="course image"
+              class="course-image p-0"
+              [style.background-image]="
+                selectedCourse.imageName
+                  ? 'url(' + selectedCourse.imageName + ')'
+                  : 'url(../../../../assets/images/others/no-image.jpg)'
+              "
+            ></div>
+            <h3 class="fw-bold mx-3 my-0">
+              {{ selectedCourse.title }}
+            </h3>
+          </div>
+          <hr />
+          <app-course-form
+            [selectedCourse]="selectedCourse"
+            [industries]="industries"
+            [instructors]="instructors"
+            (onSubmitForm)="Submit($event)"
+            (onCancelForm)="Cancel()"
+          ></app-course-form>
         </div>
-        <hr />
-        <app-course-form
-          [selectedCourse]="selectedCourse"
-          [industries]="industries"
-          [instructors]="instructors"
-          (onSubmitForm)="Submit($event)"
-          (onCancelForm)="Cancel()"
-        ></app-course-form>
+        <div *ngIf="!selectedCourse && adding">
+          <div class="d-flex align-items-center">
+            <h3 class="fw-bold mx-2 my-0">Create New Course</h3>
+          </div>
+          <hr />
+          <app-course-form
+            [industries]="industries"
+            [instructors]="instructors"
+            (onSubmitForm)="Submit($event)"
+            (onCancelForm)="Cancel()"
+          ></app-course-form>
+        </div>
       </div>
     </ng-template>
   </section>
+  <!-- #endregion -->
 </div>

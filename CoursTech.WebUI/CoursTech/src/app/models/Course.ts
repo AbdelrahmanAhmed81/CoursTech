@@ -3,7 +3,7 @@ import { Industry } from "./Industry";
 import { Instructor } from "./Instructor";
 
 export interface Course {
-    courseId: string;
+    courseId: string | undefined;
     title: string;
     duration: string;
     date: string;

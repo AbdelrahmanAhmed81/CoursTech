@@ -33,6 +33,7 @@ export class AdmCoursesComponent implements OnInit {
   searchText: string = '';
 
   selectedCourse: Course | undefined;
+  adding: boolean = false;
 
 
   constructor(private courseService: CourseService,
@@ -90,18 +91,35 @@ export class AdmCoursesComponent implements OnInit {
   }
 
   onClickEdit(course: Course) {
+    this.adding = false
     this.selectedCourse = course;
   }
 
+  onClickAdd() {
+    this.adding = true;
+    this.selectedCourse = undefined;
+  }
+
   Cancel() {
+    this.adding = false;
     this.selectedCourse = undefined;
   }
 
   Submit(course: Course) {
-    this.courseService.update(course).subscribe(data => {
-      this.Cancel();
-      this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
-      this.loadCourses();
-    })
+    if (this.adding && !this.selectedCourse) {
+      this.courseService.add(course).subscribe(data => {
+        this.Cancel();
+        this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+        this.loadCourses();
+      })
+    }
+    if (this.selectedCourse && !this.adding) {
+      this.courseService.update(course).subscribe(data => {
+        this.Cancel();
+        this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+        this.loadCourses();
+      })
+    }
   }
+
 }

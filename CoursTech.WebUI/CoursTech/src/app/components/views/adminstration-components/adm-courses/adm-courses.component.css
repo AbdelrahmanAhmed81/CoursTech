@@ -39,3 +39,6 @@ span {
   width: 80px;
   height: 80px;
 }
+.row {
+  margin: 0;
+}

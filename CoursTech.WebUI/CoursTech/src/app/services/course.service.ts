@@ -41,4 +41,8 @@ export class CourseService {
   update(course: Course): Observable<any> {
     return this.http.put(CourseService.path, course);
   }
+
+  add(course: Course): Observable<any> {
+    return this.http.post(CourseService.path, course);
+  }
 }

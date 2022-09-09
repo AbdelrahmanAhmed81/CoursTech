@@ -10,7 +10,7 @@ import { Instructor } from 'src/app/models/Instructor';
   styleUrls: ['./course-form.component.css']
 })
 export class CourseFormComponent implements OnInit, OnChanges {
-  @Input() selectedCourse?: Course;
+  @Input() selectedCourse: Course | undefined;
   @Input() industries: Industry[] = [];
   @Input() instructors: Instructor[] = [];
 
@@ -63,8 +63,8 @@ export class CourseFormComponent implements OnInit, OnChanges {
         'seconds': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
       }),
       'image': new FormControl(null),
-      'industry': new FormControl(null, [Validators.required]),
-      'instructor': new FormControl(null, [Validators.required])
+      'industry': new FormControl('', [Validators.required]),
+      'instructor': new FormControl('', [Validators.required])
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -96,15 +96,20 @@ export class CourseFormComponent implements OnInit, OnChanges {
 
   onSubmit() {
     let formValue = this.courseForm.value;
+    let courseId = undefined;
+    if (this.selectedCourse) {
+      courseId = this.selectedCourse.courseId;
+    }
+
     let course: Course = {
-      courseId: this.selectedCourse ? this.selectedCourse.courseId : '',
+      courseId: courseId,
       title: formValue.title,
       date: formValue.date,
       description: formValue.description,
       duration: `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`,
       imageName: this.selectedCourse ? this.selectedCourse.imageName : '',
-      industryId: this.selectedCourse ? formValue.industry : 0,
-      instructorId: this.selectedCourse ? formValue.instructor : ' ',
+      industryId: formValue.industry,
+      instructorId: formValue.instructor,
     }
     this.onSubmitForm.emit(course);
   }

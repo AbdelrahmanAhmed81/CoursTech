@@ -42,6 +42,20 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Add(Course course)
+        {
+            try
+            {
+                await courseRepository.Add(course);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPut]
         public async Task<IActionResult> Update(Course course)
         {

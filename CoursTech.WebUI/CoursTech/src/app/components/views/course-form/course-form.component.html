@@ -1,9 +1,18 @@
 <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
   <div class="row">
     <label class="col-3" for="title">Title</label>
-    <input class="col-9" type="text" id="title" formControlName="title" />
+    <input
+      class="col-9"
+      type="text"
+      id="title"
+      formControlName="title"
+      placeholder="enter course title"
+    />
     <div class="col-3"></div>
-    <span class="col-9" *ngIf="courseForm.get('title')?.invalid">
+    <span
+      class="col-9"
+      *ngIf="courseForm.get('title')?.dirty && courseForm.get('title')?.invalid"
+    >
       <span *ngFor="let error of courseForm.get('title')?.errors | keyvalue">{{
         titleErrors[error.key]
       }}</span>
@@ -17,9 +26,16 @@
       type="text"
       id="description"
       formControlName="description"
+      placeholder="enter course description"
     ></textarea>
     <div class="col-3"></div>
-    <span class="col-9" *ngIf="courseForm.get('description')?.invalid">
+    <span
+      class="col-9"
+      *ngIf="
+        courseForm.get('description')?.dirty &&
+        courseForm.get('description')?.invalid
+      "
+    >
       <span
         *ngFor="let error of courseForm.get('description')?.errors | keyvalue"
         >{{ descriptionErrors[error.key] }}</span
@@ -30,7 +46,9 @@
     <label class="col-3" for="date">Date</label>
     <input class="col-9" type="date" id="date" formControlName="date" />
     <div class="col-3"></div>
-    <span class="col-9" *ngIf="courseForm.get('date')?.invalid"
+    <span
+      class="col-9"
+      *ngIf="courseForm.get('date')?.dirty && courseForm.get('date')?.invalid"
       ><span *ngFor="let error of courseForm.get('date')?.errors | keyvalue">{{
         dateErrors[error.key]
       }}</span></span
@@ -41,30 +59,66 @@
     <div class="col-3 p-0"></div>
     <div class="col-3 p-0 d-flex flex-column">
       <label for="hours">Hours</label>
-      <input type="number" id="hours" formControlName="hours" />
+      <input
+        type="number"
+        id="hours"
+        formControlName="hours"
+        placeholder="enter hours"
+      />
     </div>
     <div class="col-3 p-0 d-flex flex-column">
       <label for="minutes">Minutes</label>
-      <input type="number" id="minutes" formControlName="minutes" />
+      <input
+        type="number"
+        id="minutes"
+        formControlName="minutes"
+        placeholder="enter minutes"
+      />
     </div>
     <div class="col-3 p-0 d-flex flex-column">
       <label for="seconds">Seconds</label>
-      <input type="number" id="seconds" formControlName="seconds" />
+      <input
+        type="number"
+        id="seconds"
+        formControlName="seconds"
+        placeholder="enter seconds"
+      />
     </div>
-    <div class="col-3"></div>
-    <span class="col-9" *ngIf="courseForm.get('duration')?.invalid">
+    <span
+      class="col-9"
+      *ngIf="
+        courseForm.get('duration.hours')?.dirty &&
+        courseForm.get('duration.hours')?.invalid
+      "
+    >
       <span
         *ngFor="
           let error of courseForm.get('duration.hours')?.errors | keyvalue
         "
         >{{ hoursErrors[error.key] }}</span
       >
+    </span>
+    <span
+      class="col-9"
+      *ngIf="
+        courseForm.get('duration.minutes')?.dirty &&
+        courseForm.get('duration.minutes')?.invalid
+      "
+    >
       <span
         *ngFor="
           let error of courseForm.get('duration.minutes')?.errors | keyvalue
         "
         >{{ minutesErrors[error.key] }}</span
       >
+    </span>
+    <span
+      class="col-9"
+      *ngIf="
+        courseForm.get('duration.seconds')?.dirty &&
+        courseForm.get('duration.seconds')?.invalid
+      "
+    >
       <span
         *ngFor="
           let error of courseForm.get('duration.seconds')?.errors | keyvalue
@@ -93,7 +147,12 @@
       </option>
     </select>
     <div class="col-3"></div>
-    <span class="col-9" *ngIf="courseForm.get('industry')?.invalid">
+    <span
+      class="col-9"
+      *ngIf="
+        courseForm.get('industry')?.dirty && courseForm.get('industry')?.invalid
+      "
+    >
       <span
         *ngFor="let error of courseForm.get('industry')?.errors | keyvalue"
         >{{ industryErrors[error.key] }}</span
@@ -112,7 +171,13 @@
       </option>
     </select>
     <div class="col-3"></div>
-    <span class="col-9" *ngIf="courseForm.get('instructor')?.invalid">
+    <span
+      class="col-9"
+      *ngIf="
+        courseForm.get('instructor')?.dirty &&
+        courseForm.get('instructor')?.invalid
+      "
+    >
       <span
         *ngFor="let error of courseForm.get('instructor')?.errors | keyvalue"
         >{{ instructorErrors[error.key] }}</span

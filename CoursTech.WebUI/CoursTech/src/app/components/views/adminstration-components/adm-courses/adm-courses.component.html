@@ -56,7 +56,12 @@
                     (click)="onClickEdit(course)"
                     ><i class="fa-solid fa-gear"></i
                   ></a>
-                  <a class="mx-2" style="color: crimson" href=""
+                  <a
+                    class="mx-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                    style="color: crimson; cursor: pointer"
+                    (click)="onClickDelete(course.courseId, course.title)"
                     ><i class="fa-solid fa-trash"></i
                   ></a>
                 </div>
@@ -143,5 +148,56 @@
       </div>
     </ng-template>
   </section>
+  <!-- #endregion -->
+  <!-- #region DeleteModal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger fw-bold" id="staticBackdropLabel">
+            Delete Course
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body text-danger">
+          <h5>
+            You are about to delete <b>{{ toDeleteTitle }}</b> course
+            permenantly.
+          </h5>
+          <h5>Do you want to proceed ?</h5>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            class="btn btn-danger"
+            (click)="Delete(toDeleteId)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- #endregion -->
 </div>

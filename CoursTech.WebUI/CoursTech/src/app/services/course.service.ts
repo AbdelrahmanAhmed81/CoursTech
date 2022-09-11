@@ -43,7 +43,10 @@ export class CourseService {
   }
 
   add(courseData: FormData): Observable<any> {
-    debugger
     return this.http.post(CourseService.path, courseData);
+  }
+
+  delete(courseId: string) {
+    return this.http.delete(CourseService.path + `/${courseId}`)
   }
 }

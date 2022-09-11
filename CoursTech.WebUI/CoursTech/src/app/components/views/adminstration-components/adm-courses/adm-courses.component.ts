@@ -35,6 +35,8 @@ export class AdmCoursesComponent implements OnInit {
   selectedCourse: Course | undefined;
   adding: boolean = false;
 
+  toDeleteId: string = '';
+  toDeleteTitle: string = '';
 
   constructor(private courseService: CourseService,
     private industryService: IndustryService,
@@ -100,16 +102,29 @@ export class AdmCoursesComponent implements OnInit {
     this.selectedCourse = undefined;
   }
 
+  onClickDelete(id: string, title: string) {
+    this.Cancel();
+    this.toDeleteTitle = title;
+    this.toDeleteId = id;
+  }
+
   Cancel() {
     this.adding = false;
     this.selectedCourse = undefined;
+  }
+
+  Delete(id: string) {
+    this.courseService.delete(id).subscribe(data => {
+      this.alertService.showAlert.next({ message: 'Course Deleted Succesfully', level: AlertLevel.error });
+      this.loadCourses();
+    });
   }
 
   Submit(courseData: FormData) {
     if (this.adding && !this.selectedCourse) {
       this.courseService.add(courseData).subscribe(data => {
         this.Cancel();
-        this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+        this.alertService.showAlert.next({ message: 'Course Added Succesfully', level: AlertLevel.success });
         this.loadCourses();
       })
     }
@@ -117,7 +132,7 @@ export class AdmCoursesComponent implements OnInit {
       courseData.append('Id', this.selectedCourse.courseId);
       this.courseService.update(courseData).subscribe(data => {
         this.Cancel();
-        this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
+        this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.info });
         this.loadCourses();
       })
     }

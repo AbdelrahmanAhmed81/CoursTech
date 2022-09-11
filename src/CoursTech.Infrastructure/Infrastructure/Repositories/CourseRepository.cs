@@ -44,11 +44,15 @@ namespace Infrastructure.Repositories
 
         public async Task Delete(string Id)
         {
-            var course = await context.Courses.FindAsync(Id);
+            var course = await context.Courses.FindAsync(Guid.Parse(Id));
             if (course != null)
             {
                 context.Courses.Remove(course);
-                await context.SaveChangesAsync();
+                int status = await context.SaveChangesAsync();
+                if (status == 1)
+                {
+                    DeleteCourseImage(course.ImageName);
+                }
             }
             else
                 throw new InvalidOperationException($"no existing course with id = {Id}");
@@ -133,7 +137,7 @@ namespace Infrastructure.Repositories
 
                     if (courseData.Image != null)
                     {
-                        await DeleteCourseImage(oldCourse.ImageName);
+                        DeleteCourseImage(oldCourse.ImageName);
                         var fileName = $"{Guid.NewGuid()}-{courseData.Image.FileName}";
                         oldCourse.ImageName = fileName;
                         int status = await context.SaveChangesAsync();
@@ -161,7 +165,7 @@ namespace Infrastructure.Repositories
                 await image.CopyToAsync(stream);
             }
         }
-        private async Task DeleteCourseImage(string filename)
+        private void DeleteCourseImage(string filename)
         {
             var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
             var fullPath = Path.Combine(folderName , filename);

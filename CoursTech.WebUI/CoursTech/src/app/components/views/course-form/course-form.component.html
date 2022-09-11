@@ -62,6 +62,7 @@
       <input
         type="number"
         id="hours"
+        min="0"
         formControlName="hours"
         placeholder="enter hours"
       />
@@ -70,6 +71,8 @@
       <label for="minutes">Minutes</label>
       <input
         type="number"
+        min="0"
+        max="59"
         id="minutes"
         formControlName="minutes"
         placeholder="enter minutes"
@@ -79,6 +82,8 @@
       <label for="seconds">Seconds</label>
       <input
         type="number"
+        min="0"
+        max="59"
         id="seconds"
         formControlName="seconds"
         placeholder="enter seconds"

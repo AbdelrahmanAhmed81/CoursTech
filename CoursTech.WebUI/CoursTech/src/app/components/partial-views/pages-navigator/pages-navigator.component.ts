@@ -41,6 +41,7 @@ export class PagesNavigatorComponent implements OnInit {
   }
 
   goForword() {
+    debugger
     if (this.isNextEnable) {
       this.pageNumber++;
       this.isNextEnable = this.pageNumber < this.totalPages;
@@ -50,8 +51,9 @@ export class PagesNavigatorComponent implements OnInit {
   }
 
   updateNav() {
+    debugger
     if (this.itemsTotalCount >= this.pageCapacity)
-      this.totalPages = + Number((this.itemsTotalCount / this.pageCapacity) + 1).toFixed();
+      this.totalPages = + ((this.itemsTotalCount / this.pageCapacity) + 1).toString().split('.')[0];
     else
       this.totalPages = 1;
 

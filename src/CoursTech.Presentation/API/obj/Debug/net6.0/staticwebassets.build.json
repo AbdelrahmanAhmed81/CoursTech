@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "stDSO5aEj6BKqxBMThOiP0C4wltdZkmaqbCDss5vIRU=",
+  "Hash": "HCrrsZgCPz4Fpq/iU+96FHLVkctsI5C01Yt5is4ZhQc=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\images\\courses\\16061770-41c2-4932-bf76-b290fda3156c-W11.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/courses/16061770-41c2-4932-bf76-b290fda3156c-W11.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\16061770-41c2-4932-bf76-b290fda3156c-W11.jpg"
+    },
+    {
+      "Identity": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\images\\courses\\3c81ac08-02a8-463d-bd84-a8e3922ce21a-sql.png",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/courses/3c81ac08-02a8-463d-bd84-a8e3922ce21a-sql.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\courses\\3c81ac08-02a8-463d-bd84-a8e3922ce21a-sql.png"
+    },
     {
       "Identity": "F:\\ASP.NET Core Web API\\CoursTech\\CoursTech\\src\\CoursTech.Presentation\\API\\wwwroot\\images\\courses\\aspcore.png",
       "SourceId": "API",

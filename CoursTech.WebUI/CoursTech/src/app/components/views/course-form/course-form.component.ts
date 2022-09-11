@@ -62,7 +62,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
         'minutes': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
         'seconds': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
       }),
-      'image': new FormControl(null, [Validators.required]),
+      'image': new FormControl(null),
       'industry': new FormControl('', [Validators.required]),
       'instructor': new FormControl('', [Validators.required])
     });
@@ -88,6 +88,9 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    if (!this.selectedCourse) {
+      this.courseForm.setControl('image', new FormControl(null, [Validators.required]))
+    }
   }
 
   onCancel() {
@@ -102,25 +105,12 @@ export class CourseFormComponent implements OnInit, OnChanges {
     }
     courseData.set('duration', `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`);
     courseData.set('image', image.files?.item(0)!);
+
+    if (this.selectedCourse) {
+      courseData.append('Id', this.selectedCourse.courseId)
+    }
+
     this.onSubmitForm.emit(courseData);
-
-    // let courseId = '';
-    // if (this.selectedCourse) {
-    //   courseId = this.selectedCourse.courseId;
-    // }
-    // if (image.files) {
-
-    // courseData.append('title',formValue.title)
-    // let courseData: CourseDataModel = {
-    //   title: formValue.title,
-    //   duration: `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`,
-    //   date: formValue.date,
-    //   description: formValue.description,
-    //   image: image.files.item(0),
-    //   instructorId: formValue.instructor,
-    //   industryId: formValue.industry
-    // };
-    // }
   }
 }
 type errors = { [code: string]: string }

@@ -58,11 +58,11 @@ namespace API.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> Update(Course course)
+        public async Task<IActionResult> Update([FromForm] CourseDataModel courseData)
         {
             try
             {
-                await courseRepository.Update(course);
+                await courseRepository.Update(courseData);
                 return Ok();
             }
             catch (Exception ex)

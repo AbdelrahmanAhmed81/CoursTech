@@ -8,6 +8,7 @@ namespace Application.RepositoryInterfaces
     {
         Task<CoursesDataModel> GetAll(CourseQueryParameters parameters);
         Task Add(CourseDataModel entity);
+        Task Update(CourseDataModel entity);
 
     }
 }

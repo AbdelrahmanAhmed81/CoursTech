@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 
 
 import { Course } from 'src/app/models/Course';
@@ -50,14 +51,14 @@ export class AdmCoursesComponent implements OnInit {
   loadCourses() {
     this.isLoading = true;
     this.courseService.getAll(this.queryParams)
-      // .pipe(map(data => {
-      //   data.courses.map((value) => {
-      //     if (value.imageName)
-      //       value.imageName = CourseService.images_path + value.imageName;
-      //     return value;
-      //   })
-      //   return data;
-      // }))
+      .pipe(map(data => {
+        data.courses.map((value) => {
+          if (value.imageName)
+            value.imageName = CourseService.images_path + value.imageName;
+          return value;
+        })
+        return data;
+      }))
       .subscribe(data => {
         this.courses = data.courses;
         this.totalCourses = data.coursesCount
@@ -104,16 +105,17 @@ export class AdmCoursesComponent implements OnInit {
     this.selectedCourse = undefined;
   }
 
-  Submit(course: FormData) {
+  Submit(courseData: FormData) {
     if (this.adding && !this.selectedCourse) {
-      this.courseService.add(course).subscribe(data => {
+      this.courseService.add(courseData).subscribe(data => {
         this.Cancel();
         this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
         this.loadCourses();
       })
     }
     if (this.selectedCourse && !this.adding) {
-      this.courseService.update(course).subscribe(data => {
+      courseData.append('Id', this.selectedCourse.courseId);
+      this.courseService.update(courseData).subscribe(data => {
         this.Cancel();
         this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.success });
         this.loadCourses();

@@ -7,6 +7,7 @@ using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Repositories
 {
@@ -37,14 +38,7 @@ namespace Infrastructure.Repositories
             int status = await context.SaveChangesAsync();
             if (status == 1)
             {
-                var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
-                Directory.CreateDirectory(folderName);
-
-                var fullPath = Path.Combine(folderName , fileName);
-                using (var stream = new FileStream(fullPath , FileMode.Create))
-                {
-                    await courseData.Image.CopyToAsync(stream);
-                }
+                await AddCourseImage(courseData.Image , fileName);
             }
         }
 
@@ -122,25 +116,56 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing course with id = {Id}");
         }
 
-        public async Task Update(Course course)
+        public async Task Update(CourseDataModel courseData)
         {
-            var oldCourse = context.Courses.Find(course.CourseId);
-            if (oldCourse != null)
+            if (courseData.Id != null)
             {
-                context.Courses.Attach(oldCourse);
-                oldCourse.Title = course.Title;
-                oldCourse.Description = course.Description;
-                oldCourse.Duration = course.Duration;
-                oldCourse.Date = course.Date;
-                oldCourse.ImageName = course.ImageName;
-                oldCourse.InstructorId = course.InstructorId;
-                oldCourse.IndustryId = course.IndustryId;
+                var oldCourse = context.Courses.Find(courseData.Id.Value);
+                if (oldCourse != null)
+                {
+                    context.Courses.Attach(oldCourse);
+                    oldCourse.Title = courseData.Title;
+                    oldCourse.Description = courseData.Description;
+                    oldCourse.Duration = courseData.Duration;
+                    oldCourse.Date = courseData.Date;
+                    oldCourse.InstructorId = courseData.Instructor;
+                    oldCourse.IndustryId = courseData.Industry;
 
-                await context.SaveChangesAsync();
+                    if (courseData.Image != null)
+                    {
+                        await DeleteCourseImage(oldCourse.ImageName);
+                        var fileName = $"{Guid.NewGuid()}-{courseData.Image.FileName}";
+                        oldCourse.ImageName = fileName;
+                        int status = await context.SaveChangesAsync();
+                        if (courseData.Image != null && status == 1)
+                        {
+                            await AddCourseImage(courseData.Image , fileName);
+                        }
+                    }
+                    else
+                    { await context.SaveChangesAsync(); }
+                }
             }
             else
-                throw new InvalidOperationException($"no existing course with id = {course.CourseId}");
+                throw new InvalidOperationException($"no existing course with id = {courseData.Id}");
 
+        }
+        private async Task AddCourseImage(IFormFile image , string filename)
+        {
+            var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
+            Directory.CreateDirectory(folderName);
+
+            var fullPath = Path.Combine(folderName , filename);
+            using (var stream = new FileStream(fullPath , FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+        }
+        private async Task DeleteCourseImage(string filename)
+        {
+            var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
+            var fullPath = Path.Combine(folderName , filename);
+            File.Delete(fullPath);
         }
     }
 }

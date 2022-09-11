@@ -38,8 +38,8 @@ export class CourseService {
       }));
   }
 
-  update(course: FormData): Observable<any> {
-    return this.http.put(CourseService.path, course);
+  update(courseData: FormData): Observable<any> {
+    return this.http.put(CourseService.path, courseData);
   }
 
   add(courseData: FormData): Observable<any> {

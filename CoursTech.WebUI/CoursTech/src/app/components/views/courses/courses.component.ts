@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { catchError, Observable, ObservableInput } from 'rxjs';
+import { catchError, map, Observable, ObservableInput } from 'rxjs';
 import { Course } from 'src/app/models/Course';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -26,10 +26,19 @@ export class CoursesComponent implements OnInit, OnChanges {
   }
   loadCourses() {
     this.isLoading = true;
-    this.courseService.getAll(this.queryParams).subscribe(data => {
-      this.courses = data.courses;
-      this.onLoadCourses.emit(data.coursesCount);
-      this.isLoading = false;
-    })
+    this.courseService.getAll(this.queryParams)
+      .pipe(map(data => {
+        data.courses.map((value) => {
+          if (value.imageName)
+            value.imageName = CourseService.images_path + value.imageName;
+          return value;
+        })
+        return data;
+      }))
+      .subscribe(data => {
+        this.courses = data.courses;
+        this.onLoadCourses.emit(data.coursesCount);
+        this.isLoading = false;
+      })
   }
 }

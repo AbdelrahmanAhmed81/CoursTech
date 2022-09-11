@@ -19,6 +19,8 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
 });
 builder.Services.AddScoped<ICourseRepository , CourseRepository>();
 builder.Services.AddScoped<IIndustryRepository , IndustryRepository>();
+builder.Services.AddScoped<IInstructorRepository , InstructorRepository>();
+
 
 builder.Services.AddCors((options) =>
 {

@@ -11,7 +11,7 @@
     <h1 class="fw-bold text-danger text-center">No Available Data</h1>
   </div>
   <ng-template #Courses>
-    <h1 class="fw-bold">Latest Courses</h1>
+    <h1 class="fw-bold">Explore Latest Courses</h1>
     <div>
       <div class="my-2" *ngFor="let course of courses">
         <div
@@ -41,14 +41,14 @@
             <!-- ../../../../assets/images/others/no-image.jpg -->
             <div class="card-body col-9">
               <b class="card-text" style="color: var(--maincolor)">{{
-                course.industry.name
+                course.industry?.name
               }}</b>
-              <h2
-                style="cursor: pointer"
-                class="m-0 card-title"
-                [routerLink]="['/Course', course.courseId]"
-              >
-                {{ course.title }}
+              <h2 class="m-0 card-title">
+                <a
+                  style="text-decoration: none; color: inherit"
+                  [routerLink]="['/Course', course.courseId]"
+                  >{{ course.title }}</a
+                >
               </h2>
               <p
                 class="fw-bold m-0"

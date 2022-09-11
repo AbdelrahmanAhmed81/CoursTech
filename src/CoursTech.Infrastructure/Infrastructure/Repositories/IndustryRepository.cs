@@ -1,4 +1,5 @@
-﻿using Application.RepositoryInterfaces;
+﻿using Application.Parameters;
+using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Helpers;
@@ -14,7 +15,7 @@ namespace Infrastructure.Repositories
         {
             this.context = context;
         }
-        public Task<Industry> Add(Industry entity)
+        public Task Add(Industry entity)
         {
             throw new NotImplementedException();
         }
@@ -22,6 +23,12 @@ namespace Infrastructure.Repositories
         public Task Delete(int Id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<Industry>> GetAll()
+        {
+            List<Industry> result = await context.Industries.AsNoTracking().ToListAsync();
+            return result;
         }
 
         public async Task<Industry> GetById(int Id , string[] expand)
@@ -38,7 +45,7 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing industry with id = {Id}");
         }
 
-        public Task<Industry> Update(Industry entity)
+        public Task Update(Industry entity)
         {
             throw new NotImplementedException();
         }

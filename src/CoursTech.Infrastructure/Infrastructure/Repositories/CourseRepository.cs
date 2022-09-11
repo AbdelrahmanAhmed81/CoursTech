@@ -1,35 +1,58 @@
-﻿using Application.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+
+using Application.DataModels;
 using Application.Parameters;
 using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Helpers;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
         private readonly AppDbContext context;
-
-        public CourseRepository(AppDbContext context)
+        private readonly IHostingEnvironment hostEnvironment;
+        public CourseRepository(AppDbContext context , IHostingEnvironment hostEnvironment)
         {
             this.context = context;
+            this.hostEnvironment = hostEnvironment;
         }
-        public async Task<Course> Add(Course course)
+        public async Task Add(CourseDataModel courseData)
         {
+            var fileName = $"{Guid.NewGuid()}-{courseData.Image.FileName}";
+            var course = new Course()
+            {
+                Title = courseData.Title ,
+                Description = courseData.Description ,
+                Date = courseData.Date ,
+                Duration = courseData.Duration ,
+                IndustryId = courseData.Industry ,
+                InstructorId = courseData.Instructor ,
+                ImageName = fileName
+            };
+
             await context.Courses.AddAsync(course);
-            await context.SaveChangesAsync();
-            return course;
+            int status = await context.SaveChangesAsync();
+            if (status == 1)
+            {
+                await AddCourseImage(courseData.Image , fileName);
+            }
         }
 
         public async Task Delete(string Id)
         {
-            var course = await context.Courses.FindAsync(Id);
+            var course = await context.Courses.FindAsync(Guid.Parse(Id));
             if (course != null)
             {
                 context.Courses.Remove(course);
-                await context.SaveChangesAsync();
+                int status = await context.SaveChangesAsync();
+                if (status == 1)
+                {
+                    DeleteCourseImage(course.ImageName);
+                }
             }
             else
                 throw new InvalidOperationException($"no existing course with id = {Id}");
@@ -69,10 +92,10 @@ namespace Infrastructure.Repositories
                 .Skip((parameters.pageNumber - 1) * parameters.pageCapacity)
                 .Take(parameters.pageCapacity);
 
-            if (coursesCount == 0)
-            {
-                throw new InvalidOperationException("this combination of page number and page capacity fetches no data");
-            }
+            //if (coursesCount == 0)
+            //{
+            //    throw new InvalidOperationException("this combination of page number and page capacity fetches no data");
+            //}
 
             //expanding
             if (parameters.expand != null && parameters.expand.Length != 0)
@@ -97,11 +120,56 @@ namespace Infrastructure.Repositories
                 throw new InvalidOperationException($"no existing course with id = {Id}");
         }
 
-        public async Task<Course> Update(Course course)
+        public async Task Update(CourseDataModel courseData)
         {
-            context.Courses.Update(course);
-            await context.SaveChangesAsync();
-            return course;
+            if (courseData.Id != null)
+            {
+                var oldCourse = context.Courses.Find(courseData.Id.Value);
+                if (oldCourse != null)
+                {
+                    context.Courses.Attach(oldCourse);
+                    oldCourse.Title = courseData.Title;
+                    oldCourse.Description = courseData.Description;
+                    oldCourse.Duration = courseData.Duration;
+                    oldCourse.Date = courseData.Date;
+                    oldCourse.InstructorId = courseData.Instructor;
+                    oldCourse.IndustryId = courseData.Industry;
+
+                    if (courseData.Image != null)
+                    {
+                        DeleteCourseImage(oldCourse.ImageName);
+                        var fileName = $"{Guid.NewGuid()}-{courseData.Image.FileName}";
+                        oldCourse.ImageName = fileName;
+                        int status = await context.SaveChangesAsync();
+                        if (courseData.Image != null && status == 1)
+                        {
+                            await AddCourseImage(courseData.Image , fileName);
+                        }
+                    }
+                    else
+                    { await context.SaveChangesAsync(); }
+                }
+            }
+            else
+                throw new InvalidOperationException($"no existing course with id = {courseData.Id}");
+
+        }
+        private async Task AddCourseImage(IFormFile image , string filename)
+        {
+            var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
+            Directory.CreateDirectory(folderName);
+
+            var fullPath = Path.Combine(folderName , filename);
+            using (var stream = new FileStream(fullPath , FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+        }
+        private void DeleteCourseImage(string filename)
+        {
+            var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
+            var fullPath = Path.Combine(folderName , filename);
+            File.Delete(fullPath);
         }
     }
 }

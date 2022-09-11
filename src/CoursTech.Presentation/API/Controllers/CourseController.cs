@@ -1,5 +1,7 @@
-﻿using Application.Parameters;
+﻿using Application.DataModels;
+using Application.Parameters;
 using Application.RepositoryInterfaces;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -35,6 +37,46 @@ namespace API.Controllers
             {
                 var course = await courseRepository.GetById(id , expand);
                 return Ok(course);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Add([FromForm] CourseDataModel courseData)
+        {
+            try
+            {
+                await courseRepository.Add(courseData);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update([FromForm] CourseDataModel courseData)
+        {
+            try
+            {
+                await courseRepository.Update(courseData);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await courseRepository.Delete(id);
+                return Ok();
             }
             catch (Exception ex)
             {

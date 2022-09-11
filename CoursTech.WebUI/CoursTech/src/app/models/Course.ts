@@ -9,9 +9,10 @@ export interface Course {
     date: string;
     description: string;
     imageName: string;
+    image: File | null;
     instructorId: string;
-    instructor: Instructor;
+    instructor: Instructor | null;
     industryId: number;
-    industry: Industry;
-    enrollments: Enrollment[];
+    industry: Industry | null;
+    enrollments: Enrollment[] | null;
 }

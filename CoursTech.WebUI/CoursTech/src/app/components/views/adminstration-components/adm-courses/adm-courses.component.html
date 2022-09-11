@@ -1,0 +1,203 @@
+<div class="row flex-md-row flex-column-reverse">
+  <!-- #region DataSide -->
+  <div class="col-md-6 col-12">
+    <div class="row justify-content-between mb-2">
+      <input
+        class="col-10 p-2"
+        style="
+          border: 2px solid var(--border-color);
+          background-color: var(--bgcolor);
+          color: inherit;
+          border-radius: 5px;
+        "
+        type="search"
+        [value]="searchText"
+        (input)="searchTextInput($event)"
+        placeholder="enter course title"
+      />
+      <div class="col-1 mx-2 p-0">
+        <a style="cursor: pointer" (click)="onClickAdd()">
+          <i
+            style="color: green; font-size: 47px"
+            class="fa-solid fa-square-plus"
+          ></i>
+        </a>
+      </div>
+    </div>
+    <div
+      *ngIf="isLoading; else DataLoaded"
+      class="loadingio-spinner-rolling-7o0btgck97g"
+    >
+      <div class="ldio-x25i5wvdi4">
+        <div></div>
+      </div>
+    </div>
+    <ng-template #DataLoaded>
+      <div *ngIf="courses.length === 0; else Courses">
+        <h1 class="fw-bold text-danger text-center">No Available Data</h1>
+      </div>
+      <ng-template #Courses>
+        <!-- data table -->
+        <table class="table" style="color: inherit">
+          <thead>
+            <tr>
+              <th>Course Title</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of courses">
+              <td>{{ course.title }}</td>
+              <td>
+                <div class="d-flex">
+                  <a
+                    class="mx-2"
+                    style="color: lightseagreen; cursor: pointer"
+                    (click)="onClickEdit(course)"
+                    ><i class="fa-solid fa-gear"></i
+                  ></a>
+                  <a
+                    class="mx-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                    style="color: crimson; cursor: pointer"
+                    (click)="onClickDelete(course.courseId, course.title)"
+                    ><i class="fa-solid fa-trash"></i
+                  ></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </ng-template>
+    <app-pages-navigator
+      [itemsTotalCount]="totalCourses"
+      [pageCapacity]="pageCapacity"
+      [pageNumber]="pageNumber"
+      (changePaginagtionEvent)="onChangePagination($event)"
+    ></app-pages-navigator>
+  </div>
+  <!-- #endregion -->
+  <!-- #region FormSide -->
+  <section
+    class="col-md-6 col-12"
+    style="
+      border-right: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
+    "
+  >
+    <div
+      class="d-flex flex-column align-items-center justify-content-center"
+      style="height: 100%"
+      *ngIf="
+        (!selectedCourse && !adding) || (selectedCourse && adding);
+        else Content
+      "
+    >
+      <h2>
+        Click
+        <i style="color: lightseagreen" class="fa-solid fa-gear"></i> Button to
+        Start Editing
+      </h2>
+      <h2 class="fw-bold">Or</h2>
+      <h2>
+        Click
+        <i style="color: green" class="fa-solid fa-square-plus"></i>
+        Button to Create New Course
+      </h2>
+    </div>
+    <ng-template #Content>
+      <div class="w-100 pb-5 pb-md-0">
+        <div *ngIf="selectedCourse && !adding">
+          <div class="d-flex align-items-center">
+            <div
+              title="course image"
+              class="course-image p-0"
+              [style.background-image]="
+                selectedCourse.imageName
+                  ? 'url(' + selectedCourse.imageName + ')'
+                  : 'url(../../../../assets/images/others/no-image.jpg)'
+              "
+            ></div>
+            <h3 class="fw-bold mx-3 my-0">
+              {{ selectedCourse.title }}
+            </h3>
+          </div>
+          <hr />
+          <app-course-form
+            [selectedCourse]="selectedCourse"
+            [industries]="industries"
+            [instructors]="instructors"
+            (onSubmitForm)="Submit($event)"
+            (onCancelForm)="Cancel()"
+          ></app-course-form>
+        </div>
+        <div *ngIf="!selectedCourse && adding">
+          <div class="d-flex align-items-center">
+            <h3 class="fw-bold mx-2 my-0">Create New Course</h3>
+          </div>
+          <hr />
+          <app-course-form
+            [industries]="industries"
+            [instructors]="instructors"
+            (onSubmitForm)="Submit($event)"
+            (onCancelForm)="Cancel()"
+          ></app-course-form>
+        </div>
+      </div>
+    </ng-template>
+  </section>
+  <!-- #endregion -->
+  <!-- #region DeleteModal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger fw-bold" id="staticBackdropLabel">
+            Delete Course
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body text-danger">
+          <h5>
+            You are about to delete <b>{{ toDeleteTitle }}</b> course
+            permenantly.
+          </h5>
+          <h5>Do you want to proceed ?</h5>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            class="btn btn-danger"
+            (click)="Delete(toDeleteId)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- #endregion -->
+</div>

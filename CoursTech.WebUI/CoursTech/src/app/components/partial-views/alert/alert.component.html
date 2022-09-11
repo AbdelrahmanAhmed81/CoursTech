@@ -1,0 +1,15 @@
+<div
+  class="d-flex fw-bold alert alert-hidden"
+  [class]="alertBgStyle"
+  #alert
+  role="alert"
+>
+  <i class="fa-solid p-1 me-2" [class]="alertIcon"></i>
+  <p class="m-0" name="message"></p>
+  <button
+    type="button"
+    class="btn-close ms-5"
+    aria-label="Close"
+    (click)="closeAlert()"
+  ></button>
+</div>

@@ -1,28 +1,27 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { CourseDataModel } from '../data-models/CourseDataModel';
+
 import { Course } from '../models/Course';
+import { CoursesDataModel } from '../data-models/CoursesDataModel';
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  private url: string = 'https://localhost:7017/';
-  private get_path: string = this.url + 'api/Course'
-  private images_path: string = this.url + 'images/courses/';
-  private instructor_photos_path: string = this.url + 'images/instructors/';
+  private static readonly url: string = 'https://localhost:7017/';
+  static readonly path: string = CourseService.url + 'api/Course';
+  static readonly images_path: string = CourseService.url + 'images/courses/';
+  static readonly instructor_photos_path: string = CourseService.url + 'images/instructors/';
 
   constructor(private http: HttpClient) { }
 
-  getAll(params?: HttpParams): Observable<CourseDataModel> {
-    return this.http.get<CourseDataModel>(this.get_path, {
+  getAll(params?: HttpParams): Observable<CoursesDataModel> {
+    return this.http.get<CoursesDataModel>(CourseService.path, {
       params: params
     })
       .pipe(map(data => {
         data.courses.map((value) => {
-          value.date = new Date(value.date).toDateString();
-          if (value.imageName)
-            value.imageName = this.images_path + value.imageName;
+          value.date = value.date.split('T')[0];
           return value;
         })
         return data;
@@ -30,29 +29,24 @@ export class CourseService {
   }
 
   getById(id: string, params?: HttpParams): Observable<Course> {
-    return this.http.get<Course>(this.get_path + `/${id}`, {
+    return this.http.get<Course>(CourseService.path + `/${id}`, {
       params: params
     })
       .pipe(map(data => {
-        let dateTime = new Date('1 ' + data.duration);
-        data.duration = `${dateTime.getHours()}h ${dateTime.getMinutes()}m`
-        data.date = new Date(data.date).toLocaleDateString();
-        if (data.imageName)
-          data.imageName = this.images_path + data.imageName;
-        if (data.instructor.photoName)
-          data.instructor.photoName = this.instructor_photos_path + data.instructor.photoName;
-        if (data.industry.courses) {
-          data.industry.courses.map(c => {
-            c.imageName = this.images_path + c.imageName;
-          })
-        }
-        if (data.instructor.courses) {
-          data.instructor.courses.map(c => {
-            c.imageName = this.images_path + c.imageName;
-          })
-        }
-
+        data.date = data.date.split('T')[0];
         return data;
       }));
+  }
+
+  update(courseData: FormData): Observable<any> {
+    return this.http.put(CourseService.path, courseData);
+  }
+
+  add(courseData: FormData): Observable<any> {
+    return this.http.post(CourseService.path, courseData);
+  }
+
+  delete(courseId: string) {
+    return this.http.delete(CourseService.path + `/${courseId}`)
   }
 }

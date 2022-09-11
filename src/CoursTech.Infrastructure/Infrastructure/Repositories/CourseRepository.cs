@@ -1,25 +1,51 @@
-﻿using Application.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+
+using Application.DataModels;
 using Application.Parameters;
 using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
         private readonly AppDbContext context;
-
-        public CourseRepository(AppDbContext context)
+        private readonly IHostingEnvironment hostEnvironment;
+        public CourseRepository(AppDbContext context , IHostingEnvironment hostEnvironment)
         {
             this.context = context;
+            this.hostEnvironment = hostEnvironment;
         }
-        public async Task Add(Course course)
+        public async Task Add(CourseDataModel courseData)
         {
+            var fileName = $"{Guid.NewGuid()}-{courseData.Image.FileName}";
+            var course = new Course()
+            {
+                Title = courseData.Title ,
+                Description = courseData.Description ,
+                Date = courseData.Date ,
+                Duration = courseData.Duration ,
+                IndustryId = courseData.Industry ,
+                InstructorId = courseData.Instructor ,
+                ImageName = fileName
+            };
+
             await context.Courses.AddAsync(course);
-            await context.SaveChangesAsync();
+            int status = await context.SaveChangesAsync();
+            if (status == 1)
+            {
+                var folderName = Path.Combine(hostEnvironment.WebRootPath , $@"Images\courses");
+                Directory.CreateDirectory(folderName);
+
+                var fullPath = Path.Combine(folderName , fileName);
+                using (var stream = new FileStream(fullPath , FileMode.Create))
+                {
+                    await courseData.Image.CopyToAsync(stream);
+                }
+            }
         }
 
         public async Task Delete(string Id)
@@ -97,7 +123,7 @@ namespace Infrastructure.Repositories
         }
 
         public async Task Update(Course course)
-         {
+        {
             var oldCourse = context.Courses.Find(course.CourseId);
             if (oldCourse != null)
             {

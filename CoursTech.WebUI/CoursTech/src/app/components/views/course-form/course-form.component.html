@@ -1,4 +1,4 @@
-<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit(image)">
   <div class="row">
     <label class="col-3" for="title">Title</label>
     <input
@@ -135,6 +135,7 @@
         type="file"
         id="imgae"
         formControlName="image"
+        #image
       />
     </div>
   </div>

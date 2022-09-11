@@ -7,5 +7,7 @@ namespace Application.RepositoryInterfaces
     public interface ICourseRepository : IEntityRepository<Course , string>
     {
         Task<CoursesDataModel> GetAll(CourseQueryParameters parameters);
+        Task Add(CourseDataModel entity);
+
     }
 }

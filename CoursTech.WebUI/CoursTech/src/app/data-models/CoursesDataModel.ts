@@ -1,6 +1,6 @@
 import { Course } from "../models/Course";
 
-export interface CourseDataModel {
+export interface CoursesDataModel {
     courses: Course[];
     coursesCount: number
 }

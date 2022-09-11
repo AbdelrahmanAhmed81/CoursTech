@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { Course } from '../models/Course';
-import { CourseDataModel } from '../data-models/CourseDataModel';
+import { CoursesDataModel } from '../data-models/CoursesDataModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +15,8 @@ export class CourseService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(params?: HttpParams): Observable<CourseDataModel> {
-    return this.http.get<CourseDataModel>(CourseService.path, {
+  getAll(params?: HttpParams): Observable<CoursesDataModel> {
+    return this.http.get<CoursesDataModel>(CourseService.path, {
       params: params
     })
       .pipe(map(data => {
@@ -38,11 +38,12 @@ export class CourseService {
       }));
   }
 
-  update(course: Course): Observable<any> {
+  update(course: FormData): Observable<any> {
     return this.http.put(CourseService.path, course);
   }
 
-  add(course: Course): Observable<any> {
-    return this.http.post(CourseService.path, course);
+  add(courseData: FormData): Observable<any> {
+    debugger
+    return this.http.post(CourseService.path, courseData);
   }
 }

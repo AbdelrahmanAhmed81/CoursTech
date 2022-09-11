@@ -1,4 +1,5 @@
-﻿using Application.Parameters;
+﻿using Application.DataModels;
+using Application.Parameters;
 using Application.RepositoryInterfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -44,11 +45,11 @@ namespace API.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Add(Course course)
+        public async Task<IActionResult> Add([FromForm] CourseDataModel courseData)
         {
             try
             {
-                await courseRepository.Add(course);
+                await courseRepository.Add(courseData);
                 return Ok();
             }
             catch (Exception ex)

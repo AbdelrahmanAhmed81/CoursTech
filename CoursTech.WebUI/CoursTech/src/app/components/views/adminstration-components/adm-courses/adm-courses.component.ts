@@ -1,7 +1,6 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 
 import { Course } from 'src/app/models/Course';
 import { Industry } from 'src/app/models/Industry';
@@ -105,7 +104,7 @@ export class AdmCoursesComponent implements OnInit {
     this.selectedCourse = undefined;
   }
 
-  Submit(course: Course) {
+  Submit(course: FormData) {
     if (this.adding && !this.selectedCourse) {
       this.courseService.add(course).subscribe(data => {
         this.Cancel();

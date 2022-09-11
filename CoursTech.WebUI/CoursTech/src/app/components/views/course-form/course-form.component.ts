@@ -14,7 +14,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   @Input() industries: Industry[] = [];
   @Input() instructors: Instructor[] = [];
 
-  @Output() onSubmitForm: EventEmitter<Course> = new EventEmitter<Course>();
+  @Output() onSubmitForm: EventEmitter<FormData> = new EventEmitter<FormData>();
   @Output() onCancelForm: EventEmitter<void> = new EventEmitter<void>();
 
   courseForm: FormGroup;
@@ -62,7 +62,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
         'minutes': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
         'seconds': new FormControl(null, [Validators.required, Validators.min(0), Validators.max(59)]),
       }),
-      'image': new FormControl(null),
+      'image': new FormControl(null, [Validators.required]),
       'industry': new FormControl('', [Validators.required]),
       'instructor': new FormControl('', [Validators.required])
     });
@@ -94,24 +94,33 @@ export class CourseFormComponent implements OnInit, OnChanges {
     this.onCancelForm.emit();
   }
 
-  onSubmit() {
+  onSubmit(image: HTMLInputElement) {
     let formValue = this.courseForm.value;
-    let courseId = undefined;
-    if (this.selectedCourse) {
-      courseId = this.selectedCourse.courseId;
+    let courseData: FormData = new FormData();
+    for (const key in formValue) {
+      courseData.append(key, formValue[key]);
     }
+    courseData.set('duration', `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`);
+    courseData.set('image', image.files?.item(0)!);
+    this.onSubmitForm.emit(courseData);
 
-    let course: Course = {
-      courseId: courseId,
-      title: formValue.title,
-      date: formValue.date,
-      description: formValue.description,
-      duration: `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`,
-      imageName: this.selectedCourse ? this.selectedCourse.imageName : '',
-      industryId: formValue.industry,
-      instructorId: formValue.instructor,
-    }
-    this.onSubmitForm.emit(course);
+    // let courseId = '';
+    // if (this.selectedCourse) {
+    //   courseId = this.selectedCourse.courseId;
+    // }
+    // if (image.files) {
+
+    // courseData.append('title',formValue.title)
+    // let courseData: CourseDataModel = {
+    //   title: formValue.title,
+    //   duration: `${formValue.duration.hours}:${formValue.duration.minutes}:${formValue.duration.seconds}`,
+    //   date: formValue.date,
+    //   description: formValue.description,
+    //   image: image.files.item(0),
+    //   instructorId: formValue.instructor,
+    //   industryId: formValue.industry
+    // };
+    // }
   }
 }
 type errors = { [code: string]: string }

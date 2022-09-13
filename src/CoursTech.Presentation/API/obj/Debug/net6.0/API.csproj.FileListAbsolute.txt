@@ -71,6 +71,7 @@ F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\
 F:\Asp.net Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\appsettings.Development.json
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\appsettings.json
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.staticwebassets.runtime.json
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.exe
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.deps.json
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.runtimeconfig.json
@@ -78,6 +79,10 @@ F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\D
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\ref\API.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.pdb
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Humanizer.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
@@ -87,6 +92,8 @@ F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\D
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.Identity.Client.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
@@ -130,6 +137,7 @@ F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\D
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.AssemblyInfoInputs.cache
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.AssemblyInfo.cs
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.csproj.CoreCompileInputs.cache
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cache
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\staticwebassets.build.json
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\staticwebassets.development.json
@@ -139,5 +147,3 @@ F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\D
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\ref\API.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.pdb
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.genruntimeconfig.cache
-F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\bin\Debug\net6.0\API.staticwebassets.runtime.json
-F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Presentation\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs

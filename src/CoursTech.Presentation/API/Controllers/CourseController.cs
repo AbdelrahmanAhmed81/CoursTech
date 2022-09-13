@@ -43,14 +43,14 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CourseDataModel courseData)
         {
             try
             {
                 await courseRepository.Add(courseData);
-                return Ok();
+                return Created("" , courseData);
             }
             catch (Exception ex)
             {

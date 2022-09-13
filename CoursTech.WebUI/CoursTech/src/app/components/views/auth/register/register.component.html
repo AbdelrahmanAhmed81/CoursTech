@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-around">
+  <div class="wrapper">
+    <!-- #region registerform -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-100">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="name@example.com"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="enter a strong password"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="conpassword" class="form-label">Confirm Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="conpassword"
+          placeholder="re-enter your password"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          [disabled]="!registerForm.dirty || !registerForm.valid"
+          type="submit"
+          class="btn btn-success w-100"
+          value="Register"
+        />
+      </div>
+    </form>
+    <!-- #endregion -->
+    <!-- #region seperator -->
+    <div class="row align-items-center mb-3">
+      <div
+        class="col-5 p-0"
+        style="height: 0; border-top: 1px solid var(--border-color)"
+      ></div>
+      <div class="col-2 text-center p-0"><b>or</b></div>
+      <div
+        class="col-5 p-0"
+        style="height: 0; border-top: 1px solid var(--border-color)"
+      ></div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region external -->
+    <div class="external row justify-content-between">
+      <a class="external-btn google col-5 p-0" href="">
+        <div class="icon-wrapper">
+          <img
+            class="icon"
+            src="../../../../../assets/images/logo/GoogleLogo.svg"
+          />
+        </div>
+        <p class="btn-text"><b>Sign in with Google</b></p>
+      </a>
+      <a class="external-btn facebook col-5 p-0" href="">
+        <div class="icon-wrapper">
+          <img
+            class="icon"
+            src="../../../../../assets/images/logo/FacebookLogo.svg"
+          />
+        </div>
+        <p class="btn-text"><b>Sign in with Facebook</b></p>
+      </a>
+    </div>
+    <!-- #endregion -->
+  </div>
+</div>

@@ -63,7 +63,7 @@ namespace API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = "Error" , Message = "User already exists!" });
 
@@ -71,7 +71,6 @@ namespace API.Controllers
             {
                 Email = model.Email ,
                 SecurityStamp = Guid.NewGuid().ToString() ,
-                UserName = model.Username
             };
             var result = await _userManager.CreateAsync(user , model.Password);
             if (!result.Succeeded)
@@ -84,7 +83,7 @@ namespace API.Controllers
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = "Error" , Message = "User already exists!" });
 
@@ -92,7 +91,6 @@ namespace API.Controllers
             {
                 Email = model.Email ,
                 SecurityStamp = Guid.NewGuid().ToString() ,
-                UserName = model.Username
             };
             var result = await _userManager.CreateAsync(user , model.Password);
             if (!result.Succeeded)

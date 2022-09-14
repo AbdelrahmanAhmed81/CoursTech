@@ -8,6 +8,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  emailErrors: errors = {
+    'required': 'email field is required',
+    'email': 'email field should be in email address manner'
+  }
+  passwordErrors: errors = {
+    'required': 'password field is required',
+  }
+  confirmPasswordErrors: errors = {
+    'required': 'confirm password field is required',
+  }
   constructor() {
     this.registerForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
@@ -23,3 +33,4 @@ export class RegisterComponent implements OnInit {
 
   }
 }
+type errors = { [code: string]: string }

@@ -12,3 +12,12 @@
 .row {
   margin: 0;
 }
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+}
+input.ng-valid.ng-dirty {
+  border: 1px solid rgb(0, 135, 0);
+}
+span {
+  color: red;
+}

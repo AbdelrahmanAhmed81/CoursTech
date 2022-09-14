@@ -9,6 +9,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  emailErrors: errors = {
+    'required': 'email field is required',
+    'email': 'email field should be in email address manner'
+  }
+  passwordErrors: errors = {
+    'required': 'password field is required',
+  }
   constructor() {
     this.loginForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
@@ -21,3 +28,4 @@ export class LoginComponent implements OnInit {
 
   }
 }
+type errors = { [code: string]: string }

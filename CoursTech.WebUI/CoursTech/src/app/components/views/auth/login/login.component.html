@@ -11,8 +11,19 @@
           type="email"
           class="form-control"
           id="email"
+          formControlName="email"
           placeholder="name@example.com"
         />
+        <span
+          *ngIf="
+            loginForm.get('email')?.dirty && loginForm.get('email')?.invalid
+          "
+        >
+          <span
+            *ngFor="let error of loginForm.get('email')?.errors | keyvalue"
+            >{{ emailErrors[error.key] }}</span
+          >
+        </span>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
@@ -20,8 +31,20 @@
           type="password"
           class="form-control"
           id="password"
+          formControlName="password"
           placeholder="enter a strong password"
         />
+        <span
+          *ngIf="
+            loginForm.get('password')?.dirty &&
+            loginForm.get('password')?.invalid
+          "
+        >
+          <span
+            *ngFor="let error of loginForm.get('password')?.errors | keyvalue"
+            >{{ passwordErrors[error.key] }}</span
+          >
+        </span>
       </div>
       <div class="mb-3">
         <input

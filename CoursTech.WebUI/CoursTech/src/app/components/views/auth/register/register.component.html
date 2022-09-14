@@ -11,8 +11,20 @@
           type="email"
           class="form-control"
           id="email"
+          formControlName="email"
           placeholder="name@example.com"
         />
+        <span
+          *ngIf="
+            registerForm.get('email')?.dirty &&
+            registerForm.get('email')?.invalid
+          "
+        >
+          <span
+            *ngFor="let error of registerForm.get('email')?.errors | keyvalue"
+            >{{ emailErrors[error.key] }}</span
+          >
+        </span>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
@@ -20,8 +32,22 @@
           type="password"
           class="form-control"
           id="password"
+          formControlName="password"
           placeholder="enter a strong password"
         />
+        <span
+          *ngIf="
+            registerForm.get('password')?.dirty &&
+            registerForm.get('password')?.invalid
+          "
+        >
+          <span
+            *ngFor="
+              let error of registerForm.get('password')?.errors | keyvalue
+            "
+            >{{ passwordErrors[error.key] }}</span
+          >
+        </span>
       </div>
       <div class="mb-3">
         <label for="conpassword" class="form-label">Confirm Password</label>
@@ -29,8 +55,23 @@
           type="password"
           class="form-control"
           id="conpassword"
+          formControlName="confirmPassword"
           placeholder="re-enter your password"
         />
+        <span
+          *ngIf="
+            registerForm.get('confirmPassword')?.dirty &&
+            registerForm.get('confirmPassword')?.invalid
+          "
+        >
+          <span
+            *ngFor="
+              let error of registerForm.get('confirmPassword')?.errors
+                | keyvalue
+            "
+            >{{ confirmPasswordErrors[error.key] }}</span
+          >
+        </span>
       </div>
       <div class="mb-3">
         <input

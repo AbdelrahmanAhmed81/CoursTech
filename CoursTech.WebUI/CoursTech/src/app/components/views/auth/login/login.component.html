@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="d-flex justify-content-around">
+  <div class="wrapper">
+    <div class="mb-3">
+      <h3 class="fw-bold text-center">LogIn</h3>
+    </div>
+    <!-- #region registerform -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-100">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="name@example.com"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="enter a strong password"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          [disabled]="!loginForm.dirty || !loginForm.valid"
+          type="submit"
+          class="btn btn-success w-100"
+          value="Login"
+        />
+        <div class="w-100 text-end">
+          <a routerLink="/register" style="font-size: 14px">Have no account?</a>
+        </div>
+      </div>
+    </form>
+    <!-- #endregion -->
+  </div>
+</div>

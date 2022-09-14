@@ -1,0 +1,14 @@
+.form-control {
+  background-color: var(--bg-color);
+  color: inherit;
+}
+.wrapper {
+  padding: 10px;
+  width: 400px;
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  box-shadow: 0 0px 8px rgba(128, 128, 128, 0.508);
+}
+.row {
+  margin: 0;
+}

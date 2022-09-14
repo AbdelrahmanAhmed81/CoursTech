@@ -3,15 +3,18 @@
   width: fit-content;
   position: fixed;
   bottom: 0;
-  transition: all 0.7s ease-in-out;
+  transition: all 0.5s ease-in-out;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
+p {
+  max-width: 350px;
+  overflow-wrap: break-word;
+}
 .alert-visible {
   right: 0;
 }
 
 .alert-hidden {
-  right: -400px;
+  right: -460px;
 }

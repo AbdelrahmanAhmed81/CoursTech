@@ -77,7 +77,27 @@ namespace API.Controllers
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = 0 , Message = "User Creation Failed! Please Check User Details And Try Again." });
 
-            return Ok(new Response { Status = 1 , Message = "User Created Successfully!" });
+            if(!await _roleManager.RoleExistsAsync(Roles.User))
+                return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = 0 , Message = "\'User\' Role not exists" });
+
+
+            var roleResult = await _userManager.AddToRoleAsync(user , Roles.User);
+            if (!roleResult.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = 0 , Message = "Failed to add the user to the role \'User\'" });
+
+            var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.Role , Roles.User)
+                };
+            var token = GetToken(authClaims);
+
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token) ,
+                expiration = token.ValidTo
+            });
         }
 
         //[HttpPost]

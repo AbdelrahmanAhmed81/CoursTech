@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
     }
     this.authService.Login(model).subscribe({
       next: (response) => {
-        this.alertService.showAlert.next({ message: response.token + ' | ' + response.expiration, level: AlertLevel.success })
+        this.alertService.showAlert.next({ message: response.token + ' | ' + response.expiration, level: AlertLevel.success });
+        this.loginForm.reset()
       },
       error: (response) => {
         this.alertService.showAlert.next({ message: response.message, level: AlertLevel.error })

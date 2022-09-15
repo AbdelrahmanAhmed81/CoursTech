@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthModel } from 'src/app/data-models/AuthModel';
 import { AlertLevel, AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,6 +15,9 @@ export class RegisterComponent implements OnInit {
     'required': 'email field is required',
     'email': 'email field should be in email address manner'
   }
+  passwordsErrors: errors = {
+    'not-match': 'confirm password field should match password field'
+  }
   passwordErrors: errors = {
     'required': 'password field is required',
   }
@@ -24,8 +27,10 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService, private alertService: AlertService) {
     this.registerForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
-      'password': new FormControl(null, [Validators.required]),
-      'confirmPassword': new FormControl(null, [Validators.required])
+      'passwords': new FormGroup({
+        'password': new FormControl(null, [Validators.required]),
+        'confirmPassword': new FormControl(null, [Validators.required])
+      }, [this.compare])
     })
   }
 
@@ -39,12 +44,19 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.Register(model).subscribe({
       next: (response) => {
-        this.alertService.showAlert.next({ message: response.message, level: AlertLevel.success })
+        this.alertService.showAlert.next({ message: response.token + ' | ' + response.expiration, level: AlertLevel.success });
+        this.registerForm.reset();
       },
       error: (response) => {
         this.alertService.showAlert.next({ message: response.error.message, level: AlertLevel.error })
       }
     })
+  }
+  compare(formControl: AbstractControl): { 'not-match': boolean } | null {
+    if (formControl.get('password')?.value != formControl.get('confirmPassword')?.value) {
+      return { 'not-match': true }
+    }
+    return null;
   }
 }
 type errors = { [code: string]: string }

@@ -26,54 +26,70 @@
           >
         </span>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          formControlName="password"
-          placeholder="enter a strong password"
-        />
+      <div formGroupName="passwords">
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            placeholder="enter a strong password"
+          />
+          <span
+            *ngIf="
+              registerForm.get('passwords.password')?.dirty &&
+              registerForm.get('passwords.password')?.invalid
+            "
+          >
+            <span
+              *ngFor="
+                let error of registerForm.get('passwords.password')?.errors
+                  | keyvalue
+              "
+              >{{ passwordErrors[error.key] }}</span
+            >
+          </span>
+        </div>
+        <div>
+          <label for="conpassword" class="form-label">Confirm Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="conpassword"
+            formControlName="confirmPassword"
+            placeholder="re-enter your password"
+          />
+          <span
+            *ngIf="
+              registerForm.get('passwords.confirmPassword')?.dirty &&
+              registerForm.get('passwords.confirmPassword')?.invalid
+            "
+          >
+            <span
+              *ngFor="
+                let error of registerForm.get('passwords.confirmPassword')
+                  ?.errors | keyvalue
+              "
+              >{{ confirmPasswordErrors[error.key] }}</span
+            >
+          </span>
+        </div>
         <span
           *ngIf="
-            registerForm.get('password')?.dirty &&
-            registerForm.get('password')?.invalid
+            registerForm.get('passwords.confirmPassword')?.dirty &&
+            registerForm.get('passwords')?.invalid
           "
         >
           <span
             *ngFor="
-              let error of registerForm.get('password')?.errors | keyvalue
+              let error of registerForm.get('passwords')?.errors | keyvalue
             "
-            >{{ passwordErrors[error.key] }}</span
+            >{{ passwordsErrors[error.key] }}</span
           >
         </span>
       </div>
-      <div class="mb-3">
-        <label for="conpassword" class="form-label">Confirm Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="conpassword"
-          formControlName="confirmPassword"
-          placeholder="re-enter your password"
-        />
-        <span
-          *ngIf="
-            registerForm.get('confirmPassword')?.dirty &&
-            registerForm.get('confirmPassword')?.invalid
-          "
-        >
-          <span
-            *ngFor="
-              let error of registerForm.get('confirmPassword')?.errors
-                | keyvalue
-            "
-            >{{ confirmPasswordErrors[error.key] }}</span
-          >
-        </span>
-      </div>
-      <div class="mb-3">
+      <div class="my-3">
         <input
           [disabled]="!registerForm.dirty || !registerForm.valid"
           type="submit"

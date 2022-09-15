@@ -12,8 +12,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  Register(authModel: AuthModel): Observable<RegisterResponseModel> {
-    return this.http.post<RegisterResponseModel>(this.url + '/register', authModel);
+  Register(authModel: AuthModel): Observable<LoginResponseModel> {
+    return this.http.post<LoginResponseModel>(this.url + '/register', authModel);
   }
 
   Login(authModel: AuthModel): Observable<LoginResponseModel> {

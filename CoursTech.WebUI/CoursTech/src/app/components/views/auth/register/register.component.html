@@ -28,7 +28,30 @@
       </div>
       <div formGroupName="passwords">
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
+          <div class="d-flex">
+            <label for="password" class="form-label me-2">Password</label>
+            <a>
+              <i
+                class="fa-regular fa-circle-question mt-1"
+                style="cursor: pointer"
+                (mouseenter)="tooltipVisible = true"
+                (mouseleave)="tooltipVisible = false"
+              ></i>
+              <div
+                class="tooltip-message"
+                [style.display]="tooltipVisible ? 'inline-block' : 'none'"
+              >
+                <p class="fw-bold mb-0">Password Rules</p>
+                <ul class="m-0 ps-3">
+                  <ng-container *ngFor="let rule of passwordErrors | keyvalue">
+                    <li *ngIf="rule.value">
+                      {{ rule.value }}
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </a>
+          </div>
           <input
             type="password"
             class="form-control"

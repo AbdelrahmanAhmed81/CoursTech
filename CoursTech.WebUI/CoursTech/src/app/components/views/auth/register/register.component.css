@@ -20,6 +20,7 @@ input.ng-valid.ng-dirty {
 }
 span {
   color: red;
+  display: block;
 }
 
 /* google styles */
@@ -75,4 +76,16 @@ $button-active-blue: #1669F2; */
   font-size: 14px;
   margin: 0 3px;
   letter-spacing: 0.2px;
+}
+
+.tooltip-message {
+  margin: 0 5px;
+  padding: 10px;
+  background-color: rgb(77, 77, 77);
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  display: none;
+  position: absolute;
+  z-index: 1;
 }

@@ -1,4 +1,5 @@
 ﻿using Application.DataModels;
+using Application.Enums;
 using Application.UserRoles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,15 +17,18 @@ namespace API.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
 
         public AuthenticationController(
             UserManager<IdentityUser> userManager ,
             RoleManager<IdentityRole> roleManager ,
+            SignInManager<IdentityUser> signInManager ,
             IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
             _configuration = configuration;
         }
 
@@ -65,19 +69,20 @@ namespace API.Controllers
         {
             var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = 0 , Message = "User Already Exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError , ResponseCode.USER_ALREADY_EXISTS);
 
+            //if(await _signInManager.password)
             IdentityUser user = new()
             {
                 Email = model.Email ,
                 SecurityStamp = Guid.NewGuid().ToString() ,
-                UserName=model.Email.Split('@')[0]
+                UserName = model.Email.Split('@')[0]
             };
             var result = await _userManager.CreateAsync(user , model.Password);
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = 0 , Message = "User Creation Failed! Please Check User Details And Try Again." });
 
-            if(!await _roleManager.RoleExistsAsync(Roles.User))
+            if (!await _roleManager.RoleExistsAsync(Roles.User))
                 return StatusCode(StatusCodes.Status500InternalServerError , new Response { Status = 0 , Message = "\'User\' Role not exists" });
 
 
@@ -133,6 +138,17 @@ namespace API.Controllers
         //    return Ok(new Response { Status = 1 , Message = "User created successfully!" });
         //}
 
+        [HttpGet]
+        [Route("getPasswordValidator")]
+        public IActionResult GetPasswordValidator()
+        {
+            //var validatorsList = new List<IPasswordValidator<IdentityUser>>();
+            //foreach (var validator in _userManager.PasswordValidators)
+            //{
+            //    validatorsList.Add(validator.ValidateAsync);
+            //}
+            return Ok(_userManager.Options.Password);
+        }
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

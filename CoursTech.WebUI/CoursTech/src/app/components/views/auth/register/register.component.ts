@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 import { AuthModel } from 'src/app/data-models/AuthModel';
+import { User } from 'src/app/data-models/User';
 import { PassowrdValidator } from 'src/app/models/PasswordValidator';
 import { AlertLevel, AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +15,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   tooltipVisible: boolean = false;
+  errorMessage: string = '';
+  isLoading: boolean = false;
 
   emailErrors: errors = {
     'required': 'email field is required',
@@ -26,7 +29,7 @@ export class RegisterComponent implements OnInit {
   confirmPasswordErrors: errors = {
     'required': 'confirm password field is required',
   }
-  constructor(private authService: AuthService, private alertService: AlertService) {
+  constructor(private authService: AuthService) {
     this.registerForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'passwords': new FormGroup({
@@ -45,17 +48,20 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isLoading = true;
     let model: AuthModel = {
       email: this.registerForm.value.email,
-      password: this.registerForm.value.password
+      password: this.registerForm.value.passwords.password
     }
     this.authService.Register(model).subscribe({
       next: (response) => {
-        this.alertService.showAlert.next({ message: response.token + ' | ' + response.expiration, level: AlertLevel.success });
+        this.isLoading = false;
         this.registerForm.reset();
+        this.errorMessage = '';
       },
-      error: (response) => {
-        this.alertService.showAlert.next({ message: response.error.message, level: AlertLevel.error })
+      error: (message) => {
+        this.isLoading = false;
+        this.errorMessage = message;
       }
     })
   }
@@ -94,18 +100,20 @@ export class RegisterComponent implements OnInit {
     }
   }
   //#region custom validators
-  compare(formControl: AbstractControl): { 'not-match': boolean } | null {
-    if (formControl.get('password')?.value != formControl.get('confirmPassword')?.value) {
+  compare(control: AbstractControl): { 'not-match': boolean } | null {
+    if (control.get('password')?.value != control.get('confirmPassword')?.value) {
       return { 'not-match': true }
     }
     return null;
   }
   passwordUniqueChars(uniqueCharsMinCount: number): any {
-    return (control: AbstractControl): { 'uniqueChars': boolean } | null => {
-      let uniqueChars = (<string>control.value).split('').filter((value, index, self) => {
-        return self.indexOf(value) === index;
-      })
-      if (uniqueChars.length < uniqueCharsMinCount) return { 'uniqueChars': true };
+    return (control: AbstractControl | null): { 'uniqueChars': boolean } | null => {
+      if (control?.value) {
+        let uniqueChars = (<string>control.value).split('').filter((value, index, self) => {
+          return self.indexOf(value) === index;
+        })
+        if (uniqueChars.length < uniqueCharsMinCount) return { 'uniqueChars': true };
+      }
       return null;
     }
   }

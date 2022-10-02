@@ -1,5 +1,4 @@
 using Application.RepositoryInterfaces;
-using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,12 +30,12 @@ builder.Services.AddIdentity<IdentityUser , IdentityRole>()
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.Password.RequireUppercase = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 7;
-    options.Password.RequiredUniqueChars = 5;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 3;
+    options.Password.RequiredUniqueChars = 2;
 });
 
 builder.Services.AddAuthentication(options =>

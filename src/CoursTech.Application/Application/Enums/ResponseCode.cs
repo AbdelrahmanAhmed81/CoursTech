@@ -6,6 +6,7 @@
         INVALID_PASSWORD,
         USER_NOT_FOUND,
         WRONG_PASSWORD,
+        ROLE_NOT_EXISTS,
         UNKNOWN_ERROR
     }
 }

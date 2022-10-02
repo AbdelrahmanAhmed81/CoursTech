@@ -10,8 +10,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
+  errorMessage: string = '';
+  isLoading: boolean = false;
+
   emailErrors: errors = {
     'required': 'email field is required',
     'email': 'email field should be in email address manner'
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
   passwordErrors: errors = {
     'required': 'password field is required',
   }
-  constructor(private authService: AuthService, private alertService: AlertService) {
+  constructor(private authService: AuthService) {
     this.loginForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required]),
@@ -28,17 +30,21 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
+    this.isLoading = true;
     let model: AuthModel = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     }
     this.authService.Login(model).subscribe({
       next: (response) => {
-        this.alertService.showAlert.next({ message: response.token + ' | ' + response.expiration, level: AlertLevel.success });
+        //...
+        this.isLoading = false;
         this.loginForm.reset()
+        this.errorMessage = '';
       },
-      error: (response) => {
-        this.alertService.showAlert.next({ message: response.message, level: AlertLevel.error })
+      error: (message) => {
+        this.isLoading = false;
+        this.errorMessage = message;
       }
     })
   }

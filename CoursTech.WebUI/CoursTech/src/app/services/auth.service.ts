@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { AuthModel } from '../data-models/AuthModel';
 import { AuthResponse } from '../data-models/AuthResponse';
 import { User } from '../data-models/User';
@@ -10,7 +10,7 @@ import { PassowrdValidator } from '../models/PasswordValidator';
 })
 export class AuthService {
   private readonly url: string = 'https://localhost:7017/api/Authentication';
-  user: BehaviorSubject<User> | undefined;
+  user: Subject<User> = new Subject<User>();
 
   constructor(private http: HttpClient) { }
 

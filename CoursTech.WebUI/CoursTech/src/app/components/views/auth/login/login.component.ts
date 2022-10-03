@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthModel } from 'src/app/data-models/AuthModel';
 import { AlertLevel, AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   passwordErrors: errors = {
     'required': 'password field is required',
   }
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.loginForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required]),
@@ -39,8 +40,7 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         //...
         this.isLoading = false;
-        this.loginForm.reset()
-        this.errorMessage = '';
+        this.router.navigate(['Home'])
       },
       error: (message) => {
         this.isLoading = false;

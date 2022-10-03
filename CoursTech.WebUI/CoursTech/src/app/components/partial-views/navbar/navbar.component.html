@@ -41,10 +41,14 @@
       <div class="navbar-nav">
         <a class="nav-link" routerLink="/Home">Home</a>
         <a class="nav-link" routerLink="/Courses">Courses</a>
-        <a class="nav-link" routerLink="/Adminstration">Adminstration</a>
-        <a class="nav-link" href="#">Profile</a>
-        <a class="nav-link" routerLink="/register">Sign In</a>
-        <a class="nav-link" routerLink="/login">Login</a>
+        <ng-container *ngIf="!isAuthenticated">
+          <a class="nav-link" routerLink="/register">Sign In</a>
+          <a class="nav-link" routerLink="/login">Login</a>
+        </ng-container>
+        <ng-container *ngIf="isAuthenticated">
+          <a class="nav-link" routerLink="/Adminstration">Adminstration</a>
+          <a class="nav-link fw-bold" href="#">{{ user?.email }}</a>
+        </ng-container>
       </div>
     </div>
   </div>

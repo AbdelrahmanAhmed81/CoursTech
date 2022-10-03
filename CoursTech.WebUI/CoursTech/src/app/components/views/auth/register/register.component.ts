@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthModel } from 'src/app/data-models/AuthModel';
 import { User } from 'src/app/data-models/User';
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
   confirmPasswordErrors: errors = {
     'required': 'confirm password field is required',
   }
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.registerForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'passwords': new FormGroup({
@@ -56,8 +57,8 @@ export class RegisterComponent implements OnInit {
     this.authService.Register(model).subscribe({
       next: (response) => {
         this.isLoading = false;
-        this.registerForm.reset();
-        this.errorMessage = '';
+        this.router.navigate(['Home'])
+
       },
       error: (message) => {
         this.isLoading = false;

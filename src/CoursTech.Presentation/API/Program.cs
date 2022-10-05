@@ -46,15 +46,15 @@ builder.Services.AddAuthentication(options =>
 
 }).AddJwtBearer(options =>
 {
-    options.SaveToken = true;
     options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true ,
         ValidateAudience = true ,
-        ValidAudience = builder.Configuration["JWT:ValidAudience"] ,
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"] ,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+        ValidAudience = builder.Configuration["Jwt:Audience"] ,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] ,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
 
@@ -62,12 +62,14 @@ builder.Services.AddScoped<ICourseRepository , CourseRepository>();
 builder.Services.AddScoped<IIndustryRepository , IndustryRepository>();
 builder.Services.AddScoped<IInstructorRepository , InstructorRepository>();
 
-
 builder.Services.AddCors((options) =>
 {
     options.AddDefaultPolicy(options =>
     {
-        options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        options
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
     });
 });
 
@@ -83,6 +85,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

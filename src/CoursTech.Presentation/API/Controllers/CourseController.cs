@@ -2,6 +2,7 @@
 using Application.Parameters;
 using Application.RepositoryInterfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,7 +17,6 @@ namespace API.Controllers
         {
             this.courseRepository = courseRepository;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] CourseQueryParameters parameters)
         {
@@ -30,6 +30,8 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id , [FromQuery] string[] expand)
         {
@@ -44,6 +46,7 @@ namespace API.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CourseDataModel courseData)
         {
@@ -57,6 +60,8 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] CourseDataModel courseData)
         {
@@ -70,6 +75,8 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {

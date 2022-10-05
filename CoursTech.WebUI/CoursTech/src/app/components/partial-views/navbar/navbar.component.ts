@@ -14,15 +14,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
   subscription: Subscription | undefined;
 
   isAuthenticated: boolean = false;
-  user: User | undefined;
+  user: User | null = null;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.subscription = this.authService.user?.subscribe(user => {
-      this.isAuthenticated = !!user;
-      this.user = user;
+    this.subscription = this.authService.user.subscribe(() => {
+      this.fetchUserData();
     });
+    debugger;
+    this.fetchUserData();
   }
 
   ngOnDestroy(): void {
@@ -32,5 +33,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onChangeMode() {
     this.isDark = !this.isDark;
     this.changeMode.emit(this.isDark);
+  }
+
+  fetchUserData() {
+    this.user = this.authService.getUserData();
+    this.isAuthenticated = !!this.user;
   }
 }

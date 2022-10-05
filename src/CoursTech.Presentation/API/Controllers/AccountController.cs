@@ -1,7 +1,6 @@
 ﻿using Application.DataModels;
 using Application.Enums;
 using Application.UserRoles;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -13,13 +12,13 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(
+        public AccountController(
             UserManager<IdentityUser> userManager ,
             RoleManager<IdentityRole> roleManager ,
             IConfiguration configuration)
@@ -41,19 +40,8 @@ namespace API.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized , ResponseCode.WRONG_PASSWORD.ToString());
 
             var userRoles = await _userManager.GetRolesAsync(user);
-
-            var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
-
-            foreach (var userRole in userRoles)
-            {
-                authClaims.Add(new Claim(ClaimTypes.Role , userRole));
-            }
-
-            var token = GetToken(authClaims);
+            var claims = GetClaims(user , userRoles.ToArray());
+            var token = GetToken(claims);
 
             return Ok(new AuthResponse
             {
@@ -69,7 +57,7 @@ namespace API.Controllers
         {
             var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status400BadRequest,ResponseCode.USER_ALREADY_EXISTS.ToString());
+                return StatusCode(StatusCodes.Status400BadRequest , ResponseCode.USER_ALREADY_EXISTS.ToString());
 
             IdentityUser user = new()
             {
@@ -84,18 +72,12 @@ namespace API.Controllers
             if (!await _roleManager.RoleExistsAsync(Roles.User))
                 return StatusCode(StatusCodes.Status400BadRequest , ResponseCode.ROLE_NOT_EXISTS.ToString());
 
-
             var roleResult = await _userManager.AddToRoleAsync(user , Roles.User);
             if (!roleResult.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError , ResponseCode.UNKNOWN_ERROR);
 
-            var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(ClaimTypes.Role , Roles.User)
-                };
-            var token = GetToken(authClaims);
+            var claims = GetClaims(user , Roles.User );
+            var token = GetToken(claims);
 
             return Ok(new AuthResponse
             {
@@ -113,17 +95,31 @@ namespace API.Controllers
         }
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"] ,
-                audience: _configuration["JWT:ValidAudience"] ,
-                expires: DateTime.Now.AddHours(3) ,
+                issuer: _configuration["JWT:Issuer"] ,
+                audience: _configuration["JWT:Audience"] ,
+                expires: DateTime.Now.AddDays(3) ,
                 claims: authClaims ,
                 signingCredentials: new SigningCredentials(authSigningKey , SecurityAlgorithms.HmacSha256)
                 );
 
             return token;
+        }
+        private List<Claim> GetClaims(IdentityUser user,params string[] userRoles)
+        {
+            var claims = new List<Claim>(){
+                new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
+            foreach (var userRole in userRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role , userRole));
+            }
+            return claims;
         }
     }
 }

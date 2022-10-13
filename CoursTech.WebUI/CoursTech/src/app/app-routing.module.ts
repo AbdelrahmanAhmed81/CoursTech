@@ -9,8 +9,9 @@ import { AdmIndustriesComponent } from './components/views/adminstration-compone
 import { AdmInstructorsComponent } from './components/views/adminstration-components/adm-instructors/adm-instructors.component';
 import { RegisterComponent } from './components/views/auth/register/register.component';
 import { LoginComponent } from './components/views/auth/login/login.component';
-import { AuthGuard } from './services/auth.guard';
-import { NotAuthGuard } from './services/not-auth.guard';
+import { AuthGuard } from './services/guards/auth.guard';
+import { NotAuthGuard } from './services/guards/not-auth.guard';
+import { AdminAuthGuard } from './services/guards/admin-auth.guard';
 import { AccessDeniedComponent } from './components/partial-views/access-denied/access-denied.component';
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NotAuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   {
-    path: 'Adminstration', component: AdminstrationComponent, children: [
+    path: 'Adminstration', component: AdminstrationComponent, canActivate: [AuthGuard, AdminAuthGuard], children: [
       { path: '', redirectTo: 'Courses', pathMatch: 'full' },
       { path: 'Courses', component: AdmCoursesComponent },
       { path: 'Industries', component: AdmIndustriesComponent },

@@ -1,6 +1,7 @@
 ﻿using Application.DataModels;
 using Application.Parameters;
 using Application.RepositoryInterfaces;
+using Application.UserRoles;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +47,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles =Roles.Admin)]
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CourseDataModel courseData)
         {
@@ -60,8 +61,8 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
-        [Authorize]
+
+        [Authorize(Roles = Roles.Admin)]
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] CourseDataModel courseData)
         {
@@ -76,7 +77,7 @@ namespace API.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = Roles.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {

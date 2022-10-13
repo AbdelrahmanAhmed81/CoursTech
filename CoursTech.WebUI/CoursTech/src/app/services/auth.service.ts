@@ -36,6 +36,11 @@ export class AuthService {
     return (token != null && !this.jwtHelper.isTokenExpired(token))
   }
 
+  isAdmin(): boolean {
+    const token = this.getToken();
+    return (token != null && this.jwtHelper.decodeToken(token)['role'] == 'Admin')
+  }
+
   getUserEmail(): string | null {
     const token = this.getToken();
     if (token) {

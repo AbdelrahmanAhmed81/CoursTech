@@ -1,10 +1,13 @@
-﻿using Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+using Domain.Entities;
 using Infrastructure.Configurations;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Contexts
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -26,6 +29,7 @@ namespace Infrastructure.Contexts
             modelBuilder.ApplyConfiguration(new IndustryConfiguration());
             modelBuilder.ApplyConfiguration(new ExperienceLevelConfiguration());
             modelBuilder.ApplyConfiguration(new EmploymentStatusConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

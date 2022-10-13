@@ -1,24 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { HomeComponent } from './components/views/home/home.component';
 import { CourseDetailsComponent } from './components/views/course-details/course-details.component';
 import { AdminstrationComponent } from './components/views/adminstration/adminstration.component';
 import { AdmCoursesComponent } from './components/views/adminstration-components/adm-courses/adm-courses.component';
 import { AdmIndustriesComponent } from './components/views/adminstration-components/adm-industries/adm-industries.component';
 import { AdmInstructorsComponent } from './components/views/adminstration-components/adm-instructors/adm-instructors.component';
+import { RegisterComponent } from './components/views/auth/register/register.component';
+import { LoginComponent } from './components/views/auth/login/login.component';
+import { AuthGuard } from './services/guards/auth.guard';
+import { NotAuthGuard } from './services/guards/not-auth.guard';
+import { AdminAuthGuard } from './services/guards/admin-auth.guard';
+import { AccessDeniedComponent } from './components/partial-views/access-denied/access-denied.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Home', pathMatch: "full" },
   { path: 'Home', component: HomeComponent },
-  { path: 'Course/:id', component: CourseDetailsComponent },
+  { path: 'Course/:id', component: CourseDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [NotAuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
   {
-    path: 'Adminstration', component: AdminstrationComponent, children: [
+    path: 'Adminstration', component: AdminstrationComponent, canActivate: [AuthGuard, AdminAuthGuard], children: [
       { path: '', redirectTo: 'Courses', pathMatch: 'full' },
       { path: 'Courses', component: AdmCoursesComponent },
       { path: 'Industries', component: AdmIndustriesComponent },
       { path: 'Instructors', component: AdmInstructorsComponent }
     ]
-  }
+  },
+  { path: 'AccessDenied', component: AccessDeniedComponent }
 ];
 
 @NgModule({

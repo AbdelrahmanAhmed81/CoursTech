@@ -1,0 +1,176 @@
+<div class="d-flex justify-content-around">
+  <div
+    class="loadingio-spinner-rolling-7o0btgck97g"
+    *ngIf="isLoading; else signUpForm"
+  >
+    <div class="ldio-x25i5wvdi4">
+      <div></div>
+    </div>
+  </div>
+  <ng-template #signUpForm>
+    <div class="wrapper">
+      <div class="mb-3">
+        <h3 class="fw-bold text-center">Sign In</h3>
+      </div>
+      <!-- #region registerform -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-100">
+        <div class="alert alert-danger fw-bold" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="name@example.com"
+          />
+          <span
+            *ngIf="
+              registerForm.get('email')?.dirty &&
+              registerForm.get('email')?.invalid
+            "
+          >
+            <span
+              *ngFor="let error of registerForm.get('email')?.errors | keyvalue"
+              >{{ emailErrors[error.key] }}</span
+            >
+          </span>
+        </div>
+        <div formGroupName="passwords">
+          <div class="mb-3">
+            <div class="d-flex">
+              <label for="password" class="form-label me-2">Password</label>
+              <a>
+                <i
+                  class="fa-regular fa-circle-question mt-1"
+                  style="cursor: pointer"
+                  (mouseenter)="tooltipVisible = true"
+                  (mouseleave)="tooltipVisible = false"
+                ></i>
+                <div
+                  class="tooltip-message"
+                  [style.display]="tooltipVisible ? 'inline-block' : 'none'"
+                >
+                  <p class="fw-bold mb-0">Password Rules</p>
+                  <ul class="m-0 ps-3">
+                    <ng-container
+                      *ngFor="let rule of passwordErrors | keyvalue"
+                    >
+                      <li *ngIf="rule.value">
+                        {{ rule.value }}
+                      </li>
+                    </ng-container>
+                  </ul>
+                </div>
+              </a>
+            </div>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              formControlName="password"
+              placeholder="enter a strong password"
+            />
+            <span
+              *ngIf="
+                registerForm.get('passwords.password')?.dirty &&
+                registerForm.get('passwords.password')?.invalid
+              "
+            >
+              <span
+                *ngFor="
+                  let error of registerForm.get('passwords.password')?.errors
+                    | keyvalue
+                "
+                >{{ passwordErrors[error.key] }}</span
+              >
+            </span>
+          </div>
+          <div>
+            <label for="conpassword" class="form-label">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="conpassword"
+              formControlName="confirmPassword"
+              placeholder="re-enter your password"
+            />
+            <span
+              *ngIf="
+                registerForm.get('passwords.confirmPassword')?.dirty &&
+                registerForm.get('passwords.confirmPassword')?.invalid
+              "
+            >
+              <span
+                *ngFor="
+                  let error of registerForm.get('passwords.confirmPassword')
+                    ?.errors | keyvalue
+                "
+                >{{ confirmPasswordErrors[error.key] }}</span
+              >
+            </span>
+          </div>
+          <span
+            *ngIf="
+              registerForm.get('passwords.confirmPassword')?.dirty &&
+              registerForm.get('passwords')?.invalid
+            "
+          >
+            <span
+              *ngFor="
+                let error of registerForm.get('passwords')?.errors | keyvalue
+              "
+              >{{ passwordsErrors[error.key] }}</span
+            >
+          </span>
+        </div>
+        <div class="my-3">
+          <input
+            [disabled]="!registerForm.dirty || !registerForm.valid"
+            type="submit"
+            class="btn btn-success w-100"
+            value="Register"
+          />
+          <div class="w-100 text-end">
+            <a routerLink="/login" style="font-size: 14px"
+              >Already have an account?</a
+            >
+          </div>
+        </div>
+      </form>
+      <!-- #endregion -->
+      <!-- #region seperator -->
+      <div class="row align-items-center mb-3">
+        <hr class="col-5 m-0" />
+        <div class="col-2 text-center p-0"><b>or</b></div>
+        <hr class="col-5 m-0" />
+      </div>
+      <!-- #endregion -->
+      <!-- #region external -->
+      <div class="external row justify-content-between">
+        <a class="external-btn google col-5 p-0" href="">
+          <div class="icon-wrapper">
+            <img
+              class="icon"
+              src="../../../../../assets/images/logo/GoogleLogo.svg"
+            />
+          </div>
+          <p class="btn-text"><b>Sign in with Google</b></p>
+        </a>
+        <a class="external-btn facebook col-5 p-0" href="">
+          <div class="icon-wrapper">
+            <img
+              class="icon"
+              src="../../../../../assets/images/logo/FacebookLogo.svg"
+            />
+          </div>
+          <p class="btn-text"><b>Sign in with Facebook</b></p>
+        </a>
+      </div>
+      <!-- #endregion -->
+    </div>
+  </ng-template>
+</div>
+<app-alert></app-alert>

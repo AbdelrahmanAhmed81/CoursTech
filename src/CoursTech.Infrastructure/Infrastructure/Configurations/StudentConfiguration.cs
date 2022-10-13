@@ -13,9 +13,10 @@ namespace Infrastructure.Configurations
                 new Student()
                 {
                     StudentId = new Guid(0 , 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10) ,
+                    UserId="student1",
                     FirstName = "Abdelrahman" ,
                     LastName = "Gamal" ,
-                    Email = "AbdelrahmanGamal@yahoo.com" ,
+                    //Email = "AbdelrahmanGamal@yahoo.com" ,
                     Bio = ".Net Developer" ,
                     BirthDate = new DateTime(1999 , 12 , 5) ,
                     PhotoName = "abdo.png" ,
@@ -26,9 +27,10 @@ namespace Infrastructure.Configurations
                 new Student()
                 {
                     StudentId = new Guid(1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 0) ,
+                    UserId = "student2" ,
                     FirstName = "Mostafa" ,
                     LastName = "Talaat" ,
-                    Email = "MostafaTalaat@gmail.com" ,
+                    //Email = "MostafaTalaat@gmail.com" ,
                     Bio = "Flutter Developer" ,
                     BirthDate = new DateTime(1996 , 5 , 10) ,
                     PhotoName = "tata.jpg" ,
@@ -39,9 +41,10 @@ namespace Infrastructure.Configurations
                 new Student()
                 {
                     StudentId = new Guid(2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 0 , 1) ,
+                    UserId = "student3" ,
                     FirstName = "Saeed" ,
                     LastName = "Abdallah" ,
-                    Email = "SaeedAbdallah@gmail.com" ,
+                    //Email = "SaeedAbdallah@gmail.com" ,
                     Bio = "Software Developer" ,
                     BirthDate = new DateTime(1996 , 10 , 2) ,
                     PhotoName = "saeed.png" ,

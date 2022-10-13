@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from "@auth0/angular-jwt";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +20,8 @@ import { AlertComponent } from './components/partial-views/alert/alert.component
 import { CourseFormComponent } from './components/views/course-form/course-form.component';
 import { RegisterComponent } from './components/views/auth/register/register.component';
 import { LoginComponent } from './components/views/auth/login/login.component';
-import { InterceptorService } from './services/interceptor.service';
+import { AccessDeniedComponent } from './components/partial-views/access-denied/access-denied.component';
+// import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -38,15 +40,23 @@ import { InterceptorService } from './services/interceptor.service';
     CourseFormComponent,
     RegisterComponent,
     LoginComponent,
+    AccessDeniedComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem("jwt"),
+        allowedDomains: ["localhost:7017"],
+        disallowedRoutes: []
+      }
+    })
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
+  providers: [/*{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

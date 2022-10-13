@@ -47,7 +47,10 @@
         </ng-container>
         <ng-container *ngIf="isAuthenticated">
           <a class="nav-link" routerLink="/Adminstration">Adminstration</a>
-          <a class="nav-link fw-bold" href="#">{{ user?.email }}</a>
+          <a class="nav-link fw-bold">{{ userEmail }}</a>
+          <a class="nav-link" style="cursor: pointer" (click)="logout()"
+            >Logout</a
+          >
         </ng-container>
       </div>
     </div>

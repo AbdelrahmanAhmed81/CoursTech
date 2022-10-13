@@ -3,9 +3,9 @@ import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from
 import { Router } from '@angular/router';
 
 import { AuthModel } from 'src/app/data-models/AuthModel';
-import { User } from 'src/app/data-models/User';
+// import { User } from 'src/app/data-models/User';
 import { PassowrdValidator } from 'src/app/models/PasswordValidator';
-import { AlertLevel, AlertService } from 'src/app/services/alert.service';
+// import { AlertLevel, AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

@@ -45,9 +45,9 @@ namespace API.Controllers
 
             return Ok(new AuthResponse
             {
-                Email = model.Email ,
+                //Email = model.Email ,
                 Token = new JwtSecurityTokenHandler().WriteToken(token) ,
-                Expiration = token.ValidTo
+                //Expiration = token.ValidTo
             });
         }
 
@@ -100,7 +100,7 @@ namespace API.Controllers
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"] ,
                 audience: _configuration["JWT:Audience"] ,
-                expires: DateTime.Now.AddDays(3) ,
+                expires: DateTime.Now.AddDays(3),
                 claims: authClaims ,
                 signingCredentials: new SigningCredentials(authSigningKey , SecurityAlgorithms.HmacSha256)
                 );
@@ -113,11 +113,11 @@ namespace API.Controllers
                 new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("email", user.Email),
             };
             foreach (var userRole in userRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role , userRole));
+                claims.Add(new Claim("role" , userRole));
             }
             return claims;
         }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/data-models/User';
+// import { User } from 'src/app/data-models/User';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,23 +11,32 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent implements OnInit, OnDestroy {
   @Input() isDark: boolean = false;
   @Output() changeMode: EventEmitter<boolean> = new EventEmitter<boolean>();
-  subscription: Subscription | undefined;
+  userDataArriveSubscription: Subscription | undefined;
+  userDataRemoveSubscription: Subscription | undefined;
 
   isAuthenticated: boolean = false;
-  user: User | null = null;
-
+  // user: User | null = null;
+  userEmail: string | null = '';
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.subscription = this.authService.user.subscribe(() => {
-      this.fetchUserData();
+    this.userDataArriveSubscription = this.authService.userDataArrived.subscribe(() => {
+      // this.storeUser();
+      this.isAuthenticated = true;
+      this.userEmail = this.authService.getUserEmail();
     });
-    debugger;
-    this.fetchUserData();
+    this.userDataRemoveSubscription = this.authService.userDataRemoved.subscribe(() => {
+      this.isAuthenticated = false;
+    })
+    this.isAuthenticated = this.authService.isAuthinticated();
+    this.userEmail = this.authService.getUserEmail();
+    // this.authService.fetchUserData();
+    // this.storeUser();
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.userDataArriveSubscription?.unsubscribe();
+    this.userDataRemoveSubscription?.unsubscribe();
   }
 
   onChangeMode() {
@@ -35,8 +44,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.changeMode.emit(this.isDark);
   }
 
-  fetchUserData() {
-    this.user = this.authService.getUserData();
-    this.isAuthenticated = !!this.user;
+  logout() {
+    this.authService.logout();
   }
+  // storeUser() {
+  //   this.user = this.authService.user;
+  //   this.isAuthenticated = !!this.user;
+  // }
+  // fetchUserData() {
+  //   this.user = this.authService.getUserData();
+  //   this.isAuthenticated = !!this.user;
+  // }
 }

@@ -1,18 +1,21 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, Subject, tap, throwError } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { AuthModel } from '../data-models/AuthModel';
 import { AuthResponse } from '../data-models/AuthResponse';
-import { User } from '../data-models/User';
+// import { User } from '../data-models/User';
 import { PassowrdValidator } from '../models/PasswordValidator';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly url: string = 'https://localhost:7017/api/Account';
-  user: Subject<void> = new Subject<void>();
+  // user: User | null = null;
+  userDataArrived: Subject<void> = new Subject<void>();
+  userDataRemoved: Subject<void> = new Subject<void>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   Register(authModel: AuthModel): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.url + '/register', authModel)
@@ -28,32 +31,62 @@ export class AuthService {
     return this.http.get<PassowrdValidator>(this.url + '/getPasswordValidator');
   }
 
-  getUserData(): User | null {
-    let userData = localStorage.getItem('user');
-    if (userData) {
-      let user = JSON.parse(userData);
-      if (!this.isUserTokenExpired(user))
-        return user;
-      else
-        this.deleteUserData();
+  isAuthinticated(): boolean {
+    const token: string | null = this.getToken();
+    return (token != null && !this.jwtHelper.isTokenExpired(token))
+  }
+
+  getUserEmail(): string | null {
+    const token = this.getToken();
+    if (token) {
+      return this.jwtHelper.decodeToken(token)['email']
     }
     return null;
   }
 
-  private storeUserData(authResponse: AuthResponse) {
-    let userData = new User(authResponse.email, authResponse.token, authResponse.expiration)
-    localStorage.setItem('user', JSON.stringify(userData));
-    this.user.next();
+  logout(): void {
+    localStorage.removeItem('jwt');
+    this.userDataRemoved.next();
   }
 
-  private isUserTokenExpired(user: any) {
-    return (!user['_expiration'] || new Date() > new Date(user['_expiration']));
+  // fetchUserData(): void {
+  //   debugger;
+  //   let userData = localStorage.getItem('user');
+  //   if (userData) {
+  //     let parsedUser = JSON.parse(userData);
+  //     let user: User = {
+  //       email: parsedUser['email'],
+  //       token: parsedUser['token'],
+  //       expiration: new Date(parsedUser['expiration'])
+  //     }
+  //     if (!this.isTokenExpired(user)) {
+  //       this.user = user
+  //     }
+  //     else {
+  //       this.deleteUserData();
+  //     }
+  //   }
+  // }
+
+
+  private storeUserData(authResponse: AuthResponse): void {
+    // let userData: User = {
+    //   email: authResponse.email,
+    //   token: authResponse.token,
+    //   expiration: authResponse.expiration
+    // }
+    localStorage.setItem('jwt', authResponse.token);
+    // this.user = userData;
+    this.userDataArrived.next();
   }
 
-  private deleteUserData() {
-    localStorage.removeItem('user');
-    this.user.next();
+  private getToken(): string | null {
+    return localStorage.getItem("jwt");
   }
+
+  // private isTokenExpired(user: User): boolean {
+  //   return (!user.expiration || new Date() > user.expiration)
+  // }
 
   private handleError(errorResponse: HttpErrorResponse) {
     let message: string = '';

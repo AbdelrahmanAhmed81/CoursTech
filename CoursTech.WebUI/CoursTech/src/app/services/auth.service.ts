@@ -4,14 +4,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
 import { AuthModel } from '../data-models/AuthModel';
 import { AuthResponse } from '../data-models/AuthResponse';
-// import { User } from '../data-models/User';
+import { Roles } from '../data-models/Roles';
 import { PassowrdValidator } from '../models/PasswordValidator';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly url: string = 'https://localhost:7017/api/Account';
-  // user: User | null = null;
   userDataArrived: Subject<void> = new Subject<void>();
   userDataRemoved: Subject<void> = new Subject<void>();
 
@@ -38,7 +37,7 @@ export class AuthService {
 
   isAdmin(): boolean {
     const token = this.getToken();
-    return (token != null && this.jwtHelper.decodeToken(token)['role'] == 'Admin')
+    return (token != null && this.jwtHelper.decodeToken(token)['role'] == Roles.admin)
   }
 
   getUserEmail(): string | null {
@@ -54,26 +53,6 @@ export class AuthService {
     this.userDataRemoved.next();
   }
 
-  // fetchUserData(): void {
-  //   debugger;
-  //   let userData = localStorage.getItem('user');
-  //   if (userData) {
-  //     let parsedUser = JSON.parse(userData);
-  //     let user: User = {
-  //       email: parsedUser['email'],
-  //       token: parsedUser['token'],
-  //       expiration: new Date(parsedUser['expiration'])
-  //     }
-  //     if (!this.isTokenExpired(user)) {
-  //       this.user = user
-  //     }
-  //     else {
-  //       this.deleteUserData();
-  //     }
-  //   }
-  // }
-
-
   private storeUserData(authResponse: AuthResponse): void {
     // let userData: User = {
     //   email: authResponse.email,
@@ -88,10 +67,6 @@ export class AuthService {
   private getToken(): string | null {
     return localStorage.getItem("jwt");
   }
-
-  // private isTokenExpired(user: User): boolean {
-  //   return (!user.expiration || new Date() > user.expiration)
-  // }
 
   private handleError(errorResponse: HttpErrorResponse) {
     let message: string = '';

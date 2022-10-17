@@ -56,17 +56,24 @@
               >
                 {{ course.date }}
               </p>
-              <p class="m-0" style="color: var(--secondcolor)">
-                {{ course.description.substring(0, 160) }}
-                <ng-template [ngIf]="course.description.length > 160" #readmore>
-                  ...
-                  <a
-                    style="font-size: smaller"
-                    class="fw-bold"
-                    [routerLink]="['/Course', course.courseId]"
-                    >read more</a
-                  >
-                </ng-template>
+              <p
+                [innerText]="course.description"
+                app-Readmore
+                endingString="..."
+                [wordsNumber]="25"
+                class="m-0"
+                style="color: var(--secondcolor)"
+              >
+                <!-- {{ course.description }} -->
+                <!-- {{ course.description | truncate: 25:"..." }} -->
+                <!-- <ng-template [ngIf]="course.description.length > 160" #readmore> -->
+                <!-- <a
+                  style="font-size: smaller"
+                  class="fw-bold"
+                  [routerLink]="['/Course', course.courseId]"
+                  >read more</a
+                > -->
+                <!-- </ng-template> -->
               </p>
             </div>
           </div>

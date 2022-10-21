@@ -1,4 +1,5 @@
 using Application.RepositoryInterfaces;
+using Infrastructure.AuthConfigurations;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -62,6 +63,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<ICourseRepository , CourseRepository>();
 builder.Services.AddScoped<IIndustryRepository , IndustryRepository>();
 builder.Services.AddScoped<IInstructorRepository , InstructorRepository>();
+builder.Services.AddSingleton<IJWTConfiguration, JWTConfiguration>();
 
 builder.Services.AddCors((options) =>
 {

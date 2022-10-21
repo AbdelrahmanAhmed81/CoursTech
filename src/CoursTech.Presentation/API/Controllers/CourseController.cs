@@ -2,7 +2,6 @@
 using Application.Parameters;
 using Application.RepositoryInterfaces;
 using Application.UserRoles;
-using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

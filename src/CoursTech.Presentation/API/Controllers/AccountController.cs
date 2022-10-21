@@ -1,6 +1,7 @@
 ﻿using Application.DataModels;
 using Application.Enums;
 using Application.UserRoles;
+using Domain.Entities;
 using Infrastructure.AuthConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,12 @@ namespace API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IJWTConfiguration _jwtConfiguration;
 
         public AccountController(
-            UserManager<IdentityUser> userManager ,
+            UserManager<AppUser> userManager ,
             RoleManager<IdentityRole> roleManager,
             IJWTConfiguration jwtConfiguration)
         {
@@ -39,11 +40,17 @@ namespace API.Controllers
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var claims = _jwtConfiguration.GetClaims(user , userRoles.ToArray());
-            var token = _jwtConfiguration.GetToken(claims);
 
-            return Ok(new AuthResponse
+            var refreshToken = _jwtConfiguration.GetRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpirationDate = DateTime.Now.AddDays(7);
+            await _userManager.UpdateAsync(user);
+            
+            return Ok(new AuthTokens
             {
-                Token = new JwtSecurityTokenHandler().WriteToken(token) ,
+                AccessToken = _jwtConfiguration.GetAccessToken(claims) ,
+                RefreshToken = refreshToken
             });
         }
 
@@ -55,11 +62,14 @@ namespace API.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status400BadRequest , ResponseCode.USER_ALREADY_EXISTS.ToString());
 
-            IdentityUser user = new()
+            var refreshToken = _jwtConfiguration.GetRefreshToken();
+            AppUser user = new()
             {
                 Email = model.Email ,
                 SecurityStamp = Guid.NewGuid().ToString() ,
-                UserName = model.Email.Split('@')[0]
+                UserName = model.Email.Split('@')[0],
+                RefreshToken = refreshToken ,
+                RefreshTokenExpirationDate = DateTime.Now.AddDays(7)
             };
             var result = await _userManager.CreateAsync(user , model.Password);
             if (!result.Succeeded)
@@ -73,13 +83,11 @@ namespace API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError , ResponseCode.UNKNOWN_ERROR);
 
             var claims = _jwtConfiguration.GetClaims(user , Roles.User );
-            var token = _jwtConfiguration.GetToken(claims);
 
-            return Ok(new AuthResponse
+            return Ok(new AuthTokens
             {
-                Email = model.Email ,
-                Token = new JwtSecurityTokenHandler().WriteToken(token) ,
-                Expiration = token.ValidTo
+                AccessToken = _jwtConfiguration.GetAccessToken(claims) ,
+                RefreshToken = refreshToken
             });
         }
 

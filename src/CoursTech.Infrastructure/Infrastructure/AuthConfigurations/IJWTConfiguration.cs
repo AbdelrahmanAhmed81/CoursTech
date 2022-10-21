@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+﻿using Domain.Entities;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.AuthConfigurations
 {
     public interface IJWTConfiguration
     {
-        JwtSecurityToken GetToken(List<Claim> authClaims);
-        List<Claim> GetClaims(IdentityUser user , params string[] userRoles);
+        string GetAccessToken(List<Claim> authClaims);
+        string GetRefreshToken();
+        List<Claim> GetClaims(AppUser user , params string[] userRoles);
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

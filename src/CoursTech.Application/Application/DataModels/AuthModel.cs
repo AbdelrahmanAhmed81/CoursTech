@@ -10,5 +10,6 @@ namespace Application.DataModels
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+
     }
 }

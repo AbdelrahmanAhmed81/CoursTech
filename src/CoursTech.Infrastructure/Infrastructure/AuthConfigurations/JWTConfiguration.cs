@@ -23,7 +23,7 @@ namespace Infrastructure.AuthConfigurations
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"] ,
                 audience: _configuration["JWT:Audience"] ,
-                expires: DateTime.Now.AddMinutes(2) ,
+                expires: DateTime.Now.AddMinutes(1) ,
                 claims: authClaims ,
                 signingCredentials: new SigningCredentials(authSigningKey , SecurityAlgorithms.HmacSha256)
                 );
@@ -36,11 +36,11 @@ namespace Infrastructure.AuthConfigurations
                 new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("email", user.Email),
+                new Claim(ClaimTypes.Email, user.Email),
             };
             foreach (var userRole in userRoles)
             {
-                claims.Add(new Claim("role" , userRole));
+                claims.Add(new Claim(ClaimTypes.Role , userRole));
             }
             return claims;
         }
@@ -67,7 +67,8 @@ namespace Infrastructure.AuthConfigurations
             SecurityToken securityToken;
             var principal = tokenHandler.ValidateToken(token , tokenValidationParameters , out securityToken);
             var jwtSecurityToken = securityToken as JwtSecurityToken;
-            if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256 , StringComparison.InvariantCultureIgnoreCase))
+            if (jwtSecurityToken == null || 
+                !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256 , StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid token");
             return principal;
         }

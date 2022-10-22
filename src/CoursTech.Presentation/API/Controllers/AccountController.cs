@@ -19,7 +19,7 @@ namespace API.Controllers
 
         public AccountController(
             UserManager<AppUser> userManager ,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<IdentityRole> roleManager ,
             IJWTConfiguration jwtConfiguration)
         {
             _userManager = userManager;
@@ -46,7 +46,7 @@ namespace API.Controllers
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpirationDate = DateTime.Now.AddDays(7);
             await _userManager.UpdateAsync(user);
-            
+
             return Ok(new AuthTokens
             {
                 AccessToken = _jwtConfiguration.GetAccessToken(claims) ,
@@ -67,7 +67,7 @@ namespace API.Controllers
             {
                 Email = model.Email ,
                 SecurityStamp = Guid.NewGuid().ToString() ,
-                UserName = model.Email.Split('@')[0],
+                UserName = model.Email.Split('@')[0] ,
                 RefreshToken = refreshToken ,
                 RefreshTokenExpirationDate = DateTime.Now.AddDays(7)
             };
@@ -82,7 +82,7 @@ namespace API.Controllers
             if (!roleResult.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError , ResponseCode.UNKNOWN_ERROR);
 
-            var claims = _jwtConfiguration.GetClaims(user , Roles.User );
+            var claims = _jwtConfiguration.GetClaims(user , Roles.User);
 
             return Ok(new AuthTokens
             {
@@ -97,6 +97,6 @@ namespace API.Controllers
         {
             return Ok(_userManager.Options.Password);
         }
-        
+
     }
 }

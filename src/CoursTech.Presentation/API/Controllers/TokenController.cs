@@ -31,7 +31,7 @@ namespace API.Controllers
             string refreshToken = authTokens.RefreshToken;
 
             var principal = _jwtConfiguration.GetPrincipalFromExpiredToken(accessToken);
-            var email = principal.Claims.SingleOrDefault(c=>c.Type==ClaimTypes.Email)?.Value; //this is mapped to the Name claim by default
+            var email = principal.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Email)?.Value; //this is mapped to the Name claim by default
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpirationDate <= DateTime.Now)

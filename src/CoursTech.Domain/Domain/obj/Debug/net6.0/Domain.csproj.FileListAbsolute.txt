@@ -21,3 +21,4 @@ F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debu
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\ref\Domain.dll
 F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.pdb
+F:\ASP.NET Core Web API\CoursTech\CoursTech\src\CoursTech.Domain\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache

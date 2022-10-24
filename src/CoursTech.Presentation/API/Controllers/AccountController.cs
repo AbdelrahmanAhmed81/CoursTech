@@ -1,12 +1,11 @@
 ﻿using Application.DataModels;
 using Application.Enums;
 using Application.UserRoles;
+using Domain.Entities;
+using Infrastructure.AuthConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace API.Controllers
 {
@@ -14,18 +13,18 @@ namespace API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IConfiguration _configuration;
+        private readonly IJWTConfiguration _jwtConfiguration;
 
         public AccountController(
-            UserManager<IdentityUser> userManager ,
+            UserManager<AppUser> userManager ,
             RoleManager<IdentityRole> roleManager ,
-            IConfiguration configuration)
+            IJWTConfiguration jwtConfiguration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _configuration = configuration;
+            _jwtConfiguration = jwtConfiguration;
         }
 
         [HttpPost]
@@ -40,14 +39,18 @@ namespace API.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized , ResponseCode.WRONG_PASSWORD.ToString());
 
             var userRoles = await _userManager.GetRolesAsync(user);
-            var claims = GetClaims(user , userRoles.ToArray());
-            var token = GetToken(claims);
+            var claims = _jwtConfiguration.GetClaims(user , userRoles.ToArray());
 
-            return Ok(new AuthResponse
+            var refreshToken = _jwtConfiguration.GetRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpirationDate = DateTime.Now.AddDays(7);
+            await _userManager.UpdateAsync(user);
+
+            return Ok(new AuthTokens
             {
-                //Email = model.Email ,
-                Token = new JwtSecurityTokenHandler().WriteToken(token) ,
-                //Expiration = token.ValidTo
+                AccessToken = _jwtConfiguration.GetAccessToken(claims) ,
+                RefreshToken = refreshToken
             });
         }
 
@@ -59,11 +62,14 @@ namespace API.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status400BadRequest , ResponseCode.USER_ALREADY_EXISTS.ToString());
 
-            IdentityUser user = new()
+            var refreshToken = _jwtConfiguration.GetRefreshToken();
+            AppUser user = new()
             {
                 Email = model.Email ,
                 SecurityStamp = Guid.NewGuid().ToString() ,
-                UserName = model.Email.Split('@')[0]
+                UserName = model.Email.Split('@')[0] ,
+                RefreshToken = refreshToken ,
+                RefreshTokenExpirationDate = DateTime.Now.AddDays(7)
             };
             var result = await _userManager.CreateAsync(user , model.Password);
             if (!result.Succeeded)
@@ -76,14 +82,12 @@ namespace API.Controllers
             if (!roleResult.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError , ResponseCode.UNKNOWN_ERROR);
 
-            var claims = GetClaims(user , Roles.User );
-            var token = GetToken(claims);
+            var claims = _jwtConfiguration.GetClaims(user , Roles.User);
 
-            return Ok(new AuthResponse
+            return Ok(new AuthTokens
             {
-                Email = model.Email ,
-                Token = new JwtSecurityTokenHandler().WriteToken(token) ,
-                Expiration = token.ValidTo
+                AccessToken = _jwtConfiguration.GetAccessToken(claims) ,
+                RefreshToken = refreshToken
             });
         }
 
@@ -93,33 +97,6 @@ namespace API.Controllers
         {
             return Ok(_userManager.Options.Password);
         }
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
-        {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:Issuer"] ,
-                audience: _configuration["JWT:Audience"] ,
-                expires: DateTime.Now.AddDays(3),
-                claims: authClaims ,
-                signingCredentials: new SigningCredentials(authSigningKey , SecurityAlgorithms.HmacSha256)
-                );
-
-            return token;
-        }
-        private List<Claim> GetClaims(IdentityUser user,params string[] userRoles)
-        {
-            var claims = new List<Claim>(){
-                new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("email", user.Email),
-            };
-            foreach (var userRole in userRoles)
-            {
-                claims.Add(new Claim("role" , userRole));
-            }
-            return claims;
-        }
     }
 }

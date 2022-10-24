@@ -21,6 +21,7 @@ import { CourseFormComponent } from './components/views/course-form/course-form.
 import { RegisterComponent } from './components/views/auth/register/register.component';
 import { LoginComponent } from './components/views/auth/login/login.component';
 import { AccessDeniedComponent } from './components/partial-views/access-denied/access-denied.component';
+import { ReadmoreDirective } from './directives/readmore.directive';
 // import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { AccessDeniedComponent } from './components/partial-views/access-denied/
     RegisterComponent,
     LoginComponent,
     AccessDeniedComponent,
+    ReadmoreDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
 using Application.RepositoryInterfaces;
+using Domain.Entities;
+using Infrastructure.AuthConfigurations;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,7 +26,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AppConnectionString"));
 });
 
-builder.Services.AddIdentity<IdentityUser , IdentityRole>()
+builder.Services.AddIdentity<AppUser , IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
@@ -62,6 +64,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<ICourseRepository , CourseRepository>();
 builder.Services.AddScoped<IIndustryRepository , IndustryRepository>();
 builder.Services.AddScoped<IInstructorRepository , InstructorRepository>();
+builder.Services.AddTransient<IJWTConfiguration, JWTConfiguration>();
 
 builder.Services.AddCors((options) =>
 {

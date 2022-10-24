@@ -1,6 +1,6 @@
-import { HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { catchError, map, Observable, ObservableInput } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { map } from 'rxjs';
 import { Course } from 'src/app/models/Course';
 import { CourseService } from 'src/app/services/course.service';
 

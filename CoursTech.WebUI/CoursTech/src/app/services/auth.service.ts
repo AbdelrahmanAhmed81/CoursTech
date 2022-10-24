@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   GetPasswordValidator(): Observable<PassowrdValidator> {
-    return this.http.get<PassowrdValidator>(this.url + '/getPasswordValidator');
+    return this.http.get<PassowrdValidator>(this.accountUrl + '/getPasswordValidator');
   }
 
   isAuthinticated(): boolean {

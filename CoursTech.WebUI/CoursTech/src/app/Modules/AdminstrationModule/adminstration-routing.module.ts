@@ -10,7 +10,7 @@ import { AdminstrationComponent } from './components/adminstration/adminstration
 
 const routes: Routes = [
   {
-    path: 'Adminstration', component: AdminstrationComponent, canActivate: [AuthGuard, AdminAuthGuard], children: [
+    path: '', component: AdminstrationComponent, canActivate: [AuthGuard/*, AdminAuthGuard*/], children: [
       { path: '', redirectTo: 'Courses', pathMatch: 'full' },
       { path: 'Courses', component: AdmCoursesComponent },
       { path: 'Industries', component: AdmIndustriesComponent },

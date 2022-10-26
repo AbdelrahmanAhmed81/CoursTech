@@ -1,9 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
+
 import { Course } from 'src/app/models/Course';
-
-
 import { Industry } from 'src/app/models/Industry';
 import { Instructor } from 'src/app/models/Instructor';
 import { AlertLevel, AlertService } from 'src/app/Modules/AdminstrationModule/services/alert.service';

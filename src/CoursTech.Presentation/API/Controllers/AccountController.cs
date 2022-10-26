@@ -5,7 +5,6 @@ using Domain.Entities;
 using Infrastructure.AuthConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace API.Controllers
 {

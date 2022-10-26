@@ -17,13 +17,11 @@ import { ReadmoreDirective } from './directives/readmore.directive';
   ],
   imports: [
     CommonModule,
-    RouterModule,
     ReactiveFormsModule,
     CoursesRoutingModule,
   ],
   exports: [
     CoursesComponent,
-    // CourseDetailsComponent,
   ]
 })
 export class CoursesModule { }

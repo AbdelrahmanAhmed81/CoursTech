@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
     PagesNavigatorComponent
   ],
   imports: [
-    CommonModule,
     FormsModule
   ],
   exports: [

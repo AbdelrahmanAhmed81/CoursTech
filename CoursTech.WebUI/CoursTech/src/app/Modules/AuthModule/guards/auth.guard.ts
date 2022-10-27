@@ -18,6 +18,6 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    return this.authService.tryRefreshTokens();
+    return this.authService.tryRefreshTokens(true);
   }
 }

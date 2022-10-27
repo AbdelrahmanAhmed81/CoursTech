@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -15,6 +15,7 @@ export class AuthService {
   private readonly url: string = 'https://localhost:7017/api/';
   private readonly accountUrl: string = this.url + 'Account';
   private readonly tokenUrl: string = this.url + 'Token';
+  private static accessToken: string | null = null;
 
   userDataArrived: Subject<void> = new Subject<void>();
   userDataRemoved: Subject<void> = new Subject<void>();
@@ -36,24 +37,23 @@ export class AuthService {
       .pipe(catchError(this.handleError), tap(resData => this.storeUserData(resData)));
   }
 
-  tryRefreshTokens(): Observable<boolean> | boolean {
-    const accessToken: string | null = this.getAccessToken();
+  tryRefreshTokens(navigateToLogin: boolean): Observable<boolean> {
     const refreshToken: string | null = this.getRefreshToken();
-    if (!accessToken || !refreshToken) {
-      this.logout();
-      this.router.navigate(['login']);
-      return false;
-    }
-    const credentials: AuthTokens = { accessToken: accessToken, refreshToken: refreshToken };
     return new Observable<boolean>((subsriber) => {
-      this.Refresh(credentials).subscribe({
-        next: (v) => { subsriber.next(true) },
-        error: (e) => {
-          this.logout();
-          this.router.navigate(['login']);
-          subsriber.next(false);
-        }
-      })
+      if (!refreshToken) {
+        if (navigateToLogin) this.router.navigate(['login']);
+        subsriber.next(false);
+      }
+      else {
+        this.Refresh({ refreshToken: refreshToken }).subscribe({
+          next: (v) => { subsriber.next(true) },
+          error: (e) => {
+            this.logout();
+            this.router.navigate(['login']);
+            subsriber.next(false);
+          }
+        })
+      }
     });
   }
 
@@ -62,17 +62,17 @@ export class AuthService {
   }
 
   isAuthinticated(): boolean {
-    const token: string | null = this.getAccessToken();
+    const token: string | null = AuthService.getAccessToken();
     return (token != null && !this.jwtHelper.isTokenExpired(token))
   }
 
   isAdmin(): boolean {
-    const token = this.getAccessToken();
+    const token = AuthService.getAccessToken();
     return (token != null && this.jwtHelper.decodeToken(token)[Claims.role] == Roles.admin)
   }
 
   getUserEmail(): string | null {
-    const token = this.getAccessToken();
+    const token = AuthService.getAccessToken();
     if (token) {
       return this.jwtHelper.decodeToken(token)[Claims.email]
     }
@@ -80,20 +80,25 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('jwt');
+    // localStorage.removeItem('jwt');
+    AuthService.accessToken = null;
     localStorage.removeItem('refresh');
     this.router.navigate(['/Home'])
     this.userDataRemoved.next();
   }
 
-  private storeUserData(AuthTokens: AuthTokens): void {
-    localStorage.setItem('jwt', AuthTokens.accessToken);
-    localStorage.setItem('refresh', AuthTokens.refreshToken);
-    this.userDataArrived.next();
+  private storeUserData(authTokens: AuthTokens): void {
+    // localStorage.setItem('jwt', AuthTokens.accessToken);
+    if (authTokens.accessToken) {
+      AuthService.accessToken = authTokens.accessToken;
+      localStorage.setItem('refresh', authTokens.refreshToken);
+      this.userDataArrived.next();
+    }
   }
 
-  private getAccessToken(): string | null {
-    return localStorage.getItem("jwt");
+  static getAccessToken(): string | null {
+    // return localStorage.getItem("jwt");
+    return AuthService.accessToken;
   }
 
   private getRefreshToken(): string | null {

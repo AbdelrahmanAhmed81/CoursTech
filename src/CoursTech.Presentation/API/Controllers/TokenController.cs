@@ -23,29 +23,25 @@ namespace API.Controllers
         }
         [HttpPost]
         [Route("refresh")]
-        public async Task<IActionResult> Refresh(AuthTokens authTokens)
+        public async Task<IActionResult> Refresh(AuthTokens tokens)
         {
-            if (authTokens is null)
+            var refreshToken = tokens.RefreshToken;
+            var user = _userManager.Users.SingleOrDefault(u=>u.RefreshToken==refreshToken);
+
+            if (user is null || user.RefreshTokenExpirationDate <= DateTime.Now)
                 return BadRequest("Invalid client request");
-            string accessToken = authTokens.AccessToken;
-            string refreshToken = authTokens.RefreshToken;
-
-            var principal = _jwtConfiguration.GetPrincipalFromExpiredToken(accessToken);
-            var email = principal.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Email)?.Value; //this is mapped to the Name claim by default
-            var user = await _userManager.FindByEmailAsync(email);
-
-            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpirationDate <= DateTime.Now)
-                return BadRequest("Invalid client request");
-
+            
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var userClaims = _jwtConfiguration.GetClaims(user , userRoles.ToArray());
+            
             var newRefreshToken = _jwtConfiguration.GetRefreshToken();
-
             user.RefreshToken = newRefreshToken;
             user.RefreshTokenExpirationDate = DateTime.Now.AddDays(7);
             await _userManager.UpdateAsync(user);
 
             return Ok(new AuthTokens()
             {
-                AccessToken = _jwtConfiguration.GetAccessToken(principal.Claims.ToList()) ,
+                AccessToken = _jwtConfiguration.GetAccessToken(userClaims) ,
                 RefreshToken = newRefreshToken
             });
         }

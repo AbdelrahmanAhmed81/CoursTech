@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { AuthService } from './Modules/AuthModule/services/auth.service';
 
 
 @NgModule({
@@ -28,12 +29,12 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
     HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem("jwt"),
+        // tokenGetter: () => localStorage.getItem("jwt"),
+        tokenGetter: () => AuthService.getAccessToken(),
         allowedDomains: ["localhost:7017"],
         disallowedRoutes: []
       }
     }),
-
     AppRoutingModule,
     CoursesModule,
     AuthModule,

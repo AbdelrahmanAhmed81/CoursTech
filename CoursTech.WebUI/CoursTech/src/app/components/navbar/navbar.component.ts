@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../Modules/AuthModule/services/auth.service';
 
 @Component({
@@ -26,7 +26,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userDataRemoveSubscription = this.authService.userDataRemoved.subscribe(() => {
       this.isAuthenticated = false;
     })
-    this.fetchUserData();
+    this.authService.tryRefreshTokens(false).subscribe(val => {
+      if (val)
+        this.fetchUserData();
+    });
   }
 
   ngOnDestroy(): void {

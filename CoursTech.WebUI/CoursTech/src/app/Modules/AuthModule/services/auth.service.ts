@@ -1,13 +1,22 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
+import jwt_deceode from 'jwt-decode'
+
+
 import { AuthModel } from '../models/AuthModel';
 import { AuthTokens } from '../models/AuthTokens';
 import { Claims } from '../models/Claims';
 import { Roles } from '../models/Roles';
 import { PassowrdValidator } from '../models/PasswordValidator';
+
+type TokenData = {
+  email: string;
+  role: string;
+  exp: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,13 +24,18 @@ export class AuthService {
   private readonly url: string = 'https://localhost:7017/api/';
   private readonly accountUrl: string = this.url + 'Account';
   private readonly tokenUrl: string = this.url + 'Token';
-  private static accessToken: string | null = null;
+  private tokenData: TokenData | null = null;
+  private accessToken: string | null = null;
+  get token() {
+    return this.accessToken;
+  }
 
   userDataArrived: Subject<void> = new Subject<void>();
   userDataRemoved: Subject<void> = new Subject<void>();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
+  // #region API_Requests
   Register(authModel: AuthModel): Observable<AuthTokens> {
     return this.http.post<AuthTokens>(this.accountUrl + '/register', authModel)
       .pipe(catchError(this.handleError), tap(resData => this.storeUserData(resData)));
@@ -32,16 +46,24 @@ export class AuthService {
       .pipe(catchError(this.handleError), tap(resData => this.storeUserData(resData)));
   }
 
+  GetPasswordValidator(): Observable<PassowrdValidator> {
+    return this.http.get<PassowrdValidator>(this.accountUrl + '/getPasswordValidator');
+  }
+
   private Refresh(tokens: AuthTokens): Observable<AuthTokens> {
     return this.http.post<AuthTokens>(this.tokenUrl + '/refresh', tokens)
       .pipe(catchError(this.handleError), tap(resData => this.storeUserData(resData)));
   }
+  //#endregion
 
   tryRefreshTokens(navigateToLogin: boolean): Observable<boolean> {
     const refreshToken: string | null = this.getRefreshToken();
     return new Observable<boolean>((subsriber) => {
       if (!refreshToken) {
-        if (navigateToLogin) this.router.navigate(['login']);
+        if (navigateToLogin) {
+          this.logout();
+          this.router.navigate(['login']);
+        }
         subsriber.next(false);
       }
       else {
@@ -49,6 +71,7 @@ export class AuthService {
           next: (v) => { subsriber.next(true) },
           error: (e) => {
             this.logout();
+            console.log(e);
             this.router.navigate(['login']);
             subsriber.next(false);
           }
@@ -57,48 +80,41 @@ export class AuthService {
     });
   }
 
-  GetPasswordValidator(): Observable<PassowrdValidator> {
-    return this.http.get<PassowrdValidator>(this.accountUrl + '/getPasswordValidator');
-  }
-
   isAuthinticated(): boolean {
-    const token: string | null = AuthService.getAccessToken();
-    return (token != null && !this.jwtHelper.isTokenExpired(token))
+    return (this.accessToken != null && !this.isTokenExpired())
   }
 
   isAdmin(): boolean {
-    const token = AuthService.getAccessToken();
-    return (token != null && this.jwtHelper.decodeToken(token)[Claims.role] == Roles.admin)
+    return (this.tokenData != null && this.tokenData.role == Roles.admin)
   }
 
   getUserEmail(): string | null {
-    const token = AuthService.getAccessToken();
-    if (token) {
-      return this.jwtHelper.decodeToken(token)[Claims.email]
+    if (this.tokenData) {
+      return this.tokenData.email
     }
     return null;
   }
 
   logout(): void {
-    // localStorage.removeItem('jwt');
-    AuthService.accessToken = null;
+    this.accessToken = null;
     localStorage.removeItem('refresh');
     this.router.navigate(['/Home'])
     this.userDataRemoved.next();
   }
 
   private storeUserData(authTokens: AuthTokens): void {
-    // localStorage.setItem('jwt', AuthTokens.accessToken);
     if (authTokens.accessToken) {
-      AuthService.accessToken = authTokens.accessToken;
+      this.accessToken = authTokens.accessToken;
+      const tokenPayload = this.decodeToken(authTokens.accessToken);
+      this.tokenData = {
+        email: tokenPayload[Claims.email],
+        role: tokenPayload[Claims.role],
+        exp: tokenPayload['exp']
+      }
+
       localStorage.setItem('refresh', authTokens.refreshToken);
       this.userDataArrived.next();
     }
-  }
-
-  static getAccessToken(): string | null {
-    // return localStorage.getItem("jwt");
-    return AuthService.accessToken;
   }
 
   private getRefreshToken(): string | null {
@@ -138,4 +154,11 @@ export class AuthService {
     return throwError(() => message);
   }
 
+  private isTokenExpired(): boolean {
+    return (new Date() > new Date(this.tokenData?.exp! * 1000));
+  }
+
+  private decodeToken(token: string): any {
+    return jwt_deceode(token);
+  }
 }

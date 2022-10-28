@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isAuthinticated()) {
       return true;
     }
-
     return this.authService.tryRefreshTokens(true);
   }
 }

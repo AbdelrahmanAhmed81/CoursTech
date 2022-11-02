@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Observable, Subject, tap, throwError } from 'rxjs';
+import { catchError, exhaustMap, Observable, Subject, tap, throwError } from 'rxjs';
 import jwt_deceode from 'jwt-decode'
 
 
@@ -50,35 +50,32 @@ export class AuthService {
     return this.http.get<PassowrdValidator>(this.accountUrl + '/getPasswordValidator');
   }
 
-  private Refresh(tokens: AuthTokens): Observable<AuthTokens> {
-    return this.http.post<AuthTokens>(this.tokenUrl + '/refresh', tokens)
-      .pipe(catchError(this.handleError), tap(resData => this.storeUserData(resData)));
-  }
-  //#endregion
-
-  tryRefreshTokens(navigateToLogin: boolean): Observable<boolean> {
-    const refreshToken: string | null = this.getRefreshToken();
-    return new Observable<boolean>((subsriber) => {
-      if (!refreshToken) {
-        if (navigateToLogin) {
+  TryRefresh(authTokens: AuthTokens): Observable<boolean> {
+    return this.http.post<AuthTokens>(this.tokenUrl + '/refresh', authTokens)
+      .pipe(
+        tap(resData => {
+          this.storeUserData(resData)
+        }),
+        exhaustMap((tokens) => {
+          return new Observable<boolean>((subscriber) => {
+            if (tokens) {
+              subscriber.next(true);
+            }
+            else {
+              this.logout();
+              this.router.navigate(['login']);
+              subscriber.next(false);
+            }
+          })
+        }),
+        catchError(err => {
           this.logout();
           this.router.navigate(['login']);
-        }
-        subsriber.next(false);
-      }
-      else {
-        this.Refresh({ refreshToken: refreshToken }).subscribe({
-          next: (v) => { subsriber.next(true) },
-          error: (e) => {
-            this.logout();
-            console.log(e);
-            this.router.navigate(['login']);
-            subsriber.next(false);
-          }
+          return throwError(() => err.error)
         })
-      }
-    });
+      );
   }
+  //#endregion
 
   isAuthinticated(): boolean {
     return (this.accessToken != null && !this.isTokenExpired())
@@ -102,7 +99,12 @@ export class AuthService {
     this.userDataRemoved.next();
   }
 
+  getRefreshToken(): string | null {
+    return localStorage.getItem("refresh");
+  }
+
   private storeUserData(authTokens: AuthTokens): void {
+    debugger;
     if (authTokens.accessToken) {
       this.accessToken = authTokens.accessToken;
       const tokenPayload = this.decodeToken(authTokens.accessToken);
@@ -115,10 +117,6 @@ export class AuthService {
       localStorage.setItem('refresh', authTokens.refreshToken);
       this.userDataArrived.next();
     }
-  }
-
-  private getRefreshToken(): string | null {
-    return localStorage.getItem("refresh");
   }
 
   private handleError(errorResponse: HttpErrorResponse) {

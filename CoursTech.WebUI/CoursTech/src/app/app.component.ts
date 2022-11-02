@@ -22,15 +22,19 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userDataArriveSubscription = this.authService.userDataArrived.subscribe(() => {
       this.fetchUserData();
-
     });
     this.userDataRemoveSubscription = this.authService.userDataRemoved.subscribe(() => {
       this.isAuthenticated = false;
     })
-    this.authService.tryRefreshTokens(false).subscribe(val => {
-      if (val)
-        this.fetchUserData();
-    });
+    const refreshToken = this.authService.getRefreshToken();
+    if (refreshToken) {
+      this.authService.TryRefresh({ refreshToken: refreshToken }).subscribe({
+        next: (val) => {
+          if (val)
+            this.fetchUserData();
+        }
+      });
+    }
   }
   ngOnDestroy(): void {
     this.userDataArriveSubscription?.unsubscribe();
@@ -38,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   fetchUserData() {
-    this.isAuthenticated = this.authService.isAuthinticated();
+    this.isAuthenticated = true;
     this.isAdmin = this.authService.isAdmin();
     this.userEmail = this.authService.getUserEmail();
   }

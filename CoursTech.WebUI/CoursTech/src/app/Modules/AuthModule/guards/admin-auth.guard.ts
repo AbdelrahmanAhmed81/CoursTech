@@ -24,6 +24,12 @@ export class AdminAuthGuard implements CanActivate {
         return false;
       }
     }
-    return this.authService.tryRefreshTokens(true);
+    const refreshToken = this.authService.getRefreshToken();
+    if (!refreshToken) {
+      this.authService.logout();
+      this.router.navigate(['login']);
+      return false;
+    }
+    return this.authService.TryRefresh({ refreshToken: refreshToken });
   }
 }

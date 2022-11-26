@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 
 import { Course } from 'src/app/models/Course';
 import { Industry } from 'src/app/models/Industry';
@@ -129,7 +129,10 @@ export class AdmCoursesComponent implements OnInit {
     }
     if (this.selectedCourse && !this.adding) {
       courseData.append('Id', this.selectedCourse.courseId);
-      this.courseService.update(courseData).subscribe(data => {
+      this.courseService.update(courseData).pipe(catchError((err, c) => {
+        this.alertService.showAlert.next({ message: err.message, level: AlertLevel.error });
+        return throwError(() => err);
+      })).subscribe(data => {
         this.Cancel();
         this.alertService.showAlert.next({ message: 'Changes Saved Succesfully', level: AlertLevel.info });
         this.loadCourses();

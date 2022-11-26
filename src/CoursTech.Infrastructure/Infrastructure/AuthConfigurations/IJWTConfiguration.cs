@@ -8,6 +8,6 @@ namespace Infrastructure.AuthConfigurations
         string GetAccessToken(List<Claim> authClaims);
         string GetRefreshToken();
         List<Claim> GetClaims(AppUser user , params string[] userRoles);
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        //ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }

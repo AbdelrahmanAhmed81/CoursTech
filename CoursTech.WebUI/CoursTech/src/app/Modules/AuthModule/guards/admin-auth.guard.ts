@@ -15,11 +15,21 @@ export class AdminAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.isAdmin()) {
-      return true;
+    if (this.authService.isAuthinticated()) {
+      if (this.authService.isAdmin()) {
+        return true;
+      }
+      else {
+        this.router.navigate(["AccessDenied"]);
+        return false;
+      }
     }
-    this.router.navigate(["AccessDenied"]);
-    return false;
+    const refreshToken = this.authService.getRefreshToken();
+    if (!refreshToken) {
+      this.authService.logout();
+      this.router.navigate(['login']);
+      return false;
+    }
+    return this.authService.TryRefresh({ refreshToken: refreshToken });
   }
-
 }

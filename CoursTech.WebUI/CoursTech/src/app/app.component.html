@@ -1,6 +1,9 @@
 <div class="position-fixed top-0 w-100" style="z-index: 100">
   <app-navbar
     [isDark]="isDark"
+    [isAdmin]="isAdmin"
+    [isAuthenticated]="isAuthenticated"
+    [userEmail]="userEmail"
     (changeMode)="onChangeMode($event)"
   ></app-navbar>
 </div>

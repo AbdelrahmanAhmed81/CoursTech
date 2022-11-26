@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
@@ -8,7 +8,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService) {
+    private authService: AuthService,
+    private router: Router) {
 
   }
   canActivate(
@@ -17,7 +18,12 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isAuthinticated()) {
       return true;
     }
-
-    return this.authService.tryRefreshTokens();
+    const refreshToken = this.authService.getRefreshToken();
+    if (!refreshToken) {
+      this.authService.logout();
+      this.router.navigate(['login']);
+      return false;
+    }
+    return this.authService.TryRefresh({ refreshToken: refreshToken });
   }
 }

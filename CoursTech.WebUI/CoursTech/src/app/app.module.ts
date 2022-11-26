@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from "@auth0/angular-jwt";
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoursesModule } from './Modules/CoursesModule/courses.module';
@@ -26,14 +25,6 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
   imports: [
     BrowserModule,
     HttpClientModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem("jwt"),
-        allowedDomains: ["localhost:7017"],
-        disallowedRoutes: []
-      }
-    }),
-
     AppRoutingModule,
     CoursesModule,
     AuthModule,

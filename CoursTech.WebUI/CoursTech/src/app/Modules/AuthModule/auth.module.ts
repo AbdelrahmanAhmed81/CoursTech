@@ -16,7 +16,6 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service'
   ],
   imports: [
     CommonModule,
-    // JwtModule.forRoot({}),
     ReactiveFormsModule,
     AuthRoutingModule
   ],

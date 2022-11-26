@@ -45,7 +45,6 @@ namespace API.Controllers
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpirationDate = DateTime.Now.AddDays(7);
             await _userManager.UpdateAsync(user);
-
             return Ok(new AuthTokens
             {
                 AccessToken = _jwtConfiguration.GetAccessToken(claims) ,

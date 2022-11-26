@@ -104,7 +104,6 @@ export class AuthService {
   }
 
   private storeUserData(authTokens: AuthTokens): void {
-    debugger;
     if (authTokens.accessToken) {
       this.accessToken = authTokens.accessToken;
       const tokenPayload = this.decodeToken(authTokens.accessToken);

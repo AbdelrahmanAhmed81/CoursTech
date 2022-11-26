@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminAuthGuard } from '../AuthModule/guards/admin-auth.guard';
-import { AuthGuard } from '../AuthModule/guards/auth.guard';
 import { AdmCoursesComponent } from './components/adm-courses/adm-courses.component';
 import { AdmIndustriesComponent } from './components/adm-industries/adm-industries.component';
 import { AdmInstructorsComponent } from './components/adm-instructors/adm-instructors.component';

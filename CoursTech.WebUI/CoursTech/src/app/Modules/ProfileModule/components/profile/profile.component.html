@@ -1,1 +1,27 @@
-<p>profile works!</p>
+<div class="row">
+  <div class="col-3">
+    <a
+      class="row align-items-center justify-content-between"
+      routerLinkActive="active"
+      routerLink="UserData"
+    >
+      <i class="fa-solid fa-user col-1"></i>
+      <span class="ps-1 col-11">User Data</span>
+    </a>
+    <a
+      class="row align-items-center justify-content-between"
+      routerLinkActive="active"
+      routerLink="Enrollments"
+    >
+      <i class="fa-solid fa-list-check col-1"></i>
+      <span class="ps-1 col-11">Enrollments</span>
+    </a>
+    <hr />
+    <a class="text-danger fw-bold" style="cursor: pointer" (click)="logout()"
+      >Log Out</a
+    >
+  </div>
+  <div class="col-9">
+    <router-outlet></router-outlet>
+  </div>
+</div>

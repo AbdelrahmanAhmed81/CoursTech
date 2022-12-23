@@ -10,6 +10,7 @@ body {
   --bg-color: white;
   --backdrop-bg-color: rgba(255, 255, 255, 0.1);
   --border-color: darkgrey;
+  --link-hover: rgb(200, 200, 200);
 }
 body.darkmode {
   color: white;
@@ -19,6 +20,7 @@ body.darkmode {
   --bg-color: rgb(33, 37, 41);
   --backdrop-bg-color: rgba(100, 100, 100, 0.1);
   --border-color: darkgrey;
+  --link-hover: rgb(55, 55, 55);
 }
 
 .backdrop {

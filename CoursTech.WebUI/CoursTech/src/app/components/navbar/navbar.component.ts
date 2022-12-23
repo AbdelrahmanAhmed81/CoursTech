@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AuthService } from '../../Modules/AuthModule/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +12,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() userEmail: string | null = '';
 
   @Output() changeMode: EventEmitter<boolean> = new EventEmitter<boolean>();
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -26,7 +25,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.changeMode.emit(this.isDark);
   }
 
-  logout() {
-    this.authService.logout();
-  }
 }

@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-md" style="background-color: var(--bg-color)">
-  <!-- style="background-color: whitesmoke" -->
   <div class="container-fluid">
     <a routerLink="/Home">
       <img
@@ -49,10 +48,7 @@
           <ng-container *ngIf="isAdmin">
             <a class="nav-link" routerLink="/Adminstration">Adminstration</a>
           </ng-container>
-          <a class="nav-link fw-bold">{{ userEmail }}</a>
-          <a class="nav-link" style="cursor: pointer" (click)="logout()"
-            >Logout</a
-          >
+          <a class="nav-link" routerLink="/Profile">Profile</a>
         </ng-container>
       </div>
     </div>

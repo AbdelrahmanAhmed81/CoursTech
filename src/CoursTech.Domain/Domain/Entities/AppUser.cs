@@ -6,5 +6,7 @@ namespace Domain.Entities
     {
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpirationDate { get; set; }
+
+        public Student? Student { get; set; }
     }
 }

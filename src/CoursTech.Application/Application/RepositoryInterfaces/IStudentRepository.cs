@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.DataModels;
+using Domain.Entities;
 
 namespace Application.RepositoryInterfaces
 {

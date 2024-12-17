@@ -21,30 +21,32 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "CoursTech.Ap
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoursTech.UI", "CoursTech.UI", "{B16D23F1-08D7-4181-A8A8-E3F0962B4BBC}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "src", "..\CoursTech.WebUI\CoursTech\src\", "{CA1FD3A7-C1E9-437B-8EA7-A97C1C27020F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{2020115A-285D-4982-BE87-D014257F961C}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		..\compose.yaml = ..\compose.yaml
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CoursTech", "..\CoursTech.WebUI\CoursTech\", "{17924139-7E45-4B6C-B361-2B0EA2812A19}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_60312"
-		Debug.AspNetCompiler.PhysicalPath = "..\CoursTech.WebUI\CoursTech\src\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60312\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60311"
+		Debug.AspNetCompiler.PhysicalPath = "..\CoursTech.WebUI\CoursTech\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60311\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_60312"
-		Release.AspNetCompiler.PhysicalPath = "..\CoursTech.WebUI\CoursTech\src\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60312\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60311"
+		Release.AspNetCompiler.PhysicalPath = "..\CoursTech.WebUI\CoursTech\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60311\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "60312"
-		SlnRelativePath = "..\CoursTech.WebUI\CoursTech\src\"
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{2020115A-285D-4982-BE87-D014257F961C}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Packages.props = Directory.Packages.props
+		VWDPort = "60311"
+		SlnRelativePath = "..\CoursTech.WebUI\CoursTech\"
 	EndProjectSection
 EndProject
 Global
@@ -69,10 +71,10 @@ Global
 		{0361A194-F683-4D62-BD90-5F3C66753EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0361A194-F683-4D62-BD90-5F3C66753EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0361A194-F683-4D62-BD90-5F3C66753EC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA1FD3A7-C1E9-437B-8EA7-A97C1C27020F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA1FD3A7-C1E9-437B-8EA7-A97C1C27020F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA1FD3A7-C1E9-437B-8EA7-A97C1C27020F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA1FD3A7-C1E9-437B-8EA7-A97C1C27020F}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{17924139-7E45-4B6C-B361-2B0EA2812A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17924139-7E45-4B6C-B361-2B0EA2812A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17924139-7E45-4B6C-B361-2B0EA2812A19}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{17924139-7E45-4B6C-B361-2B0EA2812A19}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,7 +84,7 @@ Global
 		{84AA10DA-9A32-47D3-9C47-33C8F6E2A9D5} = {B62AD9D5-419D-4F26-844D-C26221C3B2D6}
 		{A48EAFB3-878A-4DC4-BEAC-BE156B68DF19} = {75A95661-B56E-4060-BC2B-11F5AE2589C8}
 		{0361A194-F683-4D62-BD90-5F3C66753EC1} = {BD6DB151-B77C-49E1-BC1E-3797CB591E56}
-		{CA1FD3A7-C1E9-437B-8EA7-A97C1C27020F} = {B16D23F1-08D7-4181-A8A8-E3F0962B4BBC}
+		{17924139-7E45-4B6C-B361-2B0EA2812A19} = {B16D23F1-08D7-4181-A8A8-E3F0962B4BBC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0447AB2D-03AC-4438-8DDC-54C267EA4F13}

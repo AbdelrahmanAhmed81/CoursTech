@@ -1,0 +1,40 @@
+services:
+
+  frontend:
+    image: courstech:ui
+    build:
+      context: ./CoursTech.WebUI/CoursTech
+      dockerfile: ./CoursTech.WebUI/CoursTech/Dockerfile
+    ports:
+      - "4200:80"
+    environment:
+      - API_URL=http://localhost:4730
+    depends_on:
+      - backend
+
+  backend:
+    image: courstech:api
+    build:
+      context: ./src
+      dockerfile: ./src/CoursTech.Presentation/API/Dockerfile
+    ports:
+      - "4730:8080"
+      - "4731:8081"
+    environment:
+      - ConnectionStrings__DefaultConnection=server=.;database=CoursTech;trusted_connection=true;TrustServerCertificate=True;
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_DATABASE=CoursTech
+
+networks:
+  default:
+    driver: bridge

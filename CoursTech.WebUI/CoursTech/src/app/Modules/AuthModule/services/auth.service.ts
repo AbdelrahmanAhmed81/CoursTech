@@ -1,10 +1,9 @@
+import { environment } from "../../../../environments/environment"
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, exhaustMap, Observable, Subject, tap, throwError } from 'rxjs';
 import jwt_deceode from 'jwt-decode'
-
-
 import { AuthModel } from '../models/AuthModel';
 import { AuthTokens } from '../models/AuthTokens';
 import { Claims } from '../models/Claims';
@@ -21,7 +20,7 @@ type TokenData = {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly url: string = 'https://localhost:7017/api/';
+  private readonly url: string = environment.API_URL;
   private readonly accountUrl: string = this.url + 'Account';
   private readonly tokenUrl: string = this.url + 'Token';
   private tokenData: TokenData | null = null;

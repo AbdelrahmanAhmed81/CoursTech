@@ -4,11 +4,11 @@ services:
     image: courstech:ui
     build:
       context: ./CoursTech.WebUI/CoursTech
-      dockerfile: ./CoursTech.WebUI/CoursTech/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "4200:80"
     environment:
-      - API_URL=http://localhost:4730
+      - API_URL=http://localhost:4730/api
     depends_on:
       - backend
 
@@ -16,7 +16,7 @@ services:
     image: courstech:api
     build:
       context: ./src
-      dockerfile: ./src/CoursTech.Presentation/API/Dockerfile
+      dockerfile: ./CoursTech.Presentation/API/Dockerfile
     ports:
       - "4730:8080"
       - "4731:8081"

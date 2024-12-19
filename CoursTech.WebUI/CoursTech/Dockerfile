@@ -1,6 +1,6 @@
 ### Stage 1: Build the Angular app ###
 # Use Node.js 14.15.2 as the build environment
-FROM node:14.15.2 AS build
+FROM node:22.12.0 AS build
 
 # Set the working directory
 WORKDIR /app

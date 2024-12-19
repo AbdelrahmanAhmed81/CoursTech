@@ -1,14 +1,14 @@
+import { environment } from "../../../../environments/environment"
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-
 import { Course } from '../../../models/Course';
 import { CoursesDataModel } from '../models/CoursesDataModel';
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  private static readonly url: string = 'https://localhost:7017/';
+  private static readonly url: string = environment.API_URL;;
   static readonly path: string = CourseService.url + 'api/Course';
   static readonly images_path: string = CourseService.url + 'images/courses/';
   static readonly instructor_photos_path: string = CourseService.url + 'images/instructors/';

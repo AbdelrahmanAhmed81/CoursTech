@@ -18,7 +18,6 @@ import { ReadmoreDirective } from './directives/readmore.directive';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    CoursesRoutingModule,
   ],
   exports: [
     CoursesComponent,

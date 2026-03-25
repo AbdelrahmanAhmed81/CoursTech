@@ -1,5 +1,5 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "files": ["src/types.d.ts"],
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",

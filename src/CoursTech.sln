@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32112.339
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11612.150 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoursTech.Application", "CoursTech.Application", "{BD6DB151-B77C-49E1-BC1E-3797CB591E56}"
 EndProject
@@ -24,7 +24,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{2020115A-285D-4982-BE87-D014257F961C}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		..\compose.yaml = ..\compose.yaml
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject

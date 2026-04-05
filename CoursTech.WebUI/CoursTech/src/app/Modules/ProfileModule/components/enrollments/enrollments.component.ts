@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-enrollments',
   templateUrl: './enrollments.component.html',
   styleUrls: ['./enrollments.component.css']

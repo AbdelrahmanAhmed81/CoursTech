@@ -6,6 +6,7 @@ import { Course } from 'src/app/models/Course';
 import { CourseService } from 'src/app/Modules/CoursesModule/services/course.service';
 
 @Component({
+  standalone: false,
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.css']

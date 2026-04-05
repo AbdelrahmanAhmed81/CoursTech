@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { AlertLevel, AlertService } from 'src/app/Modules/AdminstrationModule/services/alert.service';
 
 @Component({
+  standalone: false,
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']

@@ -5,6 +5,7 @@ import { CourseService } from 'src/app/Modules/CoursesModule/services/course.ser
 import { Course } from 'src/app/models/Course';
 
 @Component({
+  standalone: false,
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css']

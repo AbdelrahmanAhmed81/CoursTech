@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './Modules/AuthModule/services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

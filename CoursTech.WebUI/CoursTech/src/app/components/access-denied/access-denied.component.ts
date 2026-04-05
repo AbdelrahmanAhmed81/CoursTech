@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-access-denied',
   templateUrl: './access-denied.component.html',
   styleUrls: ['./access-denied.component.css']

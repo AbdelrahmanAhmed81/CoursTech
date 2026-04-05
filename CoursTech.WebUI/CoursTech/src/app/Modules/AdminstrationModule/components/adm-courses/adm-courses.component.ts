@@ -11,6 +11,7 @@ import { IndustryService } from 'src/app/services/industry.service';
 import { InstructorService } from 'src/app/services/instructor.service';
 
 @Component({
+  standalone: false,
   selector: 'app-adm-courses',
   templateUrl: './adm-courses.component.html',
   styleUrls: ['./adm-courses.component.css']

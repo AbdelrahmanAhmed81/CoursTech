@@ -5,6 +5,7 @@ import { AuthModel } from '../../models/AuthModel';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

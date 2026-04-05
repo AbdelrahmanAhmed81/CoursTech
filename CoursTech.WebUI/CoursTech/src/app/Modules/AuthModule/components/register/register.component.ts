@@ -6,6 +6,7 @@ import { PassowrdValidator } from '../../models/PasswordValidator';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
+  standalone: false,
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']

@@ -5,6 +5,7 @@ import { Industry } from 'src/app/models/Industry';
 import { Instructor } from 'src/app/models/Instructor';
 
 @Component({
+  standalone: false,
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.css']

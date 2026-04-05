@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-pages-navigator',
   templateUrl: './pages-navigator.component.html',
   styleUrls: ['./pages-navigator.component.css']

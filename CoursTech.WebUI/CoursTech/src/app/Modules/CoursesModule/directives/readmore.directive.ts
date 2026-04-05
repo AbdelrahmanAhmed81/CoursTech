@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({
+  standalone: false,
   selector: '[app-Readmore]'
 })
 export class ReadmoreDirective implements OnInit {

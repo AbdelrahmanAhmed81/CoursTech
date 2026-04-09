@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { ReadmoreDirective } from './directives/readmore.directive';
+import { CoursesRoutingModule } from './courses-routing.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ReadmoreDirective } from './directives/readmore.directive';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    CoursesRoutingModule
   ],
   exports: [
     CoursesComponent,

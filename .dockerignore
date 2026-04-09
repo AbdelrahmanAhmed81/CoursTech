@@ -1,0 +1,13 @@
+**/.git
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/out
+**/node_modules
+**/dist
+**/TestResults
+**/*.user
+**/*.suo
+**/CoursTech.WebUI
+**/agent-transcripts

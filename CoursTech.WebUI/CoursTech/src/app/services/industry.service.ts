@@ -8,7 +8,7 @@ import { Industry } from '../models/Industry';
 })
 export class IndustryService {
   private static readonly url: string = environment.API_URL;
-  static readonly path: string = IndustryService.url + 'api/Industry';
+  static readonly path: string = IndustryService.url + '/api/Industry';
   constructor(private http: HttpClient) { }
   getAll(): Observable<Industry[]> {
     return this.http.get<Industry[]>(IndustryService.path);

@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'Home', component: HomeComponent },
   { path: 'Adminstration', loadChildren: () => import('./Modules/AdminstrationModule/adminstration.module').then(m => m.AdminstrationModule) },
   { path: 'Profile', loadChildren: () => import('./Modules/ProfileModule/profile.module').then(m => m.ProfileModule) },
+  { path: 'Course', loadChildren: () => import('./Modules/CoursesModule/courses.module').then(m => m.CoursesModule) },
   { path: 'AccessDenied', component: AccessDeniedComponent }
 ];
 

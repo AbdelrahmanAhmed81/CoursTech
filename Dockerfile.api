@@ -1,0 +1,26 @@
+# Build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+COPY src/CoursTech.Presentation/API/API.csproj ./CoursTech.Presentation/API/
+
+WORKDIR /src/CoursTech.Presentation/API
+RUN dotnet restore "API.csproj"
+
+WORKDIR /src
+COPY src/Directory.Packages.props ./Directory.Packages.props
+COPY src/CoursTech.Domain/ ./CoursTech.Domain/
+COPY src/CoursTech.Application/ ./CoursTech.Application/
+COPY src/CoursTech.Infrastructure/ ./CoursTech.Infrastructure/
+COPY src/CoursTech.Presentation/API/ ./CoursTech.Presentation/API/
+
+WORKDIR /src/CoursTech.Presentation/API
+RUN dotnet publish "API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+# Run
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:8080
+ENTRYPOINT ["dotnet", "API.dll"]

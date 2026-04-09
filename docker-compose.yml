@@ -1,0 +1,47 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: courstech-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "c0urSSTech"
+    ports:
+      - "1433:1433"
+    volumes:
+      - courstech-sqldata:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P $$MSSQL_SA_PASSWORD -C -Q 'SELECT 1' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: courstech-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Docker
+      ASPNETCORE_URLS: http://+:8080
+      # ConnectionStrings__AppConnectionString: "Server=db;Database=CoursTech;User Id=sa;Password=c0ur$Tech;Encrypt=True;TrustServerCertificate=True;MultipleActiveResultSets=true"
+    ports:
+      - "4730:8080"
+
+  web:
+    build:
+      context: ./CoursTech.WebUI/CoursTech
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: Docker
+    container_name: courstech-web
+    depends_on:
+      - api
+    ports:
+      - "4200:80"
+
+volumes:
+  courstech-sqldata:

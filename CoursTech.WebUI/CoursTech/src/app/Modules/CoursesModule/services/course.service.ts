@@ -8,10 +8,10 @@ import { CoursesDataModel } from '../models/CoursesDataModel';
   providedIn: 'root'
 })
 export class CourseService {
-  private static readonly url: string = environment.API_URL;;
-  static readonly path: string = CourseService.url + 'api/Course';
-  static readonly images_path: string = CourseService.url + 'images/courses/';
-  static readonly instructor_photos_path: string = CourseService.url + 'images/instructors/';
+  private static readonly url: string = environment.API_URL;
+  static readonly path: string = CourseService.url + '/api/Course';
+  static readonly images_path: string = CourseService.url + '/images/courses/';
+  static readonly instructor_photos_path: string = CourseService.url + '/images/instructors/';
 
   constructor(private http: HttpClient) { }
 

@@ -21,8 +21,8 @@ type TokenData = {
 })
 export class AuthService {
   private readonly url: string = environment.API_URL;
-  private readonly accountUrl: string = this.url + 'Account';
-  private readonly tokenUrl: string = this.url + 'Token';
+  private readonly accountUrl: string = this.url + '/api/Account';
+  private readonly tokenUrl: string = this.url + '/api/Token';
   private tokenData: TokenData | null = null;
   private accessToken: string | null = null;
   get token() {

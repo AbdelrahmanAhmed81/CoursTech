@@ -21,6 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile.api
     container_name: courstech-api
+    pull_policy: if_not_present
     depends_on:
       db:
         condition: service_healthy
@@ -38,6 +39,7 @@ services:
       args:
         BUILD_ENV: Docker
     container_name: courstech-web
+    pull_policy: if_not_present
     depends_on:
       - api
     ports:

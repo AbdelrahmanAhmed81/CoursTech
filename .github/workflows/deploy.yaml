@@ -1,0 +1,22 @@
+# .github/workflows/deploy.yml
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted # <-- targets YOUR VM runner
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stop old containers
+        run: docker compose down -d
+
+      - name: Start new containers
+        run: |
+          docker compose up --build -d
+

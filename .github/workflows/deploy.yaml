@@ -17,7 +17,7 @@ jobs:
         run: docker image prune -f
 
       - name: Build images
-        run: docker compose build --max-parallelism 1
+        run: docker compose build --parallel 1
         env:
           DOCKER_BUILDKIT: 1
           COMPOSE_DOCKER_CLI_BUILD: 1
